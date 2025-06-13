@@ -104,9 +104,17 @@ class Typer
         FlxG.signals.postUpdate.add(update);
     }
 
+    private var _pauseTimer:Float = 0;
+
     function update()
     {
         if (paused || parameters.text == null || curIndex >= parameters.text.length) return;
+
+        if (_pauseTimer > 0)
+        {
+            _pauseTimer -= FlxG.elapsed;
+            return;
+        }
 
         _timer += FlxG.elapsed;
         if (_timer >= parameters.speed)
@@ -116,10 +124,14 @@ class Typer
             curText += curLetter;
             onType.dispatch(curIndex, curLetter, curText);
 
+            if (parameters.separatorsPause && separators.contains(curLetter))
+                _pauseTimer = parameters.speed * 4;
+
             if (curIndex >= parameters.text.length)
                 onFinish.dispatch();
         }
     }
+
 
     // -- Get/Setters Functions (nothing so far) -- //
 }

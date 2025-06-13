@@ -17,7 +17,7 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
-		var thing = new Typer();
+		var thing = new Typer({text: 'Well, Don\'t mind me, buddy. I\'m just testing out. these. frickin. separators. AH!', speed: 0.07, separatorsPause: true});
 		thing.paused = false;
 		thing.onType.add((index, letter, text) -> 
 		{
