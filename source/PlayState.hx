@@ -14,10 +14,13 @@ class PlayState extends FlxState
 {
 	var bg = new Background();
 
+	var thing:Typer;
 	override public function create()
 	{
 		super.create();
-		var thing = new Typer({text: 'Well, Don\'t mind me, buddy. I\'m just testing out. these. frickin. separators. AH!', speed: 0.07, separatorsPause: true});
+		thing = new Typer({text: 'Well, Don\'t mind me, buddy. I\'m just testing out. these. frickin. separators. AH!', 
+		speed: 0.07, separatorsPause: true, startDelay: 1.4});
+
 		thing.paused = false;
 		thing.onType.add((index, letter, text) -> 
 		{
@@ -28,6 +31,11 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if(FlxG.keys.justPressed.P) thing.pause();
+		if(FlxG.keys.justPressed.R) thing.resume();
+
+		if(FlxG.keys.justPressed.SHIFT) thing.skip();
 	}
 
 	public function startBattle()

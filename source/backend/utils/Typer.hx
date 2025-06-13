@@ -92,8 +92,13 @@ class Typer
 
     // -- Regular functions -- //
 
+    /**
+     * Creates a new typer.
+     * @param parameters A TyperStruct.
+     */
     function new(?parameters:TyperStruct)
     {
+        // just some default values in case its null :)
         this.parameters = parameters ?? {
             text: 'Hello, Dark World!',
             speed: 0.04,
@@ -101,21 +106,36 @@ class Typer
             separatorsPause: true
         };
 
+        _startDelayTimer = this.parameters.startDelay ?? 0;
+
         FlxG.signals.postUpdate.add(update);
     }
 
     private var _pauseTimer:Float = 0;
+    private var _startDelayTimer:Float = 0;
 
     function update()
     {
+        // kinda obvious, but just pause in case of any these conditions
         if (paused || parameters.text == null || curIndex >= parameters.text.length) return;
 
+        // start delay handle
+        if (_startDelayTimer >= 0)
+        {
+            _startDelayTimer -= FlxG.elapsed;
+            if (_startDelayTimer <= 0)
+                onStart.dispatch();
+            return;
+        }
+        
+        // separators pause handle
         if (_pauseTimer > 0)
         {
             _pauseTimer -= FlxG.elapsed;
             return;
         }
 
+        // display text when the timer's above the speed thing
         _timer += FlxG.elapsed;
         if (_timer >= parameters.speed)
         {
@@ -124,14 +144,44 @@ class Typer
             curText += curLetter;
             onType.dispatch(curIndex, curLetter, curText);
 
+            // if the current character is the one in the separators
             if (parameters.separatorsPause && separators.contains(curLetter))
                 _pauseTimer = parameters.speed * 4;
 
+            // when complete
             if (curIndex >= parameters.text.length)
                 onFinish.dispatch();
         }
     }
 
+    /**
+     * Ends the text and stops the typer.
+     */
+    function skip()
+    {
+        if (parameters.text == null) return;
+
+        _startDelayTimer = 0;
+        _pauseTimer = 0;
+        _timer = 0;
+
+        curText = parameters.text;
+        curIndex = curText.length;
+        curLetter = curText.charAt(curText.length - 1);
+
+        onType.dispatch(curIndex, curLetter, curText);
+        onFinish.dispatch();
+    }
+
+    /**
+     * Pauses the typer.
+     */
+    function pause() return paused = true;
+
+    /**
+     * Resumes the typer.
+     */
+    function resume() return paused = false;
 
     // -- Get/Setters Functions (nothing so far) -- //
 }
