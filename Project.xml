@@ -40,6 +40,7 @@
 	<haxelib name="flixel-ui" />
 
 	<haxelib name="hscript-iris" />
+	<haxelib name="gtween" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
