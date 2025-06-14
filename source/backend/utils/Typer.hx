@@ -1,5 +1,6 @@
 package backend.utils;
 
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.util.FlxSignal;
 
@@ -32,7 +33,7 @@ typedef TyperStruct = {
 /**
  * A class for helping out on typed-like texts.
  */
-class Typer
+class Typer extends FlxBasic
 {
     // -- Public variables (variables that can be changed/accessed from outside) -- //
     
@@ -108,21 +109,22 @@ class Typer
 
         _startDelayTimer = this.parameters.startDelay ?? 0;
 
-        FlxG.signals.postUpdate.add(update);
+        super();
     }
 
     private var _pauseTimer:Float = 0;
     private var _startDelayTimer:Float = 0;
 
-    function update()
+    override function update(elapsed:Float)
     {
+        super.update(elapsed);
         // kinda obvious, but just pause in case of any these conditions
         if (paused || parameters.text == null || curIndex >= parameters.text.length) return;
 
         // start delay handle
         if (_startDelayTimer >= 0)
         {
-            _startDelayTimer -= FlxG.elapsed;
+            _startDelayTimer -= elapsed;
             if (_startDelayTimer <= 0)
                 onStart.dispatch();
             return;
@@ -131,12 +133,12 @@ class Typer
         // separators pause handle
         if (_pauseTimer > 0)
         {
-            _pauseTimer -= FlxG.elapsed;
+            _pauseTimer -= elapsed;
             return;
         }
 
         // display text when the timer's above the speed thing
-        _timer += FlxG.elapsed;
+        _timer += elapsed;
         if (_timer >= parameters.speed)
         {
             _timer = 0;

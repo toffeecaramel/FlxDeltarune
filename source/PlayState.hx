@@ -3,8 +3,10 @@ package;
 import DialogueBox.Positioning;
 import backend.utils.*;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrail;
+import flixel.group.FlxGroup;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import game.battle.*;
@@ -12,33 +14,35 @@ import game.chars.*;
 
 class PlayState extends FlxState
 {
-	var bg = new Background();
+	var lilGroup:FlxGroup;
+	var player:FlxSprite;
 
-	var thing:Typer;
-	override public function create()
+    override public function create():Void
 	{
-		super.create();
-		thing = new Typer({text: 'Well, Don\'t mind me, buddy. I\'m just testing out. these. frickin. separators. AH!', 
-		speed: 0.07, separatorsPause: true, startDelay: 1.4});
+        super.create();
 
-		thing.paused = false;
-		thing.onType.add((index, letter, text) -> 
-		{
-			trace('\nindex: $index\nletter: $letter\ntext: $text');
-		});
-	}
+        lilGroup = new FlxGroup();
+        add(lilGroup);
 
-	override public function update(elapsed:Float)
+        var wall = new FlxSprite(100, 100);
+        wall.makeGraphic(128, 64, 0xff555555);
+        lilGroup.add(wall);
+
+        player = new FlxSprite(110, 150);
+        player.makeGraphic(32, 48, 0xff0000ff);
+        lilGroup.add(player);
+    }
+
+    override public function update(elapsed:Float):Void
 	{
-		super.update(elapsed);
+        super.update(elapsed);
 
-		if(FlxG.keys.justPressed.P) thing.pause();
-		if(FlxG.keys.justPressed.R) thing.resume();
+        if (FlxG.keys.pressed.LEFT) player.x -= 120 * elapsed;
+        if (FlxG.keys.pressed.RIGHT) player.x += 120 * elapsed;
+        if (FlxG.keys.pressed.UP) player.y -= 120 * elapsed;
+        if (FlxG.keys.pressed.DOWN) player.y += 120 * elapsed;
 
-		if(FlxG.keys.justPressed.SHIFT) thing.skip();
-	}
-
-	public function startBattle()
-	{
-	}
+        lilGroup.members.sort((a,b) -> Std.int(cast(a, FlxSprite).y - cast(b, FlxSprite).y));
+    }
 }
+
