@@ -3,6 +3,8 @@ package;
 import DialogueBox.Positioning;
 import backend.effects.*;
 import backend.utils.*;
+import com.gskinner.motion.GTween;
+import com.gskinner.motion.easing.Sine;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -34,8 +36,6 @@ class PlayState extends FlxState
     override public function update(elapsed:Float):Void
 	{
         super.update(elapsed);
-
-        if(FlxG.keys.justPressed.ANY) box.resize(FlxG.random.int(2, 140), FlxG.random.int(2, 140));
     }
 }
 
