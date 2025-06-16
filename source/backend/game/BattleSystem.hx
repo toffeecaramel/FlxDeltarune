@@ -37,11 +37,6 @@ class BattleSystem extends FlxBasic
      * @param target the party member that'll have the act as a option. E.G: "Kris"
      */
     var acts:Array<{name:String, description:String, target:String}> = [];
-
-    /**
-     * ok
-     */
-    var ok = 'ok';
     
     function new()
     {
