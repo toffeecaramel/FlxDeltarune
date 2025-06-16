@@ -16,7 +16,7 @@ class Background extends FlxSpriteGroup
 
         for(i in 0...2)
         {
-            final graphic = (i == 0) ? AssetPaths.squareloop_one__png : AssetPaths.squareloop_two__png;
+            final graphic = Asset.image('darkworld/battle/bg/squareloop_${(i == 0) ? 'one' : 'two'}');
             var okay = new FlxBackdrop();
             okay.loadGraphic(graphic);
             okay.alpha = toAlpha;
@@ -25,7 +25,7 @@ class Background extends FlxSpriteGroup
         }
 
         for(i in 0...loops.length)
-            loops[i].velocity.set((i == 0) ? -30 : 30, (i == 0) ? -30 : 15);
+            loops[i].velocity.set((i == 0) ? -60 : 40, (i == 0) ? -60 : 35);
     }
 
     override function update(delta:Float):Void

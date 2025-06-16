@@ -198,6 +198,7 @@ class FlxUI9SliceSprite extends FlxUISprite implements IResizable implements IFl
 				var sectionCounter = cacheCounter.get(paintScale9_id);
 				sectionCounter.useCount++;
 
+				// had to comment this out cause it was crashing lol 
 				//noLongerUsingCachedID(oldID);
 			}
 
