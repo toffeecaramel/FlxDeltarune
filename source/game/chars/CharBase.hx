@@ -18,19 +18,31 @@ class CharBase extends FlxSprite
     {
         this.charPath = char;
 
-        final data = Asset.loadJSON('assets/images/chars/$char');
+        final data:CharData = Asset.loadJSON('assets/images/chars/$char-data');
         this.frames = Asset.getAtlas('chars/$char');
 
         for (i in 0...data.animations.length)
         {
-            final anim = data.animations[i];
+            final anim:CharAnim = data.animations[i];
             (anim.indices != null)
-            ? this.animation.addByIndices(anim.name, anim.prefix, anim.indices, '', anim.fps ?? 24, anim.looped ?? false)
-            : this.animation.addByPrefix(anim.name, anim.prefix, anim.fps ?? 24, anim.looped ?? false);
+            ? this.animation.addByIndices(anim.name, anim.prefix, anim.indices, '', anim?.fps ?? 24, anim?.looped ?? false)
+            : this.animation.addByPrefix(anim.name, anim.prefix, anim?.fps ?? 24, anim?.looped ?? false);
         }
+
+        scale.set(data?.scale[0] ?? 1, data?.scale[1] ?? 1);
+
+        antialiasing = data?.antialiasing ?? false;
+
+        updateHitbox();
 
         return this.charPath;
     }
+}
+
+typedef CharData = {
+    var scale:Array<Float>;
+    var antialiasing:Bool;
+    var animations:Array<CharAnim>;
 }
 
 typedef CharAnim = {
@@ -38,4 +50,5 @@ typedef CharAnim = {
     var prefix:String;
     var indices:Array<Int>;
     var fps:Int;
+    var looped:Bool;
 }

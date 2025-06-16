@@ -117,7 +117,7 @@ class Asset
      * Parse a JSON file.
      */
     static function loadJSON(path:String):Dynamic
-        return Json.parse(getText(path));
+        return Json.parse(getText('$path.json'));
 
     /**
      * Clear all cached assets.
