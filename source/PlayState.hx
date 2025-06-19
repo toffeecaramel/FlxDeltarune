@@ -39,7 +39,7 @@ class PlayState extends FlxState
 		tf.multiLine = true;
 		tf.alignment = CENTER;
 		tf.lineSpacing = 5;
-		tf.padding = 5;
+		tf.padding = 3;
         add(tf);
         tf.text = 'Hi! I have a huge\ndetermination to keep going.\n' + 
         '(Plus, I have to test this thing...)\n' +
@@ -49,6 +49,7 @@ class PlayState extends FlxState
         'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         tf.screenCenter();
     }
+    
     var box:UIBox;
     override public function update(elapsed:Float):Void
 	{
