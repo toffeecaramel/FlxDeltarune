@@ -40,7 +40,7 @@ class Typer extends FlxBasic
     /**
      * All the typer parameters, such as text, speed, etc.
      */
-    var parameters:TyperStruct;
+    var parameters(default, set):TyperStruct;
 
     /**
      * Whether the typer is paused or not.
@@ -106,8 +106,6 @@ class Typer extends FlxBasic
             startDelay: 0,
             separatorsPause: true
         };
-
-        _startDelayTimer = this.parameters.startDelay ?? 0;
 
         super();
     }
@@ -185,5 +183,18 @@ class Typer extends FlxBasic
      */
     function resume() return paused = false;
 
-    // -- Get/Setters Functions (nothing so far) -- //
+    // -- Get/Setters Functions -- //
+    
+    @:noCompletion function set_parameters(parameters:TyperStruct):TyperStruct
+    {
+        this.parameters = parameters;
+        curIndex    = 0;
+        curText     = "";
+        curLetter   = "";
+        paused      = false;
+        _timer      = 0;
+        _pauseTimer = 0;
+        _startDelayTimer = this.parameters?.startDelay ?? 0;
+        return this.parameters;
+    }
 }
