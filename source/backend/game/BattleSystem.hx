@@ -49,6 +49,7 @@ class BattleSystem extends FlxBasic
         time += delta;
         
         if(currentTurn == OPPONENT) timeLeft -= delta;
+        
     }
 }
 

@@ -39,7 +39,7 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<haxelib name="hscript-improved" />
+	<haxelib name="rulescript"/>
 	<haxelib name="gtween" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
@@ -84,8 +84,6 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
 	<haxedef name="HXCPP_STACK_LINE" if="release" />
 	<haxedef name="HXCPP_STACK_TRACE" />
-	<haxedef name="hscriptPos" />
-	<define name="CUSTOM_CLASSES" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 

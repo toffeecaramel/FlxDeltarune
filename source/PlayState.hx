@@ -1,6 +1,7 @@
 package;
 
 import backend.effects.*;
+import backend.game.DeltaText;
 import backend.utils.*;
 import com.gskinner.motion.GTween;
 import com.gskinner.motion.easing.Sine;
@@ -30,6 +31,23 @@ class PlayState extends FlxState
         box = new UIBox(10, 10);
         add(box);
         box.screenCenter();
+
+        var tf = new DeltaText();
+        tf.textColor = 0xffffffff;
+		tf.useTextColor = true;
+		tf.autoSize = true;
+		tf.multiLine = true;
+		tf.alignment = CENTER;
+		tf.lineSpacing = 5;
+		tf.padding = 5;
+        add(tf);
+        tf.text = 'Hi! I have a huge\ndetermination to keep going.\n' + 
+        '(Plus, I have to test this thing...)\n' +
+        '{What...? You\'re crazy or what?!}\n' + 
+        'ok: ´` [] <> . , \\|/\n' +
+        '!@#$%&*()_- +=\n' +
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        tf.screenCenter();
     }
     var box:UIBox;
     override public function update(elapsed:Float):Void
