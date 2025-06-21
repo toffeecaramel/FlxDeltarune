@@ -1,6 +1,7 @@
 package source.backend.game;
 
 import flixel.FlxBasic;
+import flixel.math.FlxMath;
 
 @:publicFields
 class BattleSystem extends FlxBasic
@@ -21,12 +22,17 @@ class BattleSystem extends FlxBasic
     var timeLeft:Float = 0;
 
     /**
+     * The amount of TP the player has.
+     */
+    var tp:Float = 0;
+
+    /**
      * (TODO) An array containing all the enemies in the battle.
      */
     //var enemies:Array<Enemy> = [];
 
     /**
-     * (TODO) An array containing all the player's allies..
+     * (TODO) An array containing all the player's allies.
      */
     //var party:Array<Ally> = [];
 
@@ -34,7 +40,7 @@ class BattleSystem extends FlxBasic
      * An array containing all acts a party member can have.
      * @param name the act's name. E.G: "Check"
      * @param description the act's description. E.G: "Kris analyzed the enemy, but didn't learn anything."
-     * @param target the party member that'll have the act as a option. E.G: "Kris"
+     * @param target the party member that'll have the act as a option. E.G: "kris"
      */
     var acts:Array<{name:String, description:String, target:String}> = [];
     
@@ -47,8 +53,9 @@ class BattleSystem extends FlxBasic
     {
         super.update(delta);
         time += delta;
-        
         if(currentTurn == OPPONENT) timeLeft -= delta;
+
+        tp = FlxMath.bound(tp, 0, 100);
         
     }
 }

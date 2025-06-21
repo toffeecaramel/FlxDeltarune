@@ -10,17 +10,19 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.battle.*;
 import game.chars.*;
+import source.backend.game.BattleSystem;
 
 class BattleSubState extends FlxSubState
 {
     var bg:Background;
     var kris:CharBase;
+    public var battleSystem:BattleSystem = new BattleSystem();
 
-    public static var battleTheme = 'rudebuster.ogg';
+    public static var battleTheme = 'vstest.ogg';
     public function new()
     {
         super();
-        
+        add(battleSystem);
         var awa = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
         add(awa);
         

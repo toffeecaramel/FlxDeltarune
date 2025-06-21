@@ -29,7 +29,7 @@ class Panel extends FlxSpriteContainer
     public var isOpen(default, set):Bool = false;
 
     //TODO: ALL THE PER CHARACTER DATA STUFF!!!!
-    final tempItemList = ['fight', 'act', 'item', 'spare', 'defend'];
+    final tempItemList = ['fight', 'magic', 'act', 'item', 'spare', 'defend'];
 
     /**
      * Creates a panel and updates the data.
@@ -89,7 +89,7 @@ class Panel extends FlxSpriteContainer
     {
         super.update(elapsed);
 
-        panelFront.y = FlxMath.lerp(panelFront.y, (isOpen) ? Std.int(panelBack.y - (panelBack.height - 2)) : panelBack.y, elapsed * 12);
+        panelFront.y = FlxMath.lerp(panelFront.y, (isOpen) ? Std.int(panelBack.y - (panelBack.height - 2)) : panelBack.y, elapsed * 16);
 
         if(isOpen)
         {
