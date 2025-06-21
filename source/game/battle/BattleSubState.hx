@@ -14,8 +14,9 @@ import game.chars.*;
 class BattleSubState extends FlxSubState
 {
     var bg:Background;
-
     var kris:CharBase;
+
+    public static var battleTheme = 'rudebuster.ogg';
     public function new()
     {
         super();
@@ -31,7 +32,6 @@ class BattleSubState extends FlxSubState
         kris = new CharBase(70, 50, "kris/kris-battle");
         add(kris);
         kris.animation.play('attack', true);
-        kris.scale.set(2, 2);
 
         addUI();
 
@@ -54,21 +54,20 @@ class BattleSubState extends FlxSubState
         testPanel = new Panel(0, 0, 'kris');
         add(testPanel);
         testPanel.screenCenter(X);
+        testPanel.origin.y = testPanel.height;
 
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);
         
         box.y = upperBox.y = FlxG.height + (box.height * 2);
-        testPanel.y = box.y - testPanel.height;
     }
 
     function start()
     {
         kris.animation.play('idle-loop');
-        FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/rudebuster.ogg', 'music'));
+        FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/$battleTheme', 'music'));
 
         FlxTween.tween(box, {y:FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
-        FlxTween.tween(testPanel, {y:FlxG.height - box.height - (testPanel.height - 2)}, 0.6, {ease: FlxEase.expoOut});
     }
 
     override public function update(delta:Float)
@@ -76,6 +75,7 @@ class BattleSubState extends FlxSubState
         super.update(delta);    
         if(FlxG.keys.justPressed.P) testPanel.isOpen = !testPanel.isOpen;
 
-        upperBox.y = FlxMath.lerp(upperBox.y, box.y - upperBox.height + 2, delta * 18);
+        upperBox.y = box.y - upperBox.height + 2;
+        testPanel.y = box.y - 36;
     }
 }

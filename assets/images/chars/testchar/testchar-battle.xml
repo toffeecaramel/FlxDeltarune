@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="testchar-battle.png">
+	<SubTexture name="idling0000" x="0" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="idling0001" x="0" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="idling0002" x="101" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="idling0003" x="101" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0000" x="202" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0001" x="202" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0002" x="303" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0003" x="303" y="0" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0004" x="0" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="to attack0005" x="0" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0000" x="101" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0001" x="101" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0002" x="202" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0003" x="202" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0004" x="303" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="attack0005" x="303" y="89" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spareable0000" x="0" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spareable0001" x="0" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spareable0002" x="101" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spareable0003" x="101" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spared0000" x="202" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="spared0001" x="202" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="damage0000" x="303" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+	<SubTexture name="damage0001" x="303" y="178" width="101" height="89" frameX="0" frameY="0" frameWidth="102" frameHeight="94" />
+</TextureAtlas>

@@ -49,8 +49,8 @@ class Panel extends FlxSpriteContainer
             coolBars.push(bar);
             bar.x = (i < 4) ? panelBack.x : panelBack.x + panelBack.width - bar.width;
 
-            barsDelay.push(i * 0.1);
-            barsTimer.push(0);
+            barsDelay.push(i * 0.2);
+            barsTimer.push(0.02 * i);
         }
 
         final spacing = 4;
@@ -103,7 +103,7 @@ class Panel extends FlxSpriteContainer
                 final bar = coolBars[i];
                 barsTimer[i] += elapsed;
 
-                // wait for the delay timer
+                // wait for the delay timer+
                 if (barsTimer[i] < barsDelay[i]) continue;
 
                 // move bar toward center
@@ -137,6 +137,9 @@ class Panel extends FlxSpriteContainer
             buttons[i].color = (i == curSelected) ? 0xFFffff00 : 0xFFff7f27;
             buttons[i].loadGraphic(Asset.image('darkworld/battle/UI/${(i == curSelected) ? a + '-selected' : a}'));
         }
+
+        if(num != 0)
+            FlxG.sound.play(Asset.sound('player/menumove.wav'));
     }
 
     @:noCompletion public function set_isOpen(isOpen:Bool):Bool 
