@@ -26,10 +26,8 @@ class Panel extends FlxSpriteContainer
     /**
      * Whether the panel is open or not.
      */
-     public var isOpen(default, set):Bool = false;
-     
-     private var curSelected:Int = 0;
-     
+    public var isOpen(default, set):Bool = false;
+
     //TODO: ALL THE PER CHARACTER DATA STUFF!!!!
     final tempItemList = ['fight', 'act', 'item', 'spare', 'defend'];
 
@@ -42,9 +40,18 @@ class Panel extends FlxSpriteContainer
     public function new(?x:Float = 0, ?y:Float = 0, character:String = 'kris')
     {
         super(x, y);
-
         
         add(panelBack);
+        for(i in 0...8)
+        {
+            var bar = new FlxSprite().makeGraphic(2, Std.int(panelBack.height));
+            add(bar);
+            coolBars.push(bar);
+            bar.x = (i < 4) ? panelBack.x : panelBack.x + panelBack.width - bar.width;
+
+            barsDelay.push(i * 0.1);
+            barsTimer.push(0);
+        }
 
         final spacing = 4;
         var totalWidth:Float = 0;
@@ -73,6 +80,11 @@ class Panel extends FlxSpriteContainer
         changeSelection();
     }
 
+    private var curSelected:Int = 0;
+    private var coolBars:Array<FlxSprite> = [];
+    private var barsDelay:Array<Float> = [];
+    private var barsTimer:Array<Float> = [];
+
     override public function update(elapsed:Float)
     {
         super.update(elapsed);
@@ -84,6 +96,29 @@ class Panel extends FlxSpriteContainer
             //TODO: Keybinds.
             if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
             if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
+
+            // animation for the bars
+            for (i in 0...coolBars.length)
+            {
+                final bar = coolBars[i];
+                barsTimer[i] += elapsed;
+
+                // wait for the delay timer
+                if (barsTimer[i] < barsDelay[i]) continue;
+
+                // move bar toward center
+                bar.alpha -= elapsed * 1.35;
+                bar.x += (i < 4 ? 1 : -1) * elapsed * 42; // left bars move right, right bars move left
+
+                // if bar is invisible, reset
+                if (bar.alpha <= 0)
+                {
+                    bar.alpha = 1;
+                    barsTimer[i] = 0;
+                    bar.x = (i < 4) ? panelBack.x : panelBack.x + panelBack.width - bar.width;
+                    bar.y = panelBack.y;
+                }
+            }
         }
     }
 

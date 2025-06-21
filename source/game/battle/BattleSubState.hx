@@ -68,7 +68,7 @@ class BattleSubState extends FlxSubState
         FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/rudebuster.ogg', 'music'));
 
         FlxTween.tween(box, {y:FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
-        FlxTween.tween(testPanel, {y:FlxG.height - box.height - (testPanel.height - 2)}, 0.6, {ease: FlxEase.expoOut, startDelay: 0.04});
+        FlxTween.tween(testPanel, {y:FlxG.height - box.height - (testPanel.height - 2)}, 0.6, {ease: FlxEase.expoOut});
     }
 
     override public function update(delta:Float)
