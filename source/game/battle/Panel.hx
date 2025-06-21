@@ -1,5 +1,6 @@
 package game.battle;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteContainer;
 import flixel.math.FlxMath;
@@ -13,9 +14,24 @@ class Panel extends FlxSpriteContainer
     var panelFront = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed'));
 
     /**
+     * An array containing all the buttons.
+     */
+    public var buttons:Array<FlxSprite> = [];
+
+    /**
+     * A map containing all the buttons and their strings, useful for getting a specific button.
+     */
+    public var buttonsMap:Map<String, FlxSprite> = [];
+
+    /**
      * Whether the panel is open or not.
      */
-    public var isOpen(default, set):Bool = false;
+     public var isOpen(default, set):Bool = false;
+     
+     private var curSelected:Int = 0;
+     
+    //TODO: ALL THE PER CHARACTER DATA STUFF!!!!
+    final tempItemList = ['fight', 'act', 'item', 'spare', 'defend'];
 
     /**
      * Creates a panel and updates the data.
@@ -27,8 +43,34 @@ class Panel extends FlxSpriteContainer
     {
         super(x, y);
 
+        
         add(panelBack);
+
+        final spacing = 4;
+        var totalWidth:Float = 0;
+
+        for (item in tempItemList)
+        {
+            var btn = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/$item'));
+            totalWidth += btn.width;
+            buttons.push(btn);
+            buttonsMap.set(item, btn);
+        }
+
+        // Position stuff
+        totalWidth += spacing * (buttons.length - 1);
+        var actualX = (panelBack.width - totalWidth) / 2;
+        for (btn in buttons)
+        {
+            btn.x = actualX;
+            btn.y = 4; //I think?
+            actualX += btn.width + spacing;
+            add(btn);
+        }
+
         add(panelFront);
+
+        changeSelection();
     }
 
     override public function update(elapsed:Float)
@@ -36,12 +78,37 @@ class Panel extends FlxSpriteContainer
         super.update(elapsed);
 
         panelFront.y = FlxMath.lerp(panelFront.y, (isOpen) ? Std.int(panelBack.y - (panelBack.height - 2)) : panelBack.y, elapsed * 12);
+
+        if(isOpen)
+        {
+            //TODO: Keybinds.
+            if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
+            if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
+        }
+    }
+
+    /**
+     * Changes the selected button.
+     * @param num The change number (e.g. if you put 2, it'll skip 2 a button and select the other one.)
+     */
+    private function changeSelection(num:Int = 0)
+    {
+        curSelected = FlxMath.wrap(curSelected + num, 0, buttons.length - 1);
+
+        for(i in 0...buttons.length)
+        {
+            // change the color & graphic whether selected or not.
+            final a = tempItemList[i];
+            buttons[i].color = (i == curSelected) ? 0xFFffff00 : 0xFFff7f27;
+            buttons[i].loadGraphic(Asset.image('darkworld/battle/UI/${(i == curSelected) ? a + '-selected' : a}'));
+        }
     }
 
     @:noCompletion public function set_isOpen(isOpen:Bool):Bool 
     {
         this.isOpen = isOpen;
 
+        // updates the panel graphic whether open or not
         panelFront.loadGraphic(Asset.image('darkworld/battle/UI/panels/${(isOpen) ? 'panelOpen' : 'panelClosed'}'));
         panelBack.loadGraphic(panelFront.graphic);
 

@@ -34,32 +34,41 @@ class BattleSubState extends FlxSubState
         kris.scale.set(2, 2);
 
         addUI();
-        new FlxTimer().start(0.65, (_)-> start());
+
+        new FlxTimer().start(0.5, (_)-> start());
+        FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
     }
 
+    var upperBox:FlxSprite;
     var box:FlxSprite;
     var testPanel:Panel;
     function addUI()
     {
         final p = 'darkworld/battle/UI'; //just to shorten some code lol
 
+        upperBox = new FlxSprite().loadGraphic(Asset.image('$p/panels/panelClosed')); //yea
+        upperBox.scale.x = 8; // lol
+        upperBox.screenCenter(X);
+        add(upperBox);
+        
         testPanel = new Panel(0, 0, 'kris');
         add(testPanel);
         testPanel.screenCenter(X);
-        
+
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);
-
-        box.y = FlxG.height + box.height;
-        testPanel.y = FlxG.height + testPanel.height;
+        
+        box.y = upperBox.y = FlxG.height + (box.height * 2);
+        testPanel.y = box.y - testPanel.height;
     }
 
     function start()
     {
         kris.animation.play('idle-loop');
-        FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/rudebuster', 'music'));
+        FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/rudebuster.ogg', 'music'));
 
         FlxTween.tween(box, {y:FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
+        FlxTween.tween(testPanel, {y:FlxG.height - box.height - (testPanel.height - 2)}, 0.6, {ease: FlxEase.expoOut, startDelay: 0.04});
     }
 
     override public function update(delta:Float)
@@ -67,6 +76,6 @@ class BattleSubState extends FlxSubState
         super.update(delta);    
         if(FlxG.keys.justPressed.P) testPanel.isOpen = !testPanel.isOpen;
 
-        testPanel.y = FlxMath.lerp(testPanel.y, box.y - (testPanel.height - 2), delta * 12);
+        upperBox.y = FlxMath.lerp(upperBox.y, box.y - upperBox.height + 2, delta * 18);
     }
 }
