@@ -29,23 +29,17 @@ class PlayState extends FlxState
         var a = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.GRAY);
         add(a);
 
-        box = new UIBox(10, 10);
-        add(box);
-        box.screenCenter();
+        var ref = new FlxSprite().loadGraphic(Asset.image('UIRef1'));
+        add(ref);
+        ref.setGraphicSize(FlxG.width, FlxG.height);
+        ref.screenCenter();
+        ref.alpha = 0.7;
 
-        var tf = new DeltaTypedText(0, 0, {text: 'Hi! I have a huge\ndetermination to keep going.\n' + 
-        '(Plus, I have to test this thing...)\n' +
-        '{What...? You\'re crazy or what?!}\n' + 
-        'ok: ´` [] <> . , \\|/\n' +
-        '!@#$%&*()_- +=\n' +
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', speed: 0.09});
-        add(tf);
+        openSubState(new BattleSubState());
     }
-    
-    var box:UIBox;
+
     override public function update(elapsed:Float):Void
 	{
         super.update(elapsed);
     }
 }
-

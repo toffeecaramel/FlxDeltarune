@@ -73,11 +73,11 @@ class Asset
     }
 
     /**
-     * Load a sound from `assets/sounds/<key>.ogg`.
+     * Load a sound from `assets/<from>/<key>.ogg`.
      */
-    static function sound(key:String):Sound
+    static function sound(key:String, from:String = 'sounds'):Sound
     {
-        final path = 'assets/sounds/${key}.ogg';
+        final path = 'assets/$from/${key}.ogg';
         if (soundCache.exists(path)) return soundCache.get(path);
         if (!exists(path, SOUND))
         {
