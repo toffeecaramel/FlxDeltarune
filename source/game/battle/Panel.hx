@@ -13,6 +13,8 @@ class Panel extends FlxSpriteContainer
 {
     var panelBack = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed')); 
     var panelFront = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed'));
+    var icon = new FlxSprite();
+    var label = new FlxSprite();
 
     /**
      * An array containing all the buttons.
@@ -30,6 +32,11 @@ class Panel extends FlxSpriteContainer
     public var isOpen(default, set):Bool = false;
 
     /**
+     * This panel's character. If changed by here, it won't be updated unless new() is called again
+     */
+    public var character:String = 'kris';
+
+    /**
      * A neat typedef containing some data, such as colors and acts.
      */
     public var data:BattleData;
@@ -45,6 +52,7 @@ class Panel extends FlxSpriteContainer
     public function new(?x:Float = 0, ?y:Float = 0, character:String = 'kris')
     {
         super(x, y);
+        this.character = character;
 
         data = Asset.loadJSON('assets/data/battle/$character');
         mainCol = FlxColor.fromRGB(data.mainColor[0], data.mainColor[1], data.mainColor[2]);
@@ -85,6 +93,12 @@ class Panel extends FlxSpriteContainer
 
         panelFront.color = mainCol;
         add(panelFront);
+
+        icon.loadGraphic(Asset.image('chars/$character/icons/normal'));
+        add(icon);
+
+        label.loadGraphic(Asset.image('chars/$character/icons/displayName'));
+        add(label);
         
         changeSelection();
         isOpen = false;
@@ -102,6 +116,10 @@ class Panel extends FlxSpriteContainer
         super.update(elapsed);
 
         panelFront.y = FlxMath.lerp(panelFront.y, (isOpen) ? Std.int(panelBack.y - (panelBack.height - 2)) : panelBack.y, elapsed * 16);
+        icon.setPosition((panelFront.x + icon.width) - 16, panelFront.y + (panelFront.height - icon.height) / 2);
+
+        //TODO: Fix this :V
+        label.setPosition(icon.x + icon.width + 12, icon.y + 12);
 
         if(isOpen)
         {
@@ -132,6 +150,7 @@ class Panel extends FlxSpriteContainer
                 bar.y = panelBack.y;
             }
         }
+        for (bar in coolBars) bar.active = isOpen;
     }
 
     /**
