@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteContainer;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 
 /**
  * A panel that shows a character info on the battle (such as HP, buttons to fight, act, etc.)
@@ -28,8 +29,12 @@ class Panel extends FlxSpriteContainer
      */
     public var isOpen(default, set):Bool = false;
 
-    //TODO: ALL THE PER CHARACTER DATA STUFF!!!!
-    final tempItemList = ['fight', 'magic', 'act', 'item', 'spare', 'defend'];
+    /**
+     * A neat typedef containing some data, such as colors and acts.
+     */
+    public var data:BattleData;
+
+    private var mainCol:FlxColor = FlxColor.WHITE;
 
     /**
      * Creates a panel and updates the data.
@@ -40,23 +45,26 @@ class Panel extends FlxSpriteContainer
     public function new(?x:Float = 0, ?y:Float = 0, character:String = 'kris')
     {
         super(x, y);
-        
+
+        data = Asset.loadJSON('assets/data/battle/$character');
+        mainCol = FlxColor.fromRGB(data.mainColor[0], data.mainColor[1], data.mainColor[2]);
         add(panelBack);
         for(i in 0...8)
         {
-            var bar = new FlxSprite().makeGraphic(2, Std.int(panelBack.height));
+            var bar = new FlxSprite().makeGraphic(2, Std.int(panelBack.height), mainCol);
             add(bar);
             coolBars.push(bar);
             bar.x = (i < 4) ? panelBack.x : panelBack.x + panelBack.width - bar.width;
 
-            barsDelay.push(i * 0.2);
-            barsTimer.push(0.02 * i);
+            var group = i % 4;
+            bDelay.push((group + 1) * 0.1);
+            bTimer.push(0);
         }
 
         final spacing = 4;
         var totalWidth:Float = 0;
 
-        for (item in tempItemList)
+        for (item in data.acts)
         {
             var btn = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/$item'));
             totalWidth += btn.width;
@@ -75,15 +83,19 @@ class Panel extends FlxSpriteContainer
             add(btn);
         }
 
+        panelFront.color = mainCol;
         add(panelFront);
-
+        
         changeSelection();
+        isOpen = false;
     }
 
     private var curSelected:Int = 0;
     private var coolBars:Array<FlxSprite> = [];
-    private var barsDelay:Array<Float> = [];
-    private var barsTimer:Array<Float> = [];
+    private var bDelay:Array<Float> = [];
+    private var bTimer:Array<Float> = [];
+    private var globalBTimer:Float = 0;
+    private var loopDur:Float = 0.4;
 
     override public function update(elapsed:Float)
     {
@@ -97,27 +109,27 @@ class Panel extends FlxSpriteContainer
             if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
             if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
 
+            globalBTimer = (globalBTimer + (elapsed / 3)) % loopDur;
+
             // animation for the bars
             for (i in 0...coolBars.length)
             {
                 final bar = coolBars[i];
-                barsTimer[i] += elapsed;
+                final delay = bDelay[i];
+                var t = (globalBTimer - delay + loopDur) % loopDur;
 
-                // wait for the delay timer+
-                if (barsTimer[i] <= barsDelay[i]) continue;
-
-                // move bar toward center
-                bar.alpha -= elapsed * 1.35;
-                bar.x += (i < 4 ? 1 : -1) * elapsed * 42; // left bars move right, right bars move left
-
-                // if bar is invisible, reset
-                if (bar.alpha <= 0)
+                if (t < 0.5)
+                {
+                    bar.alpha = 1 - (t / 0.3);
+                    bar.x = (i < 4 ? panelBack.x : panelBack.x + panelBack.width - bar.width) + (i < 4 ? 1 : -1) * (t / 0.5) * panelBack.width / 2;
+                }
+                else
                 {
                     bar.alpha = 1;
-                    barsTimer[i] = 0;
                     bar.x = (i < 4) ? panelBack.x : panelBack.x + panelBack.width - bar.width;
-                    bar.y = panelBack.y;
                 }
+
+                bar.y = panelBack.y;
             }
         }
     }
@@ -133,7 +145,7 @@ class Panel extends FlxSpriteContainer
         for(i in 0...buttons.length)
         {
             // change the color & graphic whether selected or not.
-            final a = tempItemList[i];
+            final a = data.acts[i];
             buttons[i].color = (i == curSelected) ? 0xFFffff00 : 0xFFff7f27;
             buttons[i].loadGraphic(Asset.image('darkworld/battle/UI/${(i == curSelected) ? a + '-selected' : a}'));
         }
@@ -150,6 +162,13 @@ class Panel extends FlxSpriteContainer
         panelFront.loadGraphic(Asset.image('darkworld/battle/UI/panels/${(isOpen) ? 'panelOpen' : 'panelClosed'}'));
         panelBack.loadGraphic(panelFront.graphic);
 
+        panelFront.color = panelBack.color = (isOpen) ? mainCol : FlxColor.WHITE;
+
         return this.isOpen;
     }
+}
+
+typedef BattleData = {
+    var mainColor:Array<Int>;
+    var acts:Array<String>;
 }
