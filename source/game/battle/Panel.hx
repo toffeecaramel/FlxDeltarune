@@ -117,9 +117,7 @@ class Panel extends FlxSpriteContainer
 
         panelFront.y = FlxMath.lerp(panelFront.y, (isOpen) ? Std.int(panelBack.y - (panelBack.height - 2)) : panelBack.y, elapsed * 16);
         icon.setPosition((panelFront.x + icon.width) - 16, panelFront.y + (panelFront.height - icon.height) / 2);
-
-        //TODO: Fix this :V
-        label.setPosition(icon.x + icon.width + 12, icon.y + 12);
+        label.setPosition(icon.x + icon.width + 6, icon.y + 6);
 
         if(isOpen)
         {
@@ -127,7 +125,7 @@ class Panel extends FlxSpriteContainer
             if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
             if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
 
-            globalBTimer = (globalBTimer + (elapsed / 3)) % loopDur;
+            globalBTimer = (globalBTimer + (elapsed / 7)) % loopDur;
 
             // animation for the bars
             for (i in 0...coolBars.length)
