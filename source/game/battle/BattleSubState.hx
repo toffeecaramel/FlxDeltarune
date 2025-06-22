@@ -18,7 +18,7 @@ class BattleSubState extends FlxSubState
     var kris:CharBase;
     public var battleSystem:BattleSystem = new BattleSystem();
 
-    public static var battleTheme = 'vstest.ogg';
+    public static var battleTheme = 'rudebuster.ogg';
     public function new()
     {
         super();
@@ -44,6 +44,8 @@ class BattleSubState extends FlxSubState
     var upperBox:FlxSprite;
     var box:FlxSprite;
     var testPanel:Panel;
+
+    var tpBar:TPBar;
     function addUI()
     {
         final p = 'darkworld/battle/UI'; //just to shorten some code lol
@@ -60,6 +62,9 @@ class BattleSubState extends FlxSubState
 
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);
+
+        tpBar = new TPBar(38, 48);
+        add(tpBar);
         
         box.y = upperBox.y = FlxG.height + (box.height * 2);
     }

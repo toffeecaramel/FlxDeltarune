@@ -104,7 +104,7 @@ class Panel extends FlxSpriteContainer
                 barsTimer[i] += elapsed;
 
                 // wait for the delay timer+
-                if (barsTimer[i] < barsDelay[i]) continue;
+                if (barsTimer[i] <= barsDelay[i]) continue;
 
                 // move bar toward center
                 bar.alpha -= elapsed * 1.35;
