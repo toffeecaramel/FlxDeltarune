@@ -47,7 +47,7 @@ class TPBar extends FlxSpriteContainer
         add(whiteBar);
         
         orangeBar = new FlxBar(0, 0, BOTTOM_TO_TOP, Std.int(redBar.width), Std.int(redBar.height));
-        orangeBar.createFilledBar(FlxColor.TRANSPARENT, 0xFFffa040);
+        orangeBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.WHITE); //its white at first since it changes when TP updates.
         add(orangeBar);
         add(bg);
 
@@ -84,6 +84,7 @@ class TPBar extends FlxSpriteContainer
         if(tpVal < 101) displayText.text = '${Std.int(this.tp)}';
 
         displayText.visible = (tpVal < 100);
+        orangeBar.color = (tpVal >= 100) ? 0xFFffd020 : 0xFFffa040;
         display.loadGraphic(Asset.image('$p/tp-display${(tpVal >= 100) ? 'MAX' : ''}'));
 
         return this.tp;
