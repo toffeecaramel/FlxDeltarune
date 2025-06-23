@@ -34,6 +34,11 @@ class Panel extends FlxSpriteContainer
     public var isOpen(default, set):Bool = false;
 
     /**
+     * Whether or not should the player be able to select the options.
+     */
+    public var selectable(default, set):Bool = true;
+
+    /**
      * This panel's character. If changed by here, it won't be updated unless new() is called again
      */
     public var character:String = 'kris';
@@ -127,12 +132,16 @@ class Panel extends FlxSpriteContainer
         if(isOpen)
         {
             //TODO: Keybinds.
-            if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
-            if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
-            if(FlxG.keys.justPressed.ENTER)
+
+            if(selectable)
             {
-                FlxG.sound.play(Asset.sound('player/select.wav'));
-                onAction.dispatch(data.acts[curSelected]);
+                if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
+                if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
+                if(FlxG.keys.justPressed.ENTER)
+                {
+                    FlxG.sound.play(Asset.sound('player/select.wav'));
+                    onAction.dispatch(data.acts[curSelected]);
+                }
             }
 
             globalBTimer = (globalBTimer + (elapsed / 7)) % loopDur;
@@ -192,6 +201,16 @@ class Panel extends FlxSpriteContainer
         panelFront.color = panelBack.color = (isOpen) ? mainCol : FlxColor.WHITE;
 
         return this.isOpen;
+    }
+
+    @:noCompletion public function set_selectable(selectable:Bool):Bool 
+    {
+        this.selectable = selectable;
+
+        for(button in buttons)
+            button.color = 0xFFff7f27;
+
+        return this.selectable;
     }
 }
 

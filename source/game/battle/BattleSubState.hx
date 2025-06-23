@@ -48,6 +48,7 @@ class BattleSubState extends FlxSubState
     var testPanel:Panel;
 
     var tpBar:TPBar;
+    var attBar:AttackBar;
     function addUI()
     {
         final p = 'darkworld/battle/UI'; //just to shorten some code lol
@@ -65,14 +66,29 @@ class BattleSubState extends FlxSubState
         testPanel.onAction.add((action)->{
             switch(action)
             {
+                case 'fight': attBar.visible = attBar.active = true;
+                    attBar.setPosition(box.x, box.y);
+                    testPanel.selectable = false;
+                    new FlxTimer().start(0.06, (_)-> attBar.canPress = true);
+                    kris.animation.play('pre-attack', true);
                 case 'defend':
                     kris.animation.play('defend', true);
                     tp += 16;
             }
         });
 
+        
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);
+
+        attBar = new AttackBar(box.x, box.y);
+        add(attBar);
+        attBar.active = attBar.visible = false;
+        attBar.onPress.add((damage)->
+        {
+            FlxG.sound.play(Asset.sound('darkworld/battle/attack.wav'));
+            kris.animation.play('attack', true);
+        });
 
         tpBar = new TPBar(38, 48);
         add(tpBar);
