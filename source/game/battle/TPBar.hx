@@ -74,8 +74,9 @@ class TPBar extends FlxSpriteContainer
         orangeBar.value = FlxMath.lerp(orangeBar.value, tp, delta * 8);
         whiteBar.value = FlxMath.lerp(whiteBar.value, tp + 1, delta * 19);
 
-        if(FlxG.keys.justPressed.K) tp += 10;
-        if(FlxG.keys.justPressed.M) tp = 0;
+        // this was for debugging purposes hahahah
+        //if(FlxG.keys.justPressed.K) tp += 10;
+        //if(FlxG.keys.justPressed.M) tp = 0;
     }
 
     @:noCompletion public function set_tp(tpVal:Float)

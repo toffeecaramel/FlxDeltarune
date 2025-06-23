@@ -8,7 +8,7 @@ interface IBullet
     public var shouldHurt:Bool;
 
     /**
-     * Whether or not should the player be able to graze when near the bullet.
+     * Whether or not should the player be able to graze (gain TP) when near the bullet.
      */
     public var shouldGraze:Bool;
 

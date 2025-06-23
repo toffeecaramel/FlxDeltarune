@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteContainer;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import flixel.util.FlxSignal.FlxTypedSignal;
 
 /**
  * A panel that shows a character info on the battle (such as HP, buttons to fight, act, etc.)
@@ -15,6 +16,7 @@ class Panel extends FlxSpriteContainer
     var panelFront = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed'));
     var icon = new FlxSprite();
     var label = new FlxSprite();
+    private var mainCol:FlxColor = FlxColor.WHITE;
 
     /**
      * An array containing all the buttons.
@@ -41,7 +43,10 @@ class Panel extends FlxSpriteContainer
      */
     public var data:BattleData;
 
-    private var mainCol:FlxColor = FlxColor.WHITE;
+    /**
+     * Signal dispatched when player selectes an action.
+     */
+    public final onAction = new FlxTypedSignal<(action:String)->Void>();
 
     /**
      * Creates a panel and updates the data.
@@ -124,6 +129,11 @@ class Panel extends FlxSpriteContainer
             //TODO: Keybinds.
             if(FlxG.keys.justPressed.LEFT) changeSelection(-1);
             if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
+            if(FlxG.keys.justPressed.ENTER)
+            {
+                FlxG.sound.play(Asset.sound('player/select.wav'));
+                onAction.dispatch(data.acts[curSelected]);
+            }
 
             globalBTimer = (globalBTimer + (elapsed / 7)) % loopDur;
 

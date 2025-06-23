@@ -18,6 +18,8 @@ class BattleSubState extends FlxSubState
     var kris:CharBase;
     public var battleSystem:BattleSystem = new BattleSystem();
 
+    public var tp(default, set):Float = 0;
+
     public static var battleTheme = 'rudebuster.ogg';
     public function new()
     {
@@ -60,6 +62,15 @@ class BattleSubState extends FlxSubState
         testPanel.screenCenter(X);
         testPanel.origin.y = testPanel.height;
 
+        testPanel.onAction.add((action)->{
+            switch(action)
+            {
+                case 'defend':
+                    kris.animation.play('defend', true);
+                    tp += 16;
+            }
+        });
+
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);
 
@@ -84,5 +95,14 @@ class BattleSubState extends FlxSubState
 
         upperBox.y = box.y - upperBox.height + 2;
         testPanel.y = box.y - 36;
+    }
+
+    @:noCompletion public function set_tp(tp:Float):Float
+    {
+        // aghhh too many tp in one line!!!!
+        this.tp = tpBar.tp = battleSystem.tp = tp;
+        this.tp = FlxMath.bound(this.tp, 0, 100);
+        trace(this.tp);
+        return this.tp;
     }
 }
