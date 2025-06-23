@@ -76,7 +76,6 @@ class BattleSubState extends FlxSubState
                     tp += 16;
             }
         });
-
         
         box = new FlxSprite().loadGraphic(Asset.image('$p/box'));
         add(box);

@@ -33,7 +33,7 @@ class AttackBar extends FlxSpriteContainer
         add(bar);
         button.animation.add('default', [0], 1);
         button.animation.add('press', [1], 1);
-        button.animation.play('press');
+        button.animation.play('default');
 
         add(button);
 
@@ -52,7 +52,7 @@ class AttackBar extends FlxSpriteContainer
         if(FlxG.keys.justPressed.ENTER && canPress && !pressed)
         {
             pressed = true;
-            button.animation.play('default', true);
+            button.animation.play('press', true);
 
             // this shit melted my brain but it works i guess
             final result = 1 - FlxMath.bound(Math.abs(button.x - (bar.x + 4)) / bar.width, 0, 1);
