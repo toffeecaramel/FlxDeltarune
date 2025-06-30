@@ -35,7 +35,7 @@ class Asset
      */
     static function image(key:String, ?compress:Bool = false):FlxGraphic
     {
-        final path = 'assets/images/${key}.png';
+        final path = getPath('images/${key}.png', IMAGE);
         if (graphicCache.exists(path)) return graphicCache.get(path);
         if (!exists(path, IMAGE))
         {
@@ -66,7 +66,7 @@ class Asset
     static function getAtlas(key:String):FlxAtlasFrames
     {
         final png = image(key, false);
-        final xmlPath = 'assets/images/${key}.xml';
+        final xmlPath = getPath('images/${key}.xml', TEXT);
         if (png == null || !exists(xmlPath, TEXT)) return null;
         final xml = getText(xmlPath);
         return FlxAtlasFrames.fromSparrow(png, xml);
@@ -77,7 +77,7 @@ class Asset
      */
     static function sound(key:String, from:String = 'sounds'):Sound
     {
-        final path = 'assets/$from/${key}';
+        final path = getPath('$from/${key}', SOUND);
         if (soundCache.exists(path)) return soundCache.get(path);
         if (!exists(path, SOUND))
         {
@@ -117,7 +117,42 @@ class Asset
      * Parse a JSON file.
      */
     static function loadJSON(path:String):Dynamic
-        return Json.parse(getText('$path.json'));
+        return Json.parse(getText(getPath('$path.json', TEXT)));
+
+    inline static function getPath(file:String, type:AssetType, ?library:Null<String>)
+    {
+        if (library != null)
+            return getLibraryPath(file, library);
+
+        var filePath = getPreloadPath(file);
+        if (exists(filePath, type))
+            return filePath;
+
+        return getPreloadPath(file);
+    }
+
+    inline static function getPreloadPath(file:String)
+    {
+        var returnPath:String = 'assets/$file';
+        if (!exists(returnPath, null))
+            returnPath = swapSpaceDash(returnPath);
+        return returnPath;
+    }
+
+    static function getLibraryPath(file:String, library = "preload")
+        return (library == "preload" || library == "default") ? getPreloadPath(file) : getLibraryPathForce(file, library);
+
+    inline static function getLibraryPathForce(file:String, library:String)
+        return '$library/$file';
+
+    static inline function spaceToDash(string:String):String
+        return string.replace(" ", "-");
+
+    static inline function dashToSpace(string:String):String
+        return string.replace("-", " ");
+
+    static inline function swapSpaceDash(string:String):String
+        return string.contains('-') ? dashToSpace(string) : spaceToDash(string);
 
     /**
      * Clear all cached assets.

@@ -18,7 +18,7 @@ class CharBase extends FlxSprite
     {
         this.charPath = char;
 
-        final data:CharData = Asset.loadJSON('assets/images/chars/$char-data');
+        final data:CharData = Asset.loadJSON('images/chars/$char-data');
         this.frames = Asset.getAtlas('chars/$char');
 
         for (i in 0...data.animations.length)

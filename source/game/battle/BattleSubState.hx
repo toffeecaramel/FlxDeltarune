@@ -8,6 +8,11 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import hscript.Expr.ModuleDecl;
+import hscript.Printer;
+
+import rulescript.*;
+import rulescript.parsers.*;
 import game.battle.*;
 import game.chars.*;
 import source.backend.game.BattleSystem;
@@ -17,6 +22,7 @@ class BattleSubState extends FlxSubState
     var bg:Background;
     var kris:CharBase;
     public var battleSystem:BattleSystem = new BattleSystem();
+    public var bScript:RuleScript;
 
     public var tp(default, set):Float = 0;
 
@@ -33,11 +39,16 @@ class BattleSubState extends FlxSubState
         bg.toAlpha = 1;
 
         //TODO: somehow get the player position on screen, and then move it to the side
+        //TODO: also, replace Kris with party members. they're just a placeholder for now.
         kris = new CharBase(70, 50, "kris/kris-battle");
+        kris.screenCenter(Y);
         add(kris);
         kris.animation.play('attack', true);
 
         addUI();
+
+        //bScript = new RuleScript(new HxParser());
+        //bScript.scriptName = 'BATTLE SCRIPT';
 
         new FlxTimer().start(0.5, (_)-> start());
         FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
