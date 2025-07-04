@@ -8,17 +8,20 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import hscript.Expr.ModuleDecl;
-import hscript.Printer;
-
-import rulescript.*;
-import rulescript.parsers.*;
 import game.battle.*;
 import game.chars.*;
+import hscript.Expr.ModuleDecl;
+import hscript.Printer;
+import rulescript.*;
+import rulescript.parsers.*;
 import source.backend.game.BattleSystem;
 
 class BattleSubState extends FlxSubState
 {
+    // Heads up! 
+    // This battle substate is currently up on testing.
+    // It'll be properly changed to handle battles more efficiently later!
+    // So, basically, its currently on test phase, got it? :)
     var bg:Background;
     var kris:CharBase;
     public var battleSystem:BattleSystem = new BattleSystem();
@@ -26,11 +29,19 @@ class BattleSubState extends FlxSubState
 
     public var tp(default, set):Float = 0;
 
-    public static var battleTheme = 'rudebuster.ogg';
+    public var battleTheme = 'rudebuster.ogg';
     public function new()
     {
         super();
         add(battleSystem);
+
+        bScript = new RuleScript(new HxParser());
+        bScript.scriptName = 'BATTLE SCRIPT';
+        bScript.tryExecute(Asset.getText('data/battles/TestBattle.hx'));
+        bScript.variables.set('battle', this);
+        
+        (bScript.variables.exists('setup')) ? bScript.variables.get('setup')() : throw 'The battle script does not have a setup() function.';
+
         var awa = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
         add(awa);
         
@@ -43,15 +54,10 @@ class BattleSubState extends FlxSubState
         kris = new CharBase(70, 50, "kris/kris-battle");
         kris.screenCenter(Y);
         add(kris);
-        kris.animation.play('attack', true);
-
+        
         addUI();
 
-        //bScript = new RuleScript(new HxParser());
-        //bScript.scriptName = 'BATTLE SCRIPT';
-
-        new FlxTimer().start(0.5, (_)-> start());
-        FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
+        (bScript.variables.exists('postCreate')) ? bScript.variables.get('postCreate')() : null;
     }
 
     var upperBox:FlxSprite;
@@ -106,7 +112,13 @@ class BattleSubState extends FlxSubState
         box.y = upperBox.y = FlxG.height + (box.height * 2);
     }
 
-    function start()
+    public function preStart()
+    {
+        kris.animation.play('attack', true);
+        FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
+    }
+
+    public function start()
     {
         kris.animation.play('idle-loop');
         FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/$battleTheme', 'music'));

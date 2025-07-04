@@ -64,7 +64,7 @@ class Panel extends FlxSpriteContainer
         super(x, y);
         this.character = character;
 
-        data = Asset.loadJSON('data/battle/$character');
+        data = Asset.loadJSON('data/battleCharsData/$character');
         mainCol = FlxColor.fromRGB(data.mainColor[0], data.mainColor[1], data.mainColor[2]);
         add(panelBack);
         for(i in 0...8)

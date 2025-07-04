@@ -66,9 +66,9 @@ class Asset
     static function getAtlas(key:String):FlxAtlasFrames
     {
         final png = image(key, false);
-        final xmlPath = getPath('images/${key}.xml', TEXT);
+        final xmlPath = getPath('images/$key.xml', TEXT);
         if (png == null || !exists(xmlPath, TEXT)) return null;
-        final xml = getText(xmlPath);
+        final xml = getText('images/$key.xml');
         return FlxAtlasFrames.fromSparrow(png, xml);
     }
 
@@ -107,9 +107,9 @@ class Asset
     static inline function getText(path:String):String
     {
         #if sys
-        return File.getContent(path);
+        return File.getContent(getPath(path, TEXT));
         #else
-        return OpenFlAssets.getText(path);
+        return OpenFlAssets.getText(getPath(path, TEXT));
         #end
     }
     
@@ -117,7 +117,7 @@ class Asset
      * Parse a JSON file.
      */
     static function loadJSON(path:String):Dynamic
-        return Json.parse(getText(getPath('$path.json', TEXT)));
+        return Json.parse(getText('$path.json'));
 
     inline static function getPath(file:String, type:AssetType, ?library:Null<String>)
     {
