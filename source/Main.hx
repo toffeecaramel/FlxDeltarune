@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxSprite;
 import game.battle.*;
+import hxFileManager.FileManager;
 import openfl.display.Sprite;
 
 class Main extends Sprite
@@ -14,6 +15,7 @@ class Main extends Sprite
 	{
 		super();
 		FlxSprite.defaultAntialiasing = false;
+		FileManager.initThreadPool();
 		
 		addChild(new FlxGame(0, 0, PlayState));
 		
