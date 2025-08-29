@@ -40,8 +40,6 @@
 	<haxelib name="flixel-ui" />
 
 	<haxelib name="rulescript"/>
-	<haxelib name="gtween" />
-	<haxelib name="hxFileManager"/>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

@@ -4,8 +4,6 @@ import backend.effects.*;
 import backend.game.DeltaText;
 import backend.game.DeltaTypedText;
 import backend.utils.*;
-import com.gskinner.motion.GTween;
-import com.gskinner.motion.easing.Sine;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
