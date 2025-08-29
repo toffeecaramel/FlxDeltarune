@@ -61,7 +61,7 @@ class AttackBar extends FlxSpriteContainer
             if(result >= 0.96) button.color = FlxColor.ORANGE;
             trace(result);
 
-            FlxTween.tween(button, {"scale.x": 2, "scale.y": 2, alpha: 0}, 0.8, {ease: FlxEase.circOut});
+            FlxTween.tween(button, {"scale.x": 3, "scale.y": 3, alpha: 0}, 0.8, {ease: FlxEase.circOut});
         }
     }
 
