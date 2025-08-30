@@ -1,11 +1,9 @@
 package game.editors;
 
-import flixel.FlxState;
-
-class RoomEditor extends FlxState
+class RoomEditor extends flixel.FlxState
 {
     override public function create():Void
     {
-        super.create();    
+        super.create();
     }
 }

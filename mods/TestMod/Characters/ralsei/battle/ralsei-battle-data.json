@@ -1,0 +1,23 @@
+{
+    "antialiasing": false,
+    "scale": [2, 2],
+    "animations":[
+        {"name": "fight-engage", "prefix": "fight-engage", "fps": 24, "looped": false},
+
+        {"name": "idle-loop", "prefix": "idle-loop", "fps": 24, "looped": true},
+        {"name": "hurt", "prefix": "damage", "fps": 24, "looped": true},
+
+        {"name": "pre-attack", "prefix": "fight", "indices":[0, 1], "fps": 24, "looped": false},
+        {"name": "attack", "prefix": "fight", "indices":[2,3,4,5,6,7], "fps": 24, "looped": false},
+
+        {"name": "act", "prefix": "act", "fps": 24, "looped": false},
+
+        {"name": "pre-magic", "prefix": "pre-magic", "fps": 24, "looped": true},
+        {"name": "magic", "prefix": "magic", "fps": 24, "looped": false},
+
+        {"name": "item", "prefix": "item", "fps": 24, "looped": false},
+        {"name": "defend", "prefix": "defend", "fps": 24, "looped": false},
+
+        {"name": "fight-leave", "prefix": "fight-win", "fps": 24, "looped": false}
+    ]
+}

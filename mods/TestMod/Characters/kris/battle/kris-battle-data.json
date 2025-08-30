@@ -1,6 +1,6 @@
 {
     "antialiasing": false,
-    "scale": [1, 1],
+    "scale": [2, 2],
     "animations":[
         {"name": "fight-engage", "prefix": "fight-engage", "fps": 24, "looped": false},
 

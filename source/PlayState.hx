@@ -27,12 +27,6 @@ class PlayState extends FlxState
         var a = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.GRAY);
         add(a);
 
-        var ref = new FlxSprite().loadGraphic(Asset.image('UIRef1'));
-        add(ref);
-        ref.setGraphicSize(FlxG.width, FlxG.height);
-        ref.screenCenter();
-        ref.alpha = 0.7;
-
         openSubState(new BattleSubState());
     }
 

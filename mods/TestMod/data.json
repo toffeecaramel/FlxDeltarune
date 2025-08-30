@@ -1,7 +1,8 @@
 {
     "modName": "TestMod",
     "authors": [
-        "ZSolarDev"
+        "ZSolarDev",
+		"Toffee"
     ],
     "version": "1.0",
     "description": "TestMod testing mod yippie",
@@ -13,7 +14,8 @@
         "TestString: Hello world how yall doin?"
     ],
     "startingParty": [
-        "kris/battle"
+        "kris/battle",
+		"ralsei/battle"
     ],
     "bytecodeInterp": false
 }

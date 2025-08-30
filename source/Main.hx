@@ -23,8 +23,8 @@ class Main extends Sprite
 			}
         }
         */
-		//addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
-		addChild(new FlxGame(0, 0, game.battle.BattleSubState));
+		addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
+		//addChild(new FlxGame(0, 0, PlayState));
         FlxG.autoPause = false;
 	}
 }
