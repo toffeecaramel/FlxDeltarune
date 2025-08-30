@@ -86,7 +86,7 @@ class Asset
         final png = outSourcedImage(key, false);
         final xmlPath = '$key.xml';
         if (png == null || !exists(xmlPath, TEXT)) return null;
-        final xml = getText('images/$key.xml');
+        final xml = getText('$key.xml'); // no longer adds images/
         return FlxAtlasFrames.fromSparrow(png, xml);
     }
 
@@ -182,7 +182,7 @@ class Asset
 
     inline static function getPreloadPath(file:String)
     {
-        var returnPath:String = 'assets/$file';
+        var returnPath:String = '${file.startsWith('mods') ? '' : 'assets/'}$file';
         if (!exists(returnPath, null))
             returnPath = swapSpaceDash(returnPath);
         return returnPath;

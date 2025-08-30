@@ -12,7 +12,7 @@ import hscript.Expr.ModuleDecl;
 import hscript.Printer;
 import rulescript.*;
 import rulescript.parsers.*;
-import source.backend.game.BattleSystem;
+import backend.game.BattleSystem;
 
 class BattleSubState extends FlxSubState
 {

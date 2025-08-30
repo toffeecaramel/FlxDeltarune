@@ -42,7 +42,6 @@
 
 	<haxelib name="rulescript"/> <!--haxelib git rulescript https://github.com/Kriptel/RuleScript.git dev-->
     <haxelib name="hscript"/> <!--haxelib git hscript https://github.com/HaxeFoundation/hscript.git-->
-	<haxelib name="gtween" />
     <haxelib name="compiletime" />
     <haxelib name="lunarps" /> <!--haxelib git lunarps https://github.com/ZSolarDev/LunarPS -->
 

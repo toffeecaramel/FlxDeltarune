@@ -31,8 +31,6 @@ class CharBase extends FlxSprite
         return this.adjustedHitbox;
     }
 
-
-
     @:noCompletion function set_charPath(char:String):String
     {
         this.charPath = char;
