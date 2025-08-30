@@ -15,12 +15,12 @@ class Panel extends FlxSpriteContainer
     /**
      * The back of the panel.
      */
-    var panelBack = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed')); 
+    var panelBack = new FlxSprite().loadGraphic(Asset.image('battle/UI/panels/panelClosed')); 
 
     /**
      * The front of the panel.
      */
-    var panelFront = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed'));
+    var panelFront = new FlxSprite().loadGraphic(Asset.image('battle/UI/panels/panelClosed'));
 
     /**
      * The icon used on this panel.
@@ -101,7 +101,7 @@ class Panel extends FlxSpriteContainer
 
         for (item in data.acts)
         {
-            var btn = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/$item'));
+            var btn = new FlxSprite().loadGraphic(Asset.image('battle/UI/$item'));
             totalWidth += btn.width;
             buttons.push(btn);
             buttonsMap.set(item, btn);
@@ -156,7 +156,7 @@ class Panel extends FlxSpriteContainer
                 if(FlxG.keys.justPressed.RIGHT) changeSelection(1);
                 if(FlxG.keys.justPressed.ENTER)
                 {
-                    FlxG.sound.play(Asset.sound('player/select.wav'));
+                    FlxG.sound.play(Asset.sound('sounds/player/select.wav'));
                     onAction.dispatch(data.acts[curSelected]);
                 }
             }
@@ -200,11 +200,11 @@ class Panel extends FlxSpriteContainer
             // change the color & graphic whether selected or not.
             final a = data.acts[i];
             buttons[i].color = (i == curSelected) ? 0xFFffff00 : 0xFFff7f27;
-            buttons[i].loadGraphic(Asset.image('darkworld/battle/UI/${(i == curSelected) ? a + '-selected' : a}'));
+            buttons[i].loadGraphic(Asset.image('battle/UI/${(i == curSelected) ? a + '-selected' : a}'));
         }
 
         if(num != 0)
-            FlxG.sound.play(Asset.sound('player/menumove.wav'));
+            FlxG.sound.play(Asset.sound('sounds/player/menumove.wav'));
     }
 
     @:noCompletion public function set_isOpen(isOpen:Bool):Bool 
@@ -212,7 +212,7 @@ class Panel extends FlxSpriteContainer
         this.isOpen = isOpen;
 
         // updates the panel graphic whether open or not
-        panelFront.loadGraphic(Asset.image('darkworld/battle/UI/panels/${(isOpen) ? 'panelOpen' : 'panelClosed'}'));
+        panelFront.loadGraphic(Asset.image('battle/UI/panels/${(isOpen) ? 'panelOpen' : 'panelClosed'}'));
         panelBack.loadGraphic(panelFront.graphic);
 
         panelFront.color = panelBack.color = (isOpen) ? mainCol : FlxColor.WHITE;

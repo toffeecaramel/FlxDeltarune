@@ -17,12 +17,12 @@ class AttackBar extends FlxSpriteContainer
     /**
      * The bar sprite.
      */
-    private var bar = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/ui/fightBar'));
+    private var bar = new FlxSprite().loadGraphic(Asset.image('battle/ui/fightBar'));
 
     /**
      * The button (hit) sprite.
      */
-    private var button = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/ui/fightBar-button'), true, 10, 38);
+    private var button = new FlxSprite().loadGraphic(Asset.image('battle/ui/fightBar-button'), true, 10, 38);
 
     /**
      * Signal dispatched when the player presses a key.
@@ -67,11 +67,10 @@ class AttackBar extends FlxSpriteContainer
             button.animation.play('press', true);
 
             // this shit melted my brain but it works i guess
-            final result = 1 + FlxMath.bound(Math.abs(button.x - (bar.x + 4)) / bar.width, 0, 1);
+            final result = 1 - FlxMath.bound(Math.abs(button.x - (bar.x + 4)) / bar.width, 0, 1);
             onPress.dispatch(result);
 
-            if(result >= 1.96) button.color = FlxColor.ORANGE;
-            trace(result);
+            if(result >= 0.96) button.color = FlxColor.ORANGE;
 
             FlxTween.tween(button, {"scale.x": 3, "scale.y": 3, alpha: 0}, 0.8, {ease: FlxEase.circOut});
         }

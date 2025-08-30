@@ -17,7 +17,6 @@ class DeltaText extends FlxBitmapText
         final fontLetters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz' +
         '0123456789!@#$%&*()-_+=[]{}^~.,<>:;?/|\\"\'`';
         final cSize = FlxPoint.get(16, 33);
-        super(FlxBitmapFont.fromMonospace(Asset.image('ui/fonts/determination'), 
-        fontLetters, cSize));
+        super(FlxBitmapFont.fromMonospace(Asset.image('ui/fonts/determination'), fontLetters, cSize));
     }
 }

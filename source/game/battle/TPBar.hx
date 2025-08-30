@@ -28,7 +28,7 @@ class TPBar extends FlxSpriteContainer
      */
     var tp(default, set):Float = 0;
 
-    final p = 'darkworld/battle/UI';
+    final p = 'battle/UI';
     /**
      * Creates a TP bar, with the percentage and all that. Remember that the `tp` variable must be updated everytime.
      * @param x X Position.
@@ -90,7 +90,11 @@ class TPBar extends FlxSpriteContainer
 
         displayText.visible = (tpVal < 100);
         orangeBar.color = (tpVal >= 100) ? 0xFFffd020 : 0xFFffa040;
-        display.loadGraphic(Asset.image('$p/tp-display${(tpVal >= 100) ? 'MAX' : ''}'));
+
+        // did this 'cause we don't want it to
+        // update the graphic every frame do we
+        final graphic = Asset.image('$p/tp-display${(tpVal >= 100) ? 'MAX' : ''}');
+        if(display.graphic != graphic) display.loadGraphic(graphic);
 
         return this.tp;
     }

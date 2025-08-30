@@ -21,7 +21,6 @@ class BattleSubState extends FlxSubState
     // It'll be properly changed to handle battles more efficiently later!
     // So, basically, its currently on test phase, got it? :)
     var bg:Background;
-    var kris:CharBase;
     public var battleSystem:BattleSystem = new BattleSystem(null);
     public var bScript:RuleScript;
 
@@ -46,17 +45,11 @@ class BattleSubState extends FlxSubState
         bg = new Background();
         add(bg);
         bg.toAlpha = 1;
-
-        //TODO: somehow get the player position on screen, and then move it to the side
-        kris = new CharBase(70, 50, "kris/battle");
-        kris.screenCenter(Y);
-        add(kris);
         
         addUI();
 
         (bScript.variables.exists('postCreate')) ? bScript.variables.get('postCreate')() : null;
-        new FlxTimer().start(0.5, (_)-> start());
-        FlxG.sound.play(Asset.sound('battle/weaponpull.wav'));
+        FlxG.sound.play(Asset.sound('sounds/battle/weaponpull.wav'));
     }
 
     var upperBox:FlxSprite;
@@ -86,9 +79,7 @@ class BattleSubState extends FlxSubState
                     attBar.setPosition(box.x, box.y);
                     testPanel.selectable = false;
                     new FlxTimer().start(0.06, (_)-> attBar.canPress = true);
-                    kris.animation.play('pre-attack', true);
                 case 'defend':
-                    kris.animation.play('defend', true);
                     tp += 16;
             }
         });
@@ -101,8 +92,7 @@ class BattleSubState extends FlxSubState
         attBar.active = attBar.visible = false;
         attBar.onPress.add((damage)->
         {
-            FlxG.sound.play(Asset.sound('darkworld/battle/attack.wav'));
-            kris.animation.play('attack', true);
+            FlxG.sound.play(Asset.sound('sounds/battle/attack.wav'));
         });
 
         tpBar = new TPBar(38, 48);
@@ -113,14 +103,12 @@ class BattleSubState extends FlxSubState
 
     public function preStart()
     {
-        kris.animation.play('attack', true);
-        FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
+        FlxG.sound.play(Asset.sound('sounds/battle/weaponpull.wav'));
     }
 
     public function start()
     {
-        kris.animation.play('idle-loop');
-        FlxG.sound.playMusic(Asset.sound('battle-themes/$battleTheme'));
+        FlxG.sound.playMusic(Asset.sound('music/$battleTheme'));
 
         FlxTween.tween(box, {y:FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
     }

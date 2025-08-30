@@ -1,13 +1,9 @@
 package backend;
 
-import rulescript.RuleScript;
-import rulescript.interps.RuleScriptInterp;
-import rulescript.interps.BytecodeInterp;
-import rulescript.parsers.HxParser;
-import haxe.PosInfos;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import haxe.Json;
+import haxe.PosInfos;
 import openfl.display.BitmapData;
 import openfl.display3D.textures.RectangleTexture;
 import openfl.display3D.textures.Texture;
@@ -15,6 +11,10 @@ import openfl.media.Sound;
 import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+import rulescript.RuleScript;
+import rulescript.interps.BytecodeInterp;
+import rulescript.interps.RuleScriptInterp;
+import rulescript.parsers.HxParser;
 
 using StringTools;
 #if sys
@@ -38,7 +38,7 @@ class Asset
      * @param compress whether to upload to GPU texture.
      */
     static function image(key:String, ?compress:Bool = false, ?_:PosInfos):FlxGraphic
-        return outSourcedImage('$key.png');
+        return outSourcedImage('assets/images/$key');
 
     /**
      * Load a graphic by key from `any/path/here/<key>.png`.
@@ -94,14 +94,14 @@ class Asset
      * Load a sound from `assets/<from>/<key>`.
      */
     static function sound(key:String):Sound
-        return outSourcedSound('assets/sounds/$key.ogg');
+        return outSourcedSound('assets/$key');
 
     /**
      * Load a sound from `any/path/here/<key>.ogg`.
      */
     static function outSourcedSound(key:String):Sound
     {
-        final path = '$key.ogg';
+        final path = '$key';
         if (soundCache.exists(path)) return soundCache.get(path);
         if (!exists(path, SOUND))
         {
