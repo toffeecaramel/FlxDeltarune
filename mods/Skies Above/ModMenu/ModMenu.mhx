@@ -1,0 +1,58 @@
+package;
+
+import flixel.FlxCamera;
+import flixel.util.FlxTimer;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import game.chars.CharBase;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+
+class ModMenu {
+    public var camera:FlxCamera;
+    var kris:CharBase;
+    var box:FlxSprite;
+    function initialize() {
+        camera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
+        box = new FlxSprite(0, 0, 'assets/images/ui/boxes/battle.png');
+        box.setGraphicSize(FlxG.width/2, FlxG.height);
+        modSelect.add(box);
+        box.screenCenter();
+        box.camera = camera;
+        kris = new CharBase(0, 0, "kris/battle", 'Skies Above');
+        modSelect.add(kris);
+        kris.screenCenter();
+        kris.camera = camera;
+        kris.animation.play('idle-loop');
+    }
+
+    function startHover() {
+        FlxTween.cancelTweensOf(camera);
+        FlxTween.tween(camera, {zoom: 1}, 0.7, {ease: FlxEase.circOut});
+    }
+
+    function stopHover() {
+        FlxTween.cancelTweensOf(camera);
+        FlxTween.tween(camera, {zoom: 0.7}, 0.7, {ease: FlxEase.circOut});
+    }
+
+    function onChosen()
+    {
+        FlxTween.cancelTweensOf(camera);
+        camera.zoom = 2;
+        FlxTween.tween(camera, {zoom: 1}, 1, {ease: FlxEase.sineOut});
+        kris.animation.play('fight-leave');
+        new FlxTimer().start(1, (_)->{
+            FlxTween.tween(camera, {y: FlxG.height}, 1, {ease: FlxEase.circIn});
+            FlxTween.tween(kris, {alpha: 0}, 1, {ease: FlxEase.circIn});
+            FlxTween.tween(box, {alpha: 0}, 1, {ease: FlxEase.circIn});
+        });
+    }
+
+    function destroy()
+    {
+        box.destroy();
+        kris.destroy();
+        camera.destroy();
+    }
+}

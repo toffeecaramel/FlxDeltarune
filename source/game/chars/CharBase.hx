@@ -1,25 +1,46 @@
 package game.chars;
 
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
+import haxe.io.Path;
 
 @:publicFields
 class CharBase extends FlxSprite
 {
     var charPath(default, set):String = 'kris';
+    var modName:String = '';
+    var adjustedHitbox(default, set):Bool = false;
 
-    function new(?x:Float = 0, ?y:Float = 0, charPath:String = 'kris')
+    function new(?x:Float = 0, ?y:Float = 0, charPath:String = 'kris', modName:String = '', adjustedHitbox:Bool = false)
     {
         super(x, y);
+        if (modName == '')
+            modName = currentMod.info.modName;
+        this.modName = modName;
         this.charPath = charPath;
+        this.adjustedHitbox = adjustedHitbox;
     }
+
+    @:noCompletion function set_adjustedHitbox(adjusted:Bool):Bool
+    {
+        this.adjustedHitbox = adjusted;
+        if (adjusted)
+        {
+            width = frameWidth * scale.x;   // hitbox width same as graphic width
+            height = 5;                    // hitbox height shrunk
+            offset.y = (frameHeight * scale.y) - height; // offset graphic down so bottom aligns
+        }
+        return this.adjustedHitbox;
+    }
+
+
 
     @:noCompletion function set_charPath(char:String):String
     {
         this.charPath = char;
-
-        final data:CharData = Asset.loadJSON('assets/images/chars/$char-data');
-        this.frames = Asset.getAtlas('chars/$char');
+        var charName = char.split('/')[0];
+        var charVariant = char.split('/')[1];
+        var path = 'mods/$modName/Characters/${Path.normalize(char)}/$charName-$charVariant';
+        final data:CharData = Asset.loadJSON('$path-data');
+        this.frames = Asset.getOutSourcedAtlas(path);
 
         for (i in 0...data.animations.length)
         {

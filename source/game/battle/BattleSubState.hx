@@ -1,8 +1,6 @@
 package game.battle;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
+// TODO: make this work with the mods system
 import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -10,13 +8,13 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.battle.*;
 import game.chars.*;
-import source.backend.game.BattleSystem;
+import backend.game.BattleSystem;
 
 class BattleSubState extends FlxSubState
 {
     var bg:Background;
     var kris:CharBase;
-    public var battleSystem:BattleSystem = new BattleSystem();
+    public var battleSystem:BattleSystem = new BattleSystem([]);
 
     public var tp(default, set):Float = 0;
 
@@ -33,14 +31,14 @@ class BattleSubState extends FlxSubState
         bg.toAlpha = 1;
 
         //TODO: somehow get the player position on screen, and then move it to the side
-        kris = new CharBase(70, 50, "kris/kris-battle");
+        kris = new CharBase(70, 50, "kris/battle");
         add(kris);
         kris.animation.play('attack', true);
 
         addUI();
 
         new FlxTimer().start(0.5, (_)-> start());
-        FlxG.sound.play(Asset.sound('darkworld/battle/weaponpull.wav'));
+        FlxG.sound.play(Asset.sound('battle/weaponpull.wav'));
     }
 
     var upperBox:FlxSprite;
@@ -51,7 +49,7 @@ class BattleSubState extends FlxSubState
     var attBar:AttackBar;
     function addUI()
     {
-        final p = 'darkworld/battle/UI'; //just to shorten some code lol
+        final p = 'battle/UI'; //just to shorten some code lol
 
         upperBox = new FlxSprite().loadGraphic(Asset.image('$p/panels/panelClosed')); //yea
         upperBox.scale.x = 8; // lol
@@ -98,7 +96,7 @@ class BattleSubState extends FlxSubState
     function start()
     {
         kris.animation.play('idle-loop');
-        FlxG.sound.playMusic(Asset.sound('darkworld/battle-themes/$battleTheme', 'music'));
+        FlxG.sound.playMusic(Asset.sound('battle-themes/$battleTheme'));
 
         FlxTween.tween(box, {y:FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
     }

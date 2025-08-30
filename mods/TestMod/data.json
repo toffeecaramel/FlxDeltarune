@@ -1,0 +1,19 @@
+{
+    "modName": "TestMod",
+    "authors": [
+        "ZSolarDev"
+    ],
+    "version": "1.0",
+    "description": "TestMod testing mod yippie",
+    "startingRoom": "skyworld/room1",
+    "roomEnterParams": [
+        "TestFloat: 0.41",
+        "TestBool: true",
+        "TestInt: 1",
+        "TestString: Hello world how yall doin?"
+    ],
+    "startingParty": [
+        "kris/battle"
+    ],
+    "bytecodeInterp": false
+}

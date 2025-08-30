@@ -1,6 +1,5 @@
 package game.battle;
 
-import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
@@ -16,7 +15,7 @@ class Background extends FlxSpriteGroup
 
         for(i in 0...2)
         {
-            final graphic = Asset.image('darkworld/battle/bg/squareloop_${(i == 0) ? 'one' : 'two'}');
+            final graphic = Asset.image('battle/bg/squareloop_${(i == 0) ? 'one' : 'two'}');
             var okay = new FlxBackdrop();
             okay.loadGraphic(graphic);
             okay.alpha = toAlpha;

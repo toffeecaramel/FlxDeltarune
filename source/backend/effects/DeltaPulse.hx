@@ -1,14 +1,11 @@
 package backend.effects;
 
-import flixel.FlxBasic;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
-
+import backend.game.interfaces.IEffect;
 /**
  * A class for applying a pulse effect to sprites.
  */
-class DeltaPulse extends FlxBasic
+class DeltaPulse extends FlxBasic implements IEffect
 {
     /**
      * The target sprite in which will pulse.

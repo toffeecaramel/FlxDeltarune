@@ -1,6 +1,10 @@
 package backend;
 
-import flixel.FlxG;
+import rulescript.RuleScript;
+import rulescript.interps.RuleScriptInterp;
+import rulescript.interps.BytecodeInterp;
+import rulescript.parsers.HxParser;
+import haxe.PosInfos;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import haxe.Json;
@@ -33,13 +37,21 @@ class Asset
      * @param key asset name without extension or path.
      * @param compress whether to upload to GPU texture.
      */
-    static function image(key:String, ?compress:Bool = false):FlxGraphic
+    static function image(key:String, ?compress:Bool = false, ?_:PosInfos):FlxGraphic
+        return outSourcedImage('$key.png');
+
+    /**
+     * Load a graphic by key from `any/path/here/<key>.png`.
+     * @param key asset name without extension.
+     * @param compress whether to upload to GPU texture.
+     */
+    static function outSourcedImage(key:String, ?compress:Bool = false, ?_:PosInfos):FlxGraphic
     {
-        final path = 'assets/images/${key}.png';
+        final path = '$key.png';
         if (graphicCache.exists(path)) return graphicCache.get(path);
         if (!exists(path, IMAGE))
         {
-            trace('[Asset] Missing image: $path');
+            trace('[Asset] Missing image: $path || Called from: ${_.fileName}:${_.methodName}');
             return null;
         }
         var bmp = BitmapData.fromFile(path);
@@ -64,9 +76,15 @@ class Asset
      * Load a Sparrow atlas (JSON + PNG) from `assets/images/<key>.png` & `.xml`.
      */
     static function getAtlas(key:String):FlxAtlasFrames
+        return getOutSourcedAtlas('assets/images/$key');
+
+    /**
+     * Load a Sparrow atlas (JSON + PNG) from `any/path/here.png` & `.xml`.
+     */
+    static function getOutSourcedAtlas(key:String):FlxAtlasFrames
     {
-        final png = image(key, false);
-        final xmlPath = 'assets/images/${key}.xml';
+        final png = outSourcedImage(key, false);
+        final xmlPath = '$key.xml';
         if (png == null || !exists(xmlPath, TEXT)) return null;
         final xml = getText(xmlPath);
         return FlxAtlasFrames.fromSparrow(png, xml);
@@ -75,9 +93,15 @@ class Asset
     /**
      * Load a sound from `assets/<from>/<key>`.
      */
-    static function sound(key:String, from:String = 'sounds'):Sound
+    static function sound(key:String):Sound
+        return outSourcedSound('assets/sounds/$key.ogg');
+
+    /**
+     * Load a sound from `any/path/here/<key>.ogg`.
+     */
+    static function outSourcedSound(key:String):Sound
     {
-        final path = 'assets/$from/${key}';
+        final path = '$key.ogg';
         if (soundCache.exists(path)) return soundCache.get(path);
         if (!exists(path, SOUND))
         {
@@ -88,6 +112,31 @@ class Asset
         soundCache.set(path, snd);
         return snd;
     }
+
+    /**
+     * Load a script from `any/path/here/<key>.hx/mhx`.
+     * @param key 
+     * @return RuleScript
+     */
+    static function script(key:String, bytecodeInterp:Bool = false):RuleScript
+    {
+        var mhx = FileSystem.exists('$key.mhx');
+        var path:String = mhx ? '$key.mhx' : '$key.hx';
+        var script:RuleScript;
+        script = new RuleScript(bytecodeInterp ? new BytecodeInterp() : new RuleScriptInterp(), new HxParser());
+        script.getParser(HxParser).setParameters({allowTypes: true});
+        if (mhx) script.getParser(HxParser).mode = MODULE;
+		script.execute(File.getContent(path));
+        return script;
+    }
+
+    /**
+     * Gets the path to a room from the room id(world/room).
+     * @param key 
+     * @return String
+     */
+    static function room(key:String):String
+        return 'mods/${currentMod.info.modName}/Worlds/$key';
 
     /**
      * Check if file exists on sys or asset bundle.

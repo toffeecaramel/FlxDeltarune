@@ -1,7 +1,5 @@
 package backend.utils;
 
-import flixel.FlxBasic;
-import flixel.FlxG;
 import flixel.util.FlxSignal;
 
 using StringTools;

@@ -1,6 +1,5 @@
-package source.backend.game;
+package backend.game;
 
-import flixel.FlxBasic;
 import flixel.math.FlxMath;
 
 @:publicFields
@@ -32,9 +31,9 @@ class BattleSystem extends FlxBasic
     //var enemies:Array<Enemy> = [];
 
     /**
-     * (TODO) An array containing all the player's allies.
+     * The Players party.
      */
-    //var party:Array<Ally> = [];
+    var party:Array<Ally> = [];
 
     /**
      * An array containing all acts a party member can have.
@@ -44,9 +43,14 @@ class BattleSystem extends FlxBasic
      */
     var acts:Array<{name:String, description:String, target:String}> = [];
     
-    function new()
+    /**
+     * Creates a BattleSystem.
+     * @param party The players Party.
+     */
+    function new(party:Array<Ally>)
     {
         super();
+        this.party = party;
     }
 
     override function update(delta:Float)

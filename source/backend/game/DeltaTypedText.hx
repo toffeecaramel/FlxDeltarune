@@ -1,10 +1,7 @@
 package backend.game;
 
 import backend.utils.Typer;
-import flixel.FlxBasic;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxSignal;
 
 class DeltaTypedText extends FlxTypedGroup<FlxBasic>
 {
@@ -27,10 +24,5 @@ class DeltaTypedText extends FlxTypedGroup<FlxBasic>
         typer.resume();
 
         add(typer);
-    }
-
-    override public function update(elapsed:Float):Void
-    {
-        super.update(elapsed);
     }
 }
