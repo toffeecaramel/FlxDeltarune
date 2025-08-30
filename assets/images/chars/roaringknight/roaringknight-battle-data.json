@@ -1,0 +1,17 @@
+{
+    "antialiasing": false,
+    "scale": [2, 2],
+    "animations": [
+        {"name": "fight-engage", "prefix": "swordgrab", "fps": 24, "looped": false},
+        {"name": "idle-loop", "prefix": "idle", "fps": 24, "looped": true},
+		
+        {"name": "roar-pre", "prefix": "roar-pre", "fps": 24, "looped": true},
+        {"name": "roar", "prefix": "roar", "fps": 24, "looped": true},
+
+        {"name": "pre-slash", "prefix": "pre-slash", "fps": 24, "looped": false},
+        {"name": "slash", "prefix": "slash", "fps": 24, "looped": false},
+		{"name": "sword-burn", "prefix": "sword-burn", "fps": 24, "looped": true},
+		
+		{"name": "crescent-slash", "prefix": "crescent-slash", "fps": 24, "looped": false}
+    ]
+}

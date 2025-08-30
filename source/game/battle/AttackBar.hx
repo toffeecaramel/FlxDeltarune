@@ -47,7 +47,7 @@ class AttackBar extends FlxSpriteContainer
         super.update(delta);
 
         if(visible && active && !pressed)
-            button.x -= delta * 124;
+            button.x -= delta * 152;
 
         if(FlxG.keys.justPressed.ENTER && canPress && !pressed)
         {
@@ -61,7 +61,16 @@ class AttackBar extends FlxSpriteContainer
             if(result >= 0.96) button.color = FlxColor.ORANGE;
             trace(result);
 
-            FlxTween.tween(button, {"scale.x": 2, "scale.y": 2, alpha: 0}, 0.8, {ease: FlxEase.circOut});
+            FlxTween.tween(button, {"scale.x": 3, "scale.y": 3, alpha: 0}, 0.8, {ease: FlxEase.circOut});
         }
+    }
+
+    /**
+     * Resets the fields, and randomizes the initial position.
+     */
+    public function r()
+    {
+        button.scale.set(1,1);
+        button.alpha = 1;
     }
 }

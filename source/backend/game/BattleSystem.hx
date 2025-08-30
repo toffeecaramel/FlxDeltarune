@@ -38,10 +38,12 @@ class BattleSystem extends FlxBasic
     /**
      * An array containing all acts a party member can have.
      * @param name the act's name. E.G: "Check"
-     * @param description the act's description. E.G: "Kris analyzed the enemy, but didn't learn anything."
+     * @param description the act's description. E.G: "Useless Analysys."
      * @param target the party member that'll have the act as a option. E.G: "kris"
+     * @param partyMembers the party members that'll be used for the action, leave empty for the `target` only.
+     * 
      */
-    var acts:Array<{name:String, description:String, target:String}> = [];
+    var acts:Array<{name:String, description:String, target:String, ?partyMembers:Array<String>}> = [];
     
     /**
      * Creates a BattleSystem.

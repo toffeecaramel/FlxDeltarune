@@ -86,7 +86,7 @@ class Asset
         final png = outSourcedImage(key, false);
         final xmlPath = '$key.xml';
         if (png == null || !exists(xmlPath, TEXT)) return null;
-        final xml = getText(xmlPath);
+        final xml = getText('images/$key.xml');
         return FlxAtlasFrames.fromSparrow(png, xml);
     }
 
@@ -156,9 +156,9 @@ class Asset
     static inline function getText(path:String):String
     {
         #if sys
-        return File.getContent(path);
+        return File.getContent(getPath(path, TEXT));
         #else
-        return OpenFlAssets.getText(path);
+        return OpenFlAssets.getText(getPath(path, TEXT));
         #end
     }
     
@@ -167,6 +167,41 @@ class Asset
      */
     static function loadJSON(path:String):Dynamic
         return Json.parse(getText('$path.json'));
+
+    inline static function getPath(file:String, type:AssetType, ?library:Null<String>)
+    {
+        if (library != null)
+            return getLibraryPath(file, library);
+
+        var filePath = getPreloadPath(file);
+        if (exists(filePath, type))
+            return filePath;
+
+        return getPreloadPath(file);
+    }
+
+    inline static function getPreloadPath(file:String)
+    {
+        var returnPath:String = 'assets/$file';
+        if (!exists(returnPath, null))
+            returnPath = swapSpaceDash(returnPath);
+        return returnPath;
+    }
+
+    static function getLibraryPath(file:String, library = "preload")
+        return (library == "preload" || library == "default") ? getPreloadPath(file) : getLibraryPathForce(file, library);
+
+    inline static function getLibraryPathForce(file:String, library:String)
+        return '$library/$file';
+
+    static inline function spaceToDash(string:String):String
+        return string.replace(" ", "-");
+
+    static inline function dashToSpace(string:String):String
+        return string.replace("-", " ");
+
+    static inline function swapSpaceDash(string:String):String
+        return string.contains('-') ? dashToSpace(string) : spaceToDash(string);
 
     /**
      * Clear all cached assets.
