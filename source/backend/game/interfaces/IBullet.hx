@@ -1,7 +1,15 @@
 package backend.game.interfaces;
 
+/**
+ * An interface for a bullet type.
+ */
 interface IBullet 
 {
+    /**
+     * The name for this bullet.
+     */
+     
+    public var name:String;
     /**
      * Whether or not should the bullet hurt the player.
      */

@@ -3,6 +3,9 @@ package backend.game;
 import flixel.math.FlxPoint;
 import game.chars.CharBase;
 
+/**
+ * Represents an Ally, that follows the party's main leader.
+ */
 class Follower extends CharBase {
     /**
      * An array of positions.
@@ -15,7 +18,7 @@ class Follower extends CharBase {
      * How many positions the Ally is behind its target.
      */
     public var delay:Int = 10;
-
+    
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
         if (targetTrail.length > delay) {

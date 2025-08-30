@@ -1,5 +1,8 @@
 package backend.game;
 
+/**
+ * A Party represents all the 'Allies' in a single group.
+ */
 class Party {
     /**
      * The members in this Party.

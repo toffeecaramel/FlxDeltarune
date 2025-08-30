@@ -4,10 +4,12 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 
+/**
+ * Background used on the battle scene.
+ */
 class Background extends FlxSpriteGroup
 {
     public var toAlpha:Float = 0.0001;
-
     private var loops:Array<FlxBackdrop> = [];
     public function new()
     {

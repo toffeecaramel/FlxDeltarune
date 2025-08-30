@@ -1,7 +1,8 @@
 package backend.effects;
 
-import flixel.tweens.FlxEase;
 import backend.game.interfaces.IEffect;
+import flixel.tweens.FlxEase;
+
 /**
  * A class for applying a pulse effect to sprites.
  */

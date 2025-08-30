@@ -12,10 +12,27 @@ import flixel.util.FlxSignal.FlxTypedSignal;
  */
 class Panel extends FlxSpriteContainer
 {
+    /**
+     * The back of the panel.
+     */
     var panelBack = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed')); 
+
+    /**
+     * The front of the panel.
+     */
     var panelFront = new FlxSprite().loadGraphic(Asset.image('darkworld/battle/UI/panels/panelClosed'));
+
+    /**
+     * The icon used on this panel.
+     */
     var icon = new FlxSprite();
+
+    /**
+     * The label sprite used on this panel (Basically, the name.)
+     */
     var label = new FlxSprite();
+
+    // The main color for this panel
     private var mainCol:FlxColor = FlxColor.WHITE;
 
     /**

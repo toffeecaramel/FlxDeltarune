@@ -4,6 +4,9 @@ import flixel.util.FlxSignal;
 
 using StringTools;
 
+/**
+ * An structure for the typed text.
+ */
 typedef TyperStruct = {
     /**
      * The text that will be displayed once typing.

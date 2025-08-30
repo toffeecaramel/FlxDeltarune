@@ -2,6 +2,8 @@ package game.chars;
 
 import haxe.io.Path;
 
+//TODO: doccument this.a.
+
 @:publicFields
 class CharBase extends FlxSprite
 {

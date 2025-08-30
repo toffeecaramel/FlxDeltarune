@@ -1,9 +1,12 @@
 package backend.mods;
 
-import sys.io.File;
 import haxe.Json;
 import sys.FileSystem;
+import sys.io.File;
 
+/**
+ * A structure for informations related to an mod.
+ */
 typedef ModInfo = {
     /**
      * The name of the mod.
@@ -45,6 +48,9 @@ typedef ModInfo = {
     var bytecodeInterp:Bool;
 }
 
+/**
+ * A class for a single mod, but also has static functions for getting mods.
+ */
 class Mod {
 
     //-----Static-----//

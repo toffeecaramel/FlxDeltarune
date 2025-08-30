@@ -1,6 +1,7 @@
 package game.battle;
 
 // TODO: make this work with the mods system
+import backend.game.BattleSystem;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -12,7 +13,6 @@ import hscript.Expr.ModuleDecl;
 import hscript.Printer;
 import rulescript.*;
 import rulescript.parsers.*;
-import backend.game.BattleSystem;
 
 class BattleSubState extends FlxSubState
 {

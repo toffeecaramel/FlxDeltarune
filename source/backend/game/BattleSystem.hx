@@ -33,7 +33,7 @@ class BattleSystem extends FlxBasic
     /**
      * The Players party.
      */
-    var party:Array<Ally> = [];
+    var party:Party
 
     /**
      * An array containing all acts a party member can have.
@@ -49,7 +49,7 @@ class BattleSystem extends FlxBasic
      * Creates a BattleSystem.
      * @param party The players Party.
      */
-    function new(party:Array<Ally>)
+    function new(party:Party)
     {
         super();
         this.party = party;

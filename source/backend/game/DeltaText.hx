@@ -4,8 +4,14 @@ import flixel.math.FlxPoint;
 import flixel.text.FlxBitmapFont;
 import flixel.text.FlxBitmapText;
 
+/**
+ * The DETERMINATION font in a bitmap text.
+ */
 class DeltaText extends FlxBitmapText
 {
+    /**
+     * Creates the object.
+     */
     public function new()
     {
         final fontLetters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz' +

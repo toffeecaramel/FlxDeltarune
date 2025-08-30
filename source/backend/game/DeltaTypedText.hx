@@ -3,6 +3,7 @@ package backend.game;
 import backend.utils.Typer;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
+//TODO: Finish this and doccument it.
 class DeltaTypedText extends FlxTypedGroup<FlxBasic>
 {
     public var textDisplay:DeltaText;

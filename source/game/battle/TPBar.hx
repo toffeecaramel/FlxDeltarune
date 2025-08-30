@@ -9,6 +9,10 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 
 @:publicFields
+
+/**
+ * The TP bar that stays on the left side on the screen on battles.
+ */
 class TPBar extends FlxSpriteContainer
 {
     var bg:FlxSprite;
