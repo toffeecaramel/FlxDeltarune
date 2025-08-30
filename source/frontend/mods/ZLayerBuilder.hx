@@ -25,7 +25,6 @@ class ZLayerBuilder {
     public static function buildZLayerGroup(
         polygonPoints:Array<FlxPoint>,
         tileLayer:FlxTilemap,
-        graphicPath:String,
         tileSize:Int,
         layerOffsetX:Float = 0,
         layerOffsetY:Float = 0
@@ -46,42 +45,26 @@ class ZLayerBuilder {
         var topTile = Math.floor(minY / tileSize);
         var bottomTile = Math.floor(maxY / tileSize);
 
+        var tileGraphic = tileLayer.graphic;  // Use the pre-loaded graphic from the tilemap
+
         for (ty in topTile...bottomTile + 1) {
             for (tx in leftTile...rightTile + 1) {
 
                 var tileRect = new Rectangle(tx * tileSize, ty * tileSize, tileSize, tileSize);
 
                 if (polygonIntersectsRect(localPoly, tileRect)) {
-                    var tileIndex = tileLayer.getTileIndex(tx, ty);
-                    if(tileIndex <= 0) continue; // skip empty tile
-                    tileIndex += 1;
+                    var tileIndex = tileLayer.getTile(tx, ty);
+                    if (tileIndex < 0) continue;  // Skip empty/invalid tiles
 
-                    if (tileIndex > 0) {
+                    var sprite = new FlxSprite(tx * tileSize + layerOffsetX, ty * tileSize + layerOffsetY);
 
-                        var sprite = new FlxSprite(tx * tileSize + layerOffsetX, ty * tileSize + layerOffsetY);
+                    var tileWidth = tileLayer.tileWidth;
+                    var tileHeight = tileLayer.tileHeight;
 
-                        // Flixels stupid cache..
-                        var rawBytes = File.getBytes(graphicPath);
-                        var rawBitmap = BitmapData.fromBytes(rawBytes);
-                        var tileGraphic = FlxGraphic.fromBitmapData(rawBitmap);
+                    sprite.loadGraphic(tileGraphic, true, tileWidth, tileHeight);
+                    sprite.animation.frameIndex = tileIndex;
 
-                        var tileWidth = tileLayer.tileWidth;
-                        var tileHeight = tileLayer.tileHeight;
-
-                        var tilesPerRow = Std.int(tileGraphic.width / tileWidth);
-                        var tileID = tileIndex - 1;
-                        var frameX = (tileID % tilesPerRow) * tileWidth;
-                        var frameY = Math.floor(tileID / tilesPerRow) * tileHeight;
-
-                        sprite.loadGraphic(tileGraphic, true, tileWidth, tileHeight);
-                        sprite.animation.frameIndex = tileID;
-
-
-                        sprite.x = tx * tileSize + layerOffsetX;
-                        sprite.y = ty * tileSize + layerOffsetY;
-
-                        group.add(sprite);
-                    }
+                    group.add(sprite);
                 }
             }
         }

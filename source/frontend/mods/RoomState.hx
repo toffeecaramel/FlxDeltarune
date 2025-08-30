@@ -6,6 +6,7 @@ import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 import flixel.addons.tile.FlxTilemapExt;
 import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.editors.tiled.*;
 import backend.game.Party;
 
@@ -16,7 +17,7 @@ class RoomState extends FlxState
     public var map:TiledMap;
     public var colliders:Array<FlxObject> = [];
     public var startPos:FlxPoint;
-    public var zObjects:Array<FlxObject> = [];
+    public var zSortableGroup:FlxTypedGroup<FlxObject> = new FlxTypedGroup<FlxObject>();
 
     //-----Initialization-----//
 
@@ -30,6 +31,7 @@ class RoomState extends FlxState
     override public function create() {
         super.create();
         loadTilemap();
+        add(zSortableGroup);
         initParty();
     }
 
@@ -39,14 +41,13 @@ class RoomState extends FlxState
         {
             var member = party.members[memberID];
             member.setPosition(startPos.x, startPos.y);
-            add(member);
+            zSortableGroup.add(member);
             if (member != party.leader)
                 member.delay = memberID * 10;
             member.setGraphicSize(map.tileWidth, map.tileWidth * 2);
             member.updateHitbox();
             // Fix the hitbox after updating it
             member.adjustedHitbox = true;
-            zObjects.push(member);
         }
     }
 
@@ -62,7 +63,7 @@ class RoomState extends FlxState
                 var rawData = tileLayer.tileArray;
                 var adjustedData:Array<Int> = [];
                 for (id in rawData)
-                    adjustedData.push(id > 0 ? id - 1 : 0);
+                    adjustedData.push(id > 0 ? id - 1 : -1);
                 tilemap.loadMapFromArray(
                     adjustedData,
                     tileLayer.width,
@@ -139,9 +140,8 @@ class RoomState extends FlxState
                 var y = tileLayer.y;
                 var tileSize = tileLayer.tileWidth;
                 var polygon = poly.map(p -> new FlxPoint(p.x + obj.x, p.y + obj.y));
-                var zGroup = ZLayerBuilder.buildZLayerGroup(polygon, tileLayer, '$path/' + map.getTileSet(room.split('/')[1]).imageSource, tileSize, x, y);
-                zObjects.push(zGroup);
-                add(zGroup);
+                var zGroup = ZLayerBuilder.buildZLayerGroup(polygon, tileLayer, tileSize, x, y);
+                zSortableGroup.add(zGroup);
             }
         }
     }
@@ -159,52 +159,57 @@ class RoomState extends FlxState
             }
         }
         // z layering
-        zObjects.sort(function(a:FlxObject, b:FlxObject):Int {
-            return FlxSort.byY(FlxSort.ASCENDING, a, b);
-        });
+        zSortableGroup.sort(sortByDepth);
     }
 
+    function sortByDepth(order:Int, a:FlxObject, b:FlxObject):Int
+    {
+        var sortYA = getSortY(a);
+        var sortYB = getSortY(b);
+        return FlxSort.byValues(order, sortYA, sortYB);
+    }
 
-    var runHeldFrames:Int = 0;
+    function getSortY(obj:FlxObject):Float
+    {
+        if (Std.isOfType(obj, FlxSpriteGroup))
+        {
+            var group:FlxSpriteGroup = cast obj;
+            var maxBottom:Float = Math.NEGATIVE_INFINITY;
+            for (member in group.members)
+            {
+                if (member != null && member.exists && member.visible)
+                {
+                    maxBottom = Math.max(maxBottom, member.y + member.height);
+                }
+            }
+            return (maxBottom == Math.NEGATIVE_INFINITY) ? obj.y + obj.height : maxBottom;
+        }
+        return obj.y + obj.height;
+    }
 
     function movement() {
         var leader = party.leader;
         var isRunning = FlxG.keys.pressed.SHIFT;
-        var baseSpeed = 6;
-        var speed = baseSpeed;
+        var speed = isRunning ? 3.0 : 2.0;
 
-        if (isRunning) {
-            runHeldFrames++;
-            if (runHeldFrames >= 60) {
-                speed += 6;
-            } else if (runHeldFrames >= 10) {
-                speed += 4;
-            } else {
-                speed += 2;
-            }
-        } else {
-            runHeldFrames = 0;
-        }
-
-        var moveX = 0;
-        var moveY = 0;
+        var moveX:Float = 0;
+        var moveY:Float = 0;
 
         if (FlxG.keys.pressed.RIGHT) moveX += 1;
         if (FlxG.keys.pressed.LEFT) moveX -= 1;
         if (FlxG.keys.pressed.DOWN) moveY += 1;
         if (FlxG.keys.pressed.UP) moveY -= 1;
 
-        if (moveX != 0 && moveY != 0) {
-            var norm = Math.sqrt(0.5); // approx 0.7071
-            moveX = cast moveX * norm;
-            moveY = cast moveX * norm;
+        if (moveX != 0 || moveY != 0) {
+            var length = Math.sqrt(moveX * moveX + moveY * moveY);
+            moveX /= length;
+            moveY /= length;
         }
-        
-        // I need to move the collision rect instead of the base x y cause the main char is only visual. it follows its collision rect
-        leader.x += moveX * (speed/4);
-        leader.y += moveY * (speed/4);
-    }
 
+        // Move the leader
+        leader.x += moveX * speed;
+        leader.y += moveY * speed;
+    }
 
     // very simple. deltarune collisions are actually super simple.
     function collision() {
