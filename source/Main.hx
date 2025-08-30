@@ -14,7 +14,6 @@ class Main extends Sprite
 
         // TODO: make this work with the new mods system
 		/*
-        addChild(new FlxGame(0, 0, PlayState));
 		
 		for (mus in preloadMusList){
 			for (snd in preloadSndList)
@@ -24,7 +23,8 @@ class Main extends Sprite
 			}
         }
         */
-		addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
+		//addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
+		addChild(new FlxGame(0, 0, game.battle.BattleSubState));
         FlxG.autoPause = false;
 	}
 }

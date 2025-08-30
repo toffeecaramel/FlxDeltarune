@@ -14,7 +14,7 @@ class CharBase extends FlxSprite
     function new(?x:Float = 0, ?y:Float = 0, charPath:String = 'kris', modName:String = '', adjustedHitbox:Bool = false)
     {
         super(x, y);
-        if (modName == '')
+        if (modName == '' && currentMod != null)
             modName = currentMod.info.modName;
         this.modName = modName;
         this.charPath = charPath;

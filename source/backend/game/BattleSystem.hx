@@ -33,7 +33,7 @@ class BattleSystem extends FlxBasic
     /**
      * The Players party.
      */
-    var party:Party
+    var party:Party;
 
     /**
      * An array containing all acts a party member can have.

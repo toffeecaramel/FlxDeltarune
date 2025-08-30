@@ -22,7 +22,7 @@ class BattleSubState extends FlxSubState
     // So, basically, its currently on test phase, got it? :)
     var bg:Background;
     var kris:CharBase;
-    public var battleSystem:BattleSystem = new BattleSystem([]);
+    public var battleSystem:BattleSystem = new BattleSystem(null);
     public var bScript:RuleScript;
 
     public var tp(default, set):Float = 0;
