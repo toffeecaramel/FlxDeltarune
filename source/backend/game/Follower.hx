@@ -20,10 +20,29 @@ class Follower extends CharBase {
     public var delay:Int = 10;
     
     override public function update(elapsed:Float):Void {
-        super.update(elapsed);
+        var oldX = x;
+        var oldY = y;
+
         if (targetTrail.length > delay) {
-            var targetPos = targetTrail.shift();
-            setPosition(targetPos.x, targetPos.y);
+            var pos = targetTrail.shift();
+            setPosition(pos.x, pos.y);
         }
+
+        var deltaX = x - oldX;
+        var deltaY = y - oldY;
+        var dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (dist > 0) {
+            var dir = if (Math.abs(deltaX) > Math.abs(deltaY)) (deltaX > 0 ? "right" : "left") else (deltaY > 0 ? "down" : "up");
+            animation.play("walk-" + dir);
+            var isRunning = (dist > 2.5);
+            animation.curAnim.frameRate = 9 * (isRunning ? 2 : 1.0);
+        } else {
+            if (animation.curAnim != null) {
+                animation.curAnim.pause();
+            }
+        }
+
+        super.update(elapsed);
     }
 }

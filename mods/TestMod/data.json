@@ -14,8 +14,8 @@
         "TestString: Hello world how yall doin?"
     ],
     "startingParty": [
-        "kris/battle",
-		"ralsei/battle"
+        "kris/normal",
+		"ralsei/normal"
     ],
     "bytecodeInterp": false
 }

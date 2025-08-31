@@ -37,18 +37,26 @@ class RoomState extends FlxState
 
     function initParty()
     {
+        // Rearrange members so leader is first, followed by others in original order (excluding leader)
+        var followers = [for (member in party.members) if (member != party.leader) member];
+        party.members = [party.leader].concat(followers);
+
         for (memberID in 0...party.members.length)
         {
             var member = party.members[memberID];
             member.setPosition(startPos.x, startPos.y);
             zSortableGroup.add(member);
             if (member != party.leader)
-                member.delay = memberID * 10;
+                member.delay = memberID * 20;
             member.setGraphicSize(map.tileWidth, map.tileWidth * 2);
             member.updateHitbox();
             // Fix the hitbox after updating it
             member.adjustedHitbox = true;
         }
+
+        FlxG.camera.follow(party.leader, LOCKON, 1);
+        FlxG.camera.focusOn(party.leader.getPosition());
+        FlxG.camera.zoom = 2;
     }
 
     function loadTilemap()
@@ -151,9 +159,12 @@ class RoomState extends FlxState
     override public function update(elapsed:Float) {
         super.update(elapsed);
         for (member in party.members){
-            if (member != party.leader)
-                member.targetTrail.push(new FlxPoint(party.leader.x, party.leader.y));
-            else{
+            if (member != party.leader) {
+                var newPos = new FlxPoint(party.leader.x, party.leader.y);
+                if (member.targetTrail.length == 0 || !member.targetTrail[member.targetTrail.length - 1].equals(newPos)) {
+                    member.targetTrail.push(newPos);
+                }
+            } else {
                 movement();
                 collision();
             }
@@ -190,7 +201,7 @@ class RoomState extends FlxState
     function movement() {
         var leader = party.leader;
         var isRunning = FlxG.keys.pressed.SHIFT;
-        var speed = isRunning ? 3.0 : 2.0;
+        var speed = isRunning ? 2.0 : 1.0;
 
         var moveX:Float = 0;
         var moveY:Float = 0;
@@ -204,11 +215,18 @@ class RoomState extends FlxState
             var length = Math.sqrt(moveX * moveX + moveY * moveY);
             moveX /= length;
             moveY /= length;
-        }
 
-        // Move the leader
-        leader.x += moveX * speed;
-        leader.y += moveY * speed;
+            leader.x += moveX * speed;
+            leader.y += moveY * speed;
+
+            var dir = if (Math.abs(moveX) > Math.abs(moveY)) (moveX > 0 ? "right" : "left") else (moveY > 0 ? "down" : "up");
+            leader.animation.play("walk-" + dir);
+            leader.animation.curAnim.frameRate = 12 * (isRunning ? 1.5 : 1.0);
+        } else {
+            if (leader.animation.curAnim != null) {
+                leader.animation.curAnim.pause();
+            }
+        }
     }
 
     // very simple. deltarune collisions are actually super simple.
