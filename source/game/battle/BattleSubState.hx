@@ -27,9 +27,13 @@ class BattleSubState extends FlxSubState
     public var tp(default, set):Float = 0;
 
     public var battleTheme = 'rudebuster.ogg';
-    public function new()
+    public var encounter:String;
+    public function new(encounter:String, camera:FlxCamera)
     {
         super();
+        this.encounter = encounter;
+        this.camera = camera;
+
         add(battleSystem);
 
         bScript = new RuleScript(new HxParser());
@@ -38,9 +42,6 @@ class BattleSubState extends FlxSubState
         bScript.variables.set('battle', this);
         
         (bScript.variables.exists('setup')) ? bScript.variables.get('setup')() : throw 'The battle script does not have a setup() function.';
-
-        var awa = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-        add(awa);
         
         bg = new Background();
         add(bg);

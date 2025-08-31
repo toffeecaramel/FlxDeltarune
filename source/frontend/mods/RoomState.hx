@@ -1,5 +1,8 @@
 package frontend.mods;
 
+import game.battle.BattleSubState;
+import flixel.sound.FlxSound;
+import flixel.util.FlxTimer;
 import backend.game.Ally;
 import flixel.util.FlxSort;
 import flixel.math.FlxPoint;
@@ -9,6 +12,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.editors.tiled.*;
 import backend.game.Party;
+import flixel.FlxCamera;
 
 class RoomState extends FlxState
 {
@@ -18,6 +22,9 @@ class RoomState extends FlxState
     public var colliders:Array<FlxObject> = [];
     public var startPos:FlxPoint;
     public var zSortableGroup:FlxTypedGroup<FlxObject> = new FlxTypedGroup<FlxObject>();
+
+    public var gameCAM:FlxCamera;
+    public var hudCAM:FlxCamera = new FlxCamera();
 
     //-----Initialization-----//
 
@@ -33,6 +40,11 @@ class RoomState extends FlxState
         loadTilemap();
         add(zSortableGroup);
         initParty();
+
+        gameCAM = FlxG.camera;
+
+        FlxG.cameras.add(hudCAM, false);
+        hudCAM.bgColor = 0x00000000;
     }
 
     function initParty()
@@ -171,6 +183,10 @@ class RoomState extends FlxState
         }
         // z layering
         zSortableGroup.sort(sortByDepth);
+
+        #if debug
+        if(FlxG.keys.justPressed.B) callBattle();
+        #end
     }
 
     function sortByDepth(order:Int, a:FlxObject, b:FlxObject):Int
@@ -227,6 +243,31 @@ class RoomState extends FlxState
                 leader.animation.curAnim.pause();
             }
         }
+    }
+
+    var tension:FlxSound;
+    public function callBattle():Void
+    {
+        tension = new FlxSound().loadEmbedded(Asset.sound('sounds/battle/tensionhorn.wav'), false);
+        tension.play();
+
+        // timer for the tension sfx
+        // you can change the number below if you want it
+        // to play more than one time :D
+        // just remember to adjust the timer that opens the battle substate
+        new FlxTimer().start(0.3, _ ->{
+            if(tension.playing)tension.stop();
+            tension.pitch += 0.1;
+
+            tension.play();
+        }, 1);
+
+        // open the battle substate
+        new FlxTimer().start(0.8, _ -> {
+            openSubState(new BattleSubState('RoaringKnight', hudCAM));
+            for(memb in party.members)
+                memb.visible = false;
+        });
     }
 
     // very simple. deltarune collisions are actually super simple.

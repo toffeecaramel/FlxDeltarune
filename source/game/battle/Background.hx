@@ -1,5 +1,6 @@
 package game.battle;
 
+import flixel.util.FlxColor;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
@@ -15,12 +16,16 @@ class Background extends FlxSpriteGroup
     {
         super();
 
+        var awa = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+        awa.alpha = 0.0001;
+        add(awa);
+
         for(i in 0...2)
         {
             final graphic = Asset.image('battle/bg/squareloop_${(i == 0) ? 'one' : 'two'}');
             var okay = new FlxBackdrop();
             okay.loadGraphic(graphic);
-            okay.alpha = toAlpha;
+            okay.alpha = 0.0001;
             add(okay);
             loops.push(okay);
         }
@@ -33,7 +38,7 @@ class Background extends FlxSpriteGroup
     {
         super.update(delta);
 
-        for(i in 0...loops.length)
-            loops[i].alpha = FlxMath.lerp(loops[i].alpha, toAlpha, delta * 3);
+        for(i in 0...this.members.length)
+            this.members[i].alpha = FlxMath.lerp(this.members[i].alpha, toAlpha, delta * 3);
     }
 }
