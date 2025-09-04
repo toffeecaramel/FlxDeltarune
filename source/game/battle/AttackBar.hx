@@ -17,12 +17,12 @@ class AttackBar extends FlxSpriteContainer
     /**
      * The bar sprite.
      */
-    private var bar = new FlxSprite().loadGraphic(Asset.image('battle/ui/fightBar'));
+    private var bar = new FlxSprite().loadGraphic(Asset.image('battle/UI/fightBar'));
 
     /**
      * The button (hit) sprite.
      */
-    private var button = new FlxSprite().loadGraphic(Asset.image('battle/ui/fightBar-button'), true, 10, 38);
+    private var button = new FlxSprite().loadGraphic(Asset.image('battle/UI/fightBar-button'), true, 10, 38);
 
     /**
      * Signal dispatched when the player presses a key.
