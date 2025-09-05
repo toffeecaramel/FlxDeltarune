@@ -26,4 +26,4 @@ function postCreate()
     battle.preStart();
 
     new FlxTimer().start(2, (_)->battle.start());
-}
+}   

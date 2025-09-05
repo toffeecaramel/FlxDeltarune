@@ -8,6 +8,8 @@ import haxe.io.Path;
 class CharBase extends FlxSprite
 {
     var charPath(default, set):String = 'kris';
+    var mainName(default, set):String = 'kris';
+    var variant(default, set):String = 'normal';
     var modName:String = '';
     var adjustedHitbox(default, set):Bool = false;
 
@@ -33,12 +35,9 @@ class CharBase extends FlxSprite
         return this.adjustedHitbox;
     }
 
-    @:noCompletion function set_charPath(char:String):String
+    function updateGraphics()
     {
-        this.charPath = char;
-        var charName = char.split('/')[0];
-        var charVariant = char.split('/')[1];
-        var path = 'mods/$modName/Characters/${Path.normalize(char)}/$charName-$charVariant';
+        var path = 'mods/$modName/Characters/${Path.normalize(charPath)}/$mainName-$variant';
         final data:CharData = Asset.loadJSON('$path-data');
         this.frames = Asset.getOutSourcedAtlas(path);
 
@@ -54,7 +53,31 @@ class CharBase extends FlxSprite
 
         antialiasing = data?.antialiasing ?? false;
 
-        updateHitbox();
+        updateHitbox();    
+    }
+
+    @:noCompletion function set_variant(variant:String):String
+    {
+        this.variant = variant;
+        updateGraphics();
+
+        return this.variant;
+    }
+
+    @:noCompletion function set_mainName(name:String):String
+    {
+        this.mainName = name;
+        updateGraphics();
+
+        return this.mainName;
+    }
+
+    @:noCompletion function set_charPath(char:String):String
+    {
+        this.charPath = char;
+        mainName = char.split('/')[0];
+        variant = char.split('/')[1];
+        updateGraphics();
 
         return this.charPath;
     }
