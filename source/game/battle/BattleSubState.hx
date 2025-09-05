@@ -36,12 +36,10 @@ class BattleSubState extends FlxSubState
 
         add(battleSystem);
 
-        bScript = new RuleScript(new HxParser());
-        bScript.scriptName = 'BATTLE SCRIPT';
-        bScript.tryExecute(Asset.getText('data/battles/TestBattle.hx'));
-        bScript.variables.set('battle', this);
+        bScript = Asset.script('mods/${currentMod.info.modName}/Encounters/$encounter', currentMod.info.bytecodeInterp);
+        setScriptVar(bScript, 'battle', this);
         
-        (bScript.variables.exists('setup')) ? bScript.variables.get('setup')() : throw 'The battle script does not have a setup() function.';
+        callScriptMethod(bScript, 'setup', true);
         
         bg = new Background();
         add(bg);
@@ -49,7 +47,7 @@ class BattleSubState extends FlxSubState
         
         addUI();
 
-        (bScript.variables.exists('postCreate')) ? bScript.variables.get('postCreate')() : null;
+        callScriptMethod(bScript, 'postCreate', true);
         FlxG.sound.play(Asset.sound('sounds/battle/weaponpull.wav'));
     }
 
