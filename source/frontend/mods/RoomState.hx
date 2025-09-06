@@ -60,9 +60,7 @@ class RoomState extends FlxState
             zSortableGroup.add(member);
             if (member != party.leader)
                 member.delay = memberID * 20;
-            member.setGraphicSize(map.tileWidth, map.tileWidth * 2);
             member.updateHitbox();
-            // Fix the hitbox after updating it
             member.adjustedHitbox = true;
         }
 
@@ -107,9 +105,9 @@ class RoomState extends FlxState
                     }
                     if (!set)
                         zLayers.push({layer: tilemap, id: id, objLayer: null});
-                }else
+                } else
                     add(tilemap);
-            }else{
+            } else {
                 if (layer is TiledObjectLayer)
                 {
                     var objLayer:TiledObjectLayer = cast layer;
@@ -128,20 +126,18 @@ class RoomState extends FlxState
                         }
                         if (!set)
                             zLayers.push({layer: null, id: id, objLayer: objLayer});
-                    }else{
+                    } else {
                         if (objLayer.name.startsWith('_COLLIDERS'))
                         {
-                            for (obj in objLayer.objects){
+                            for (obj in objLayer.objects) {
                                 var collider = new FlxObject(obj.x, obj.y, obj.width, obj.height);
                                 collider.immovable = true;
                                 colliders.push(collider);
                             }
-                        }else{
-                            if (objLayer.name.startsWith('_SPAWN'))
-                            {
-                                for (obj in objLayer.objects)
-                                    startPos = new FlxPoint(obj.x, obj.y);
-                            }
+                        } else if (objLayer.name.startsWith('_SPAWN'))
+                        {
+                            for (obj in objLayer.objects)
+                                startPos = new FlxPoint(obj.x, obj.y);
                         }
                     }
                 }
@@ -149,11 +145,11 @@ class RoomState extends FlxState
         }
         for (zLayer in zLayers)
         {
-            if (zLayer.layer == null || zLayer.objLayer == null){
+            if (zLayer.layer == null || zLayer.objLayer == null) {
                 trace('ZLayer ' + zLayer.id + ' has no layer or object layer to pair with it. This layer will fail to load and become invisible.');
                 continue;
             }
-            for (obj in zLayer.objLayer.objects){
+            for (obj in zLayer.objLayer.objects) {
                 var poly = obj.points;
                 var tileLayer = zLayer.layer;
                 var x = tileLayer.x;
@@ -170,7 +166,7 @@ class RoomState extends FlxState
 
     override public function update(elapsed:Float) {
         super.update(elapsed);
-        for (member in party.members){
+        for (member in party.members) {
             if (member != party.leader) {
                 var newPos = new FlxPoint(party.leader.x, party.leader.y);
                 if (member.targetTrail.length == 0 || !member.targetTrail[member.targetTrail.length - 1].equals(newPos)) {
@@ -185,7 +181,7 @@ class RoomState extends FlxState
         zSortableGroup.sort(sortByDepth);
 
         #if debug
-        if(FlxG.keys.justPressed.B) callBattle();
+        if (FlxG.keys.justPressed.B) callBattle();
         #end
     }
 
@@ -198,6 +194,7 @@ class RoomState extends FlxState
 
     function getSortY(obj:FlxObject):Float
     {
+        if(obj == null) return 0;
         if (Std.isOfType(obj, FlxSpriteGroup))
         {
             var group:FlxSpriteGroup = cast obj;
@@ -252,25 +249,22 @@ class RoomState extends FlxState
         tension.play();
 
         // timer for the tension sfx
-        // you can change the number below if you want it
-        // to play more than one time :D
-        // just remember to adjust the timer that opens the battle substate
-        new FlxTimer().start(0.3, _ ->{
-            if(tension.playing)tension.stop();
+        new FlxTimer().start(0.3, _ -> {
+            if (tension.playing) tension.stop();
             tension.pitch += 0.1;
-
             tension.play();
         }, 1);
 
         // open the battle substate
         new FlxTimer().start(0.8, _ -> {
-            openSubState(new BattleSubState('RoaringKnight', hudCAM));
-            for(memb in party.members)
-                memb.visible = false;
+            for (member in party.members)
+                if (zSortableGroup.members.contains(member))
+                    zSortableGroup.remove(member);
+            
+            openSubState(new BattleSubState('RoaringKnight', party, hudCAM, zSortableGroup));
         });
     }
 
-    // very simple. deltarune collisions are actually super simple.
     function collision() {
         for (collider in colliders)
             FlxG.collide(party.leader, collider);

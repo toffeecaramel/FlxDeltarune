@@ -37,7 +37,7 @@ class CharBase extends FlxSprite
 
     function updateGraphics()
     {
-        var path = 'mods/$modName/Characters/${Path.normalize(charPath)}/$mainName-$variant';
+        var path = 'mods/$modName/Characters/$mainName/$variant/$mainName-$variant';
         final data:CharData = Asset.loadJSON('$path-data');
         this.frames = Asset.getOutSourcedAtlas(path);
 

@@ -19,7 +19,13 @@ class Follower extends CharBase {
      */
     public var delay:Int = 10;
     
-    override public function update(elapsed:Float):Void {
+    override public function update(elapsed:Float):Void
+    {
+        // fixes a crash.
+        // prevents to update pos and anim when in battle mode
+        if(variant != 'normal')
+            return super.update(elapsed);
+
         var oldX = x;
         var oldY = y;
 
