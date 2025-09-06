@@ -58,7 +58,7 @@ class BattleSubState extends FlxSubState
                 member.variant = 'battle'; // Todo :3
                 battleGroup.add(member);
             } else {
-                trace('Warning: Null party member at index $memberID');
+                Logger.warn('Warning: Null party member at index $memberID');
             }
         }
 
@@ -153,7 +153,7 @@ class BattleSubState extends FlxSubState
     @:noCompletion public function set_tp(tp:Float):Float
     {
         this.tp = tpBar.tp = battleSystem.tp = FlxMath.bound(tp, 0, 100);
-        trace(this.tp);
+        Logger.debug(this.tp);
         return this.tp;
     }
 }

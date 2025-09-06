@@ -146,7 +146,7 @@ class RoomState extends FlxState
         for (zLayer in zLayers)
         {
             if (zLayer.layer == null || zLayer.objLayer == null) {
-                trace('ZLayer ' + zLayer.id + ' has no layer or object layer to pair with it. This layer will fail to load and become invisible.');
+                Logger.error('ZLayer ' + zLayer.id + ' has no layer or object layer to pair with it. This layer will fail to load and become invisible.');
                 continue;
             }
             for (obj in zLayer.objLayer.objects) {

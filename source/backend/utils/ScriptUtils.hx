@@ -16,7 +16,7 @@ class ScriptUtils
     public static function callScriptMethod(script:RuleScript, methodName:String, warnOnFail:Bool = false):Dynamic{
         var method = getScriptVar(script, methodName, warnOnFail);
         if (method != null) return method();
-        if (warnOnFail) trace('Could not call method: $methodName');
+        if (warnOnFail) Logger.error('Could not call method: $methodName');
         return null;
     }
 
@@ -29,12 +29,12 @@ class ScriptUtils
      */
     public static function getScriptVar(script:RuleScript, variableName:String, warnOnFail:Bool = false):Dynamic {
         if (script == null){
-            if (warnOnFail) trace('Could not call method $variableName on a null script.');
+            if (warnOnFail) Logger.error('Could not call method $variableName on a null script.');
             return null;
         }
         if (script.variables.exists(variableName))
             return script.variables.get(variableName);
-        if (warnOnFail) trace('Could not find variable: $variableName');
+        if (warnOnFail) Logger.error('Could not find variable: $variableName');
         return null;
     }
 

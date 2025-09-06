@@ -1,6 +1,7 @@
 package;
 
 import flixel.util.FlxTimer;
+import DebugConsole.Logger;
 
 function setup()
 {
@@ -18,7 +19,7 @@ function setup()
         }
     ];
 
-    trace(battle.battleSystem.acts);
+    Logger.debug(battle.battleSystem.acts);
 }
 
 function postCreate()

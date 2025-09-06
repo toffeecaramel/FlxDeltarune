@@ -29,5 +29,6 @@ class Main extends Sprite
 		var console = new DebugConsole(800, 400);
 		console.visible = true;
 		addChild(console);
+		Logger.init(console);
 	}
 }

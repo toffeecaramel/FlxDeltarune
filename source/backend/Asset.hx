@@ -51,7 +51,7 @@ class Asset
         if (graphicCache.exists(path)) return graphicCache.get(path);
         if (!exists(path, IMAGE))
         {
-            trace('[Asset] Missing image: $path || Called from: ${_.fileName}:${_.methodName}');
+            Logger.error('[Asset] Missing image: $path || Called from: ${_.fileName}:${_.methodName}');
             return null;
         }
         var bmp = BitmapData.fromFile(path);
@@ -105,7 +105,7 @@ class Asset
         if (soundCache.exists(path)) return soundCache.get(path);
         if (!exists(path, SOUND))
         {
-            trace('[Asset] Missing sound: $path');
+            Logger.error('[Asset] Missing sound: $path');
             return null;
         }
         var snd = Sound.fromFile(path);

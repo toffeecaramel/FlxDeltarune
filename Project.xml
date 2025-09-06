@@ -57,6 +57,7 @@
         <haxeflag name="--macro" value="include('lunarps')" />
         <haxeflag name="--macro" value="include('backend')" />
         <haxeflag name="--macro" value="include('frontend')" />
+		<haxeflag name="--macro" value="include('DebugConsole.Logger')" />
     </section>
 	
 	<!--Enable the Flixel core recording system-->

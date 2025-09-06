@@ -78,7 +78,7 @@ class ModSelectState extends FlxState {
 			    FlxG.cameras.add(camera, false);
 			    modScripts[modID] = script;
             }else{
-                trace('A null camera from "${mod.info.modName}" kept the mod from loading. Please check its ModMenu/ModMenu.mhx file.');
+                Logger.error('A null camera from "${mod.info.modName}" kept the mod from loading. Please check its ModMenu/ModMenu.mhx file.');
             }
 		}
 	}
@@ -94,7 +94,7 @@ class ModSelectState extends FlxState {
 	}
 
 	function modSelected() {
-		trace('Mod chosen: ' + mods[selected].info.modName);
+		Logger.info('Mod chosen: ' + mods[selected].info.modName);
         currentMod = mods[selected];
         for (modID in 0...mods.length)
         {
