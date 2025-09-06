@@ -69,6 +69,21 @@ class RoomState extends FlxState
         FlxG.camera.follow(party.leader, LOCKON, 1);
         FlxG.camera.focusOn(party.leader.getPosition());
         FlxG.camera.zoom = 1;
+
+        // DId this to fix a dumb issue when engaging in battle. >:T
+        FlxG.camera.visible = false;
+        new FlxTimer().start(0.05, _ -> {
+            FlxG.camera.visible = true;
+            for(m in party.members)
+                m.variant = 'battle';
+            FlxG.camera.follow(null);
+
+            FlxG.camera.follow(party.leader, LOCKON, 1);
+            for(m in party.members)
+                m.variant = 'normal';
+
+            FlxG.camera.visible = true;
+        });
     }
 
     function loadTilemap()

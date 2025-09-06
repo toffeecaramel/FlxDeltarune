@@ -30,5 +30,8 @@ class Main extends Sprite
 		console.visible = false;
 		addChild(console);
 		Logger.init(console);
+
+		FlxG.updateFramerate = FlxG.drawFramerate = 30;
+		FlxG.fixedTimestep = true;
 	}
 }
