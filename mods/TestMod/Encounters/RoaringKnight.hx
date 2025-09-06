@@ -20,12 +20,15 @@ function setup()
     ];
 
     Logger.debug(battle.battleSystem.acts);
-    battle.setAlliesDefaultPos();
+    battle.setAlliesDefaultPos(); 
 }
 
 function postCreate()
 {
     battle.preStart();
-
-    new FlxTimer().start(2, (_)->battle.start());
+    var party = battle.battleSystem.party;
+    for(p in party.members)
+        p.animation.play((p.mainName != 'ralsei') ? 'attack' : 'fight-engage', true);
+    
+    new FlxTimer().start(1, (_)->battle.start());
 }   

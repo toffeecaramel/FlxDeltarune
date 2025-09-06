@@ -166,6 +166,7 @@ class RoomState extends FlxState
 
     //-----Update-----//
 
+    var debugTrig:Bool = false;
     override public function update(elapsed:Float) {
         if(inBattle) return;
         super.update(elapsed);
@@ -185,6 +186,29 @@ class RoomState extends FlxState
 
         #if debug
         if (FlxG.keys.justPressed.B) callBattle();
+
+        if(FlxG.keys.justPressed.L)
+            for(member in party.members)
+                Logger.debug('Member: ${member.mainName}, Pos: (${member.x}, ${member.y}), Trail Length: ${member.targetTrail.length}');
+
+        if(FlxG.keys.justPressed.T)
+        {
+            debugTrig = !debugTrig;
+            for(member in party.members)
+            {
+                member.variant = debugTrig ? 'battle' : 'normal';
+                member.animation.play(debugTrig ? 'fight-engage' : 'walk-right', true);
+            }
+
+            if(debugTrig)
+                gameCAM.follow(null);
+            else
+                gameCAM.follow(party.leader, LOCKON, 1);
+        }
+
+        if(FlxG.keys.justPressed.PLUS)
+            for(member in party.members)
+                member.x += 50;
         #end
     }
 

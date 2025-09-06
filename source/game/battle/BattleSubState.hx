@@ -167,7 +167,7 @@ class BattleSubState extends FlxSubState
                     Logger.warn('No position found for char ${char.mainName}, skipping...');
                     continue;
                 }
-                FlxTween.tween(char, {x: p.x, y: p.y}, 0.4);
+                FlxTween.tween(char, {x: p.x, y: p.y}, 0.24);
             }
         }
     }
@@ -176,6 +176,8 @@ class BattleSubState extends FlxSubState
     {
         FlxG.sound.playMusic(Asset.sound('music/$battleTheme'));
         FlxTween.tween(box, {y: FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
+        for(p in battleSystem.party.members)
+            p.animation.play('idle-loop', true);
     }
 
     override public function update(delta:Float)
@@ -209,16 +211,16 @@ class BattleSubState extends FlxSubState
     // ugly functions for the last, amirite :3
     function setCoolPositions()
     {
-        final offset = 76;
-        final leftX = offset;
+        final offset = 96;
+        final leftX = offset + 32;
         final midX = FlxG.width / 2 - offset;
         final rightX = FlxG.width - offset;
 
-        final battleTop = -32;
-        final battleHeight = FlxG.height - box.height + 80 - battleTop;
+        final battleTop = 16;
+        final battleHeight = FlxG.height - box.height - battleTop;
 
         final topY = battleTop + (battleHeight * (1 / 6));
-        final midY = battleTop + (battleHeight * (3 / 6));
+        final midY = battleTop + (battleHeight * (3 / 6)) - offset / 2 + 32;
         final bottomY = battleTop + (battleHeight * (5 / 6)) - offset;
 
         positions.set(TOP_LEFT, FlxPoint.get(leftX, topY));

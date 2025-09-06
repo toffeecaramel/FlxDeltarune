@@ -49,11 +49,15 @@ class CharBase extends FlxSprite
             : this.animation.addByPrefix(anim.name, anim.prefix, anim?.fps ?? 24, anim?.looped ?? false);
         }
 
+        if(data.scale != null)
         scale.set(data?.scale[0] ?? 1, data?.scale[1] ?? 1);
 
         antialiasing = data?.antialiasing ?? false;
 
-        updateHitbox();    
+        updateHitbox();
+        if(data.offset != null)
+        offset.set(-data?.offset[0] ?? 0, -data?.offset[1] ?? 0);
+        else offset.set(0, 0);
     }
 
     @:noCompletion function set_variant(variant:String):String
@@ -85,6 +89,7 @@ class CharBase extends FlxSprite
 
 typedef CharData = {
     var scale:Array<Float>;
+    var ?offset:Array<Float>;
     var antialiasing:Bool;
     var animations:Array<CharAnim>;
 }
