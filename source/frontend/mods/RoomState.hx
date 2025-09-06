@@ -23,6 +23,8 @@ class RoomState extends FlxState
     public var startPos:FlxPoint;
     public var zSortableGroup:FlxTypedGroup<FlxObject> = new FlxTypedGroup<FlxObject>();
 
+    public var inBattle:Bool = false;
+
     public var gameCAM:FlxCamera;
     public var hudCAM:FlxCamera = new FlxCamera();
 
@@ -66,7 +68,7 @@ class RoomState extends FlxState
 
         FlxG.camera.follow(party.leader, LOCKON, 1);
         FlxG.camera.focusOn(party.leader.getPosition());
-        FlxG.camera.zoom = 2;
+        FlxG.camera.zoom = 1;
     }
 
     function loadTilemap()
@@ -165,6 +167,7 @@ class RoomState extends FlxState
     //-----Update-----//
 
     override public function update(elapsed:Float) {
+        if(inBattle) return;
         super.update(elapsed);
         for (member in party.members) {
             if (member != party.leader) {
@@ -245,6 +248,7 @@ class RoomState extends FlxState
     var tension:FlxSound;
     public function callBattle():Void
     {
+        inBattle = true;
         tension = new FlxSound().loadEmbedded(Asset.sound('sounds/battle/tensionhorn.wav'), false);
         tension.play();
 
@@ -261,6 +265,7 @@ class RoomState extends FlxState
                 if (zSortableGroup.members.contains(member))
                     zSortableGroup.remove(member);
             
+            gameCAM.follow(null);
             openSubState(new BattleSubState('RoaringKnight', party, hudCAM, zSortableGroup));
         });
     }

@@ -20,6 +20,7 @@ function setup()
     ];
 
     Logger.debug(battle.battleSystem.acts);
+    battle.setAlliesDefaultPos();
 }
 
 function postCreate()

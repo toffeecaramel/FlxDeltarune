@@ -15,32 +15,48 @@ import rulescript.*;
 import rulescript.parsers.*;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxCamera;
+import flixel.math.FlxPoint;
+
+enum BattlePosition
+{
+    TOP_LEFT;
+    MID_LEFT;
+    BOTTOM_LEFT;
+    TOP_MID;
+    CENTER;
+    BOTTOM_MID;
+    TOP_RIGHT;
+    MID_RIGHT;
+    BOTTOM_RIGHT;
+}
 
 class BattleSubState extends FlxSubState
 {
     var bg:Background;
+
     public var battleSystem:BattleSystem;
     public var bScript:RuleScript;
     public var tp(default, set):Float = 0;
     public var battleTheme = 'rudebuster.ogg';
     public var encounter:String;
-    var battleGroup:FlxTypedGroup<CharBase>;
-    var oldGroup:FlxTypedGroup<FlxObject>;
+    public var charPositions:Map<CharBase, FlxPoint> = []; 
+    public var positions:Map<BattlePosition, FlxPoint> = [];
 
-    public function new(encounter:String, party:Party, camera:FlxCamera, zSortableGroup:FlxTypedGroup<FlxObject>)
+    public var battleGroup:FlxTypedGroup<CharBase>;
+    public var oldGroup:FlxTypedGroup<FlxObject>;
+
+    public function new(encounter:String, party:Party, camera:FlxCamera, oldGroup:FlxTypedGroup<FlxObject>)
     {
         super();
         this.encounter = encounter;
         this.camera = camera;
-        this.oldGroup = zSortableGroup;
+        this.oldGroup = oldGroup;
 
         battleSystem = new BattleSystem(party);
         add(battleSystem);
 
         bScript = Asset.script('mods/${currentMod.info.modName}/Encounters/$encounter', currentMod.info.bytecodeInterp);
         setScriptVar(bScript, 'battle', this);
-        
-        callScriptMethod(bScript, 'setup', true);
         
         bg = new Background();
         add(bg);
@@ -57,12 +73,13 @@ class BattleSubState extends FlxSubState
                 member.scrollFactor.set();
                 member.variant = 'battle'; // Todo :3
                 battleGroup.add(member);
-            } else {
-                Logger.warn('Warning: Null party member at index $memberID');
-            }
+            } else
+                Logger.warn('Null party member at index $memberID');
         }
 
         addUI();
+        setCoolPositions();
+        callScriptMethod(bScript, 'setup', true);
 
         callScriptMethod(bScript, 'postCreate', true);
         FlxG.sound.play(Asset.sound('sounds/battle/weaponpull.wav'));
@@ -117,15 +134,47 @@ class BattleSubState extends FlxSubState
         box.y = upperBox.y = FlxG.height + (box.height * 2);
     }
 
+    public function setAlliesDefaultPos()
+    {
+        Logger.info('Setting default positions for allies.');
+        var allyPositions = [TOP_LEFT, MID_LEFT, BOTTOM_LEFT];
+        for(i in 0...battleSystem.party.members.length)
+        {
+            var ally = battleSystem.party.members[i];
+            final posEnum = (i < allyPositions.length) ? allyPositions[i] : null;
+            if (posEnum == null) {
+                Logger.warn('No default position for ally at index $i, skipping...');
+                continue;
+            }
+            var pos = positions.get(posEnum);
+            if (pos == null){
+                Logger.warn('No position found for enum $posEnum, skipping...');
+                continue;
+            }
+            charPositions.set(ally, pos.clone());
+        }
+    }
+
     public function preStart()
     {
         FlxG.sound.play(Asset.sound('sounds/battle/weaponpull.wav'));
+        for(char in battleGroup.members)
+        {
+            if(char is CharBase)
+            {
+                final p = charPositions.get(char);
+                if (p == null){
+                    Logger.warn('No position found for char ${char.mainName}, skipping...');
+                    continue;
+                }
+                FlxTween.tween(char, {x: p.x, y: p.y}, 0.4);
+            }
+        }
     }
 
     public function start()
     {
         FlxG.sound.playMusic(Asset.sound('music/$battleTheme'));
-
         FlxTween.tween(box, {y: FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
     }
 
@@ -155,5 +204,31 @@ class BattleSubState extends FlxSubState
         this.tp = tpBar.tp = battleSystem.tp = FlxMath.bound(tp, 0, 100);
         Logger.debug(this.tp);
         return this.tp;
+    }
+
+    // ugly functions for the last, amirite :3
+    function setCoolPositions()
+    {
+        final offset = 76;
+        final leftX = offset;
+        final midX = FlxG.width / 2 - offset;
+        final rightX = FlxG.width - offset;
+
+        final battleTop = -32;
+        final battleHeight = FlxG.height - box.height + 80 - battleTop;
+
+        final topY = battleTop + (battleHeight * (1 / 6));
+        final midY = battleTop + (battleHeight * (3 / 6));
+        final bottomY = battleTop + (battleHeight * (5 / 6)) - offset;
+
+        positions.set(TOP_LEFT, FlxPoint.get(leftX, topY));
+        positions.set(MID_LEFT, FlxPoint.get(leftX, midY));
+        positions.set(BOTTOM_LEFT, FlxPoint.get(leftX, bottomY));
+        positions.set(TOP_MID, FlxPoint.get(midX, topY));
+        positions.set(CENTER, FlxPoint.get(midX, midY));
+        positions.set(BOTTOM_MID, FlxPoint.get(midX, bottomY));
+        positions.set(TOP_RIGHT, FlxPoint.get(rightX, topY));
+        positions.set(MID_RIGHT, FlxPoint.get(rightX, midY));
+        positions.set(BOTTOM_RIGHT, FlxPoint.get(rightX, bottomY));
     }
 }

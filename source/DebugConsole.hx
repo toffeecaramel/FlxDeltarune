@@ -13,6 +13,12 @@ import haxe.Log;
 
 using StringTools;
 
+/**
+ * A simple in-game debug console.
+ * Supports logging messages with different severity levels,
+ * scrolling, and toggling visibility.
+ * Also has different colors for different log levels.
+ */
 class DebugConsole extends Sprite
 {
     private var logText:TextField;
@@ -39,7 +45,7 @@ class DebugConsole extends Sprite
         logText = new TextField();
         var format = new TextFormat("_sans", 16, 0xFFFFFF);
         logText.defaultTextFormat = format;
-        logText.htmlText = ""; // Enable HTML mode
+        logText.htmlText = "";
         logText.width = width - 20;
         logText.height = height;
         logText.multiline = true;
@@ -59,7 +65,7 @@ class DebugConsole extends Sprite
 
         // Scroll thumb
         scrollThumb = new Sprite();
-        updateThumbGraphics(50); // Initial
+        updateThumbGraphics(50);
         scrollThumb.x = width - 20;
         scrollThumb.y = 0;
         scrollThumb.buttonMode = true;
@@ -85,15 +91,12 @@ class DebugConsole extends Sprite
     }
 
     public function addLog(level:String, text:String):Void {
-        var color = getHtmlColor(level);
-        var levelUpper = level.toUpperCase();
-        var decoratedLevel = '<font color="' + color + '"><b>[' + levelUpper + ']</b></font>';
-        var decoratedText = '<font color="' + color + '">' + StringTools.htmlEscape(text) + '</font>'; // Escape to prevent HTML issues
+        final color = getHtmlColor(level);
+        final decoratedLevel = '<font color="' + color + '"><b>[' + level.toUpperCase() + ']</b></font>';
+        final decoratedText = '<font color="' + color + '">' + StringTools.htmlEscape(text) + '</font>';
         logText.htmlText += decoratedLevel + ' ' + decoratedText + "<br/>";
 
-        var wasAtBottom:Bool = (logText.scrollV >= logText.maxScrollV);
-
-        if (wasAtBottom)
+        if ((logText.scrollV >= logText.maxScrollV))
             logText.scrollV = logText.maxScrollV;
 
         updateThumb();
@@ -101,8 +104,8 @@ class DebugConsole extends Sprite
 
     private function getHtmlColor(level:String):String {
         return switch (level.toUpperCase()) {
-            case "INFO": "#0000FF";
-            case "DEBUG": "#00FF00";
+            case "INFO": "#5c74ff";
+            case "DEBUG": "#6efa55";
             case "WARNING": "#FFFF00";
             case "ERROR": "#FF0000";
             default: "#FFFFFF";

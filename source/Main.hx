@@ -27,7 +27,7 @@ class Main extends Sprite
 		addChild(new FlxGame(0, 0, Debugger));
         FlxG.autoPause = false;
 		var console = new DebugConsole(800, 400);
-		console.visible = true;
+		console.visible = false;
 		addChild(console);
 		Logger.init(console);
 	}
