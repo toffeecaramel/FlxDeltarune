@@ -70,6 +70,8 @@ class Panel extends FlxSpriteContainer
      */
     public final onAction = new FlxTypedSignal<(action:String)->Void>();
 
+    final curMod = currentMod.info.modName;
+
     /**
      * Creates a panel and updates the data.
      * @param x X Position.
@@ -81,7 +83,7 @@ class Panel extends FlxSpriteContainer
         super(x, y);
         this.character = character;
 
-        data = Asset.loadJSON('data/battleCharsData/$character');
+        data = Asset.loadJSON('mods/$curMod/Characters/$character/battle/info');
         mainCol = FlxColor.fromRGB(data.mainColor[0], data.mainColor[1], data.mainColor[2]);
         add(panelBack);
         for(i in 0...8)
@@ -120,11 +122,11 @@ class Panel extends FlxSpriteContainer
 
         panelFront.color = mainCol;
         add(panelFront);
-
-        icon.loadGraphic(Asset.image('chars/$character/icons/normal'));
+    
+        icon.loadGraphic(Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/normal'));
         add(icon);
 
-        label.loadGraphic(Asset.image('chars/$character/icons/displayName'));
+        label.loadGraphic(Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/displayName'));
         add(label);
         
         changeSelection();
