@@ -24,7 +24,7 @@ class Main extends Sprite
         }
         */
 		//addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
-		addChild(new FlxGame(0, 0, Debugger));
+		addChild(new FlxGame(0, 0, game.editors.RoomEditor));
         FlxG.autoPause = false;
 
 		//fixes some stuff, but looks weird on fullscreen.
