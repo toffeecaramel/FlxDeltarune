@@ -39,6 +39,9 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
+	
+	<haxelib name="haxeui-flixel" /> <!-- haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel -->
+	<haxelib name="haxeui-core" /> <!-- haxelib git haxeui-core https://github.com/haxeui/haxeui-core -->
 
 	<haxelib name="rulescript"/> <!--haxelib git rulescript https://github.com/Kriptel/RuleScript.git dev-->
     <haxelib name="hscript"/> <!--haxelib git hscript https://github.com/HaxeFoundation/hscript.git-->

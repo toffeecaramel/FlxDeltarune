@@ -1,6 +1,7 @@
 package;
 
 import openfl.display.Sprite;
+import haxe.ui.Toolkit;
 
 class Main extends Sprite
 {
@@ -10,7 +11,10 @@ class Main extends Sprite
 	{
 		super();
 		FlxSprite.defaultAntialiasing = false;
-		
+		Toolkit.init();
+		Toolkit.theme = 'dark';
+		Toolkit.autoScale = false;
+		haxe.ui.focus.FocusManager.instance.autoFocus = false;
 
         // TODO: make this work with the new mods system
 		/*
@@ -23,19 +27,21 @@ class Main extends Sprite
 			}
         }
         */
+		
+		var console = new DebugConsole(800, 400);
+		console.visible = false;
+		Logger.init(console);
+		
 		//addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
 		addChild(new FlxGame(0, 0, game.editors.RoomEditor));
+		addChild(console);
+		
         FlxG.autoPause = false;
 
 		//fixes some stuff, but looks weird on fullscreen.
 		//hm.
 		//alright, I should figure that out later... I guess...
 		//FlxG.scaleMode = new flixel.system.scaleModes.PixelPerfectScaleMode();
-
-		var console = new DebugConsole(800, 400);
-		console.visible = false;
-		addChild(console);
-		Logger.init(console);
 
 		FlxG.updateFramerate = FlxG.drawFramerate = 30;
 		FlxG.fixedTimestep = true;
