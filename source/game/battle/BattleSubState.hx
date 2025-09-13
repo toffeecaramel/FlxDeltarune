@@ -71,7 +71,7 @@ class BattleSubState extends FlxSubState
             if (member != null) {
                 member.setPosition(member.getScreenPosition().x, member.getScreenPosition().y);
                 member.scrollFactor.set();
-                member.variant = 'battle'; // Todo :3
+                member.variant = 'battle';
                 battleGroup.add(member);
             } else
                 Logger.warn('Null party member at index $memberID');
