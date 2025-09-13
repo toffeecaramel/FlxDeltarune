@@ -1,21 +1,21 @@
 package game.battle;
 
+import backend.game.*;
 import backend.game.BattleSystem;
+import flixel.FlxCamera;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.battle.*;
 import game.chars.*;
-import backend.game.*;
 import hscript.Expr.ModuleDecl;
 import hscript.Printer;
 import rulescript.*;
 import rulescript.parsers.*;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.FlxCamera;
-import flixel.math.FlxPoint;
 
 enum BattlePosition
 {
@@ -212,16 +212,16 @@ class BattleSubState extends FlxSubState
     function setCoolPositions()
     {
         final offset = 96;
-        final leftX = offset + 32;
-        final midX = FlxG.width / 2 - offset;
-        final rightX = FlxG.width - offset;
+        final leftX = Std.int(offset + 32);
+        final midX = Std.int(FlxG.width / 2 - offset);
+        final rightX = Std.int(FlxG.width - offset);
 
         final battleTop = 16;
-        final battleHeight = FlxG.height - box.height - battleTop;
+        final battleHeight = Std.int(FlxG.height - box.height - battleTop);
 
-        final topY = battleTop + (battleHeight * (1 / 6));
-        final midY = battleTop + (battleHeight * (3 / 6)) - offset / 2 + 32;
-        final bottomY = battleTop + (battleHeight * (5 / 6)) - offset;
+        final topY = Std.int(battleTop + (battleHeight * (1 / 6)));
+        final midY = Std.int(battleTop + (battleHeight * (3 / 6)) - offset / 2 + 32);
+        final bottomY = Std.int(battleTop + (battleHeight * (5 / 6)) - offset);
 
         positions.set(TOP_LEFT, FlxPoint.get(leftX, topY));
         positions.set(MID_LEFT, FlxPoint.get(leftX, midY));

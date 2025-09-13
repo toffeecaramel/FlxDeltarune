@@ -48,6 +48,8 @@
     <haxelib name="compiletime" />
     <haxelib name="lunarps" /> <!--haxelib git lunarps https://github.com/ZSolarDev/LunarPS -->
 
+    <haxelib name="zerolib-flixel" /> <!-- haxelib install zerolib-flixel -->
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Remove the legacy health system-->

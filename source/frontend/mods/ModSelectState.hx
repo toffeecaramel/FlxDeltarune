@@ -112,7 +112,7 @@ class ModSelectState extends FlxState {
         for (char in 0...chosenMod.info.startingParty.length){
             if (char < 1)
                 leaderIdx = char;
-            partyMembers.push(new Ally(0, 0, chosenMod.info.startingParty[char], chosenMod.info.modName, true));
+            partyMembers.push(new Ally(0, 0, '${chosenMod.info.startingParty[char]}/normal', chosenMod.info.modName, true));
         }
         party = new Party(partyMembers, leaderIdx);
         FlxG.switchState(()->new RoomState(chosenMod.info.startingRoom, party));

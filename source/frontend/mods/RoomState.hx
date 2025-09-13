@@ -1,18 +1,18 @@
 package frontend.mods;
 
-import game.battle.BattleSubState;
-import flixel.sound.FlxSound;
-import flixel.util.FlxTimer;
 import backend.game.Ally;
-import flixel.util.FlxSort;
-import flixel.math.FlxPoint;
-import flixel.tile.FlxTilemap;
-import flixel.addons.tile.FlxTilemapExt;
-import flixel.group.FlxSpriteGroup;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.editors.tiled.*;
 import backend.game.Party;
 import flixel.FlxCamera;
+import flixel.addons.editors.tiled.*;
+import flixel.addons.tile.FlxTilemapExt;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxPoint;
+import flixel.sound.FlxSound;
+import flixel.tile.FlxTilemap;
+import flixel.util.FlxSort;
+import flixel.util.FlxTimer;
+import game.battle.BattleSubState;
 
 class RoomState extends FlxState
 {
@@ -72,7 +72,7 @@ class RoomState extends FlxState
 
         // DId this to fix a dumb issue when engaging in battle. >:T
         FlxG.camera.visible = false;
-        new FlxTimer().start(0.05, _ -> {
+        new FlxTimer().start(0.0001, _ -> {
             FlxG.camera.visible = true;
             for(m in party.members)
                 m.variant = 'battle';
@@ -200,7 +200,7 @@ class RoomState extends FlxState
         zSortableGroup.sort(sortByDepth);
 
         #if debug
-        if (FlxG.keys.justPressed.B) callBattle();
+        if (FlxG.keys.justPressed.B) callBattle(true);
 
         if(FlxG.keys.justPressed.L)
             for(member in party.members)
@@ -285,9 +285,26 @@ class RoomState extends FlxState
     }
 
     var tension:FlxSound;
-    public function callBattle():Void
+    public function callBattle(instant:Bool = false):Void
     {
+        // first time I actually make a function inside a function haha
+        function startAndSwitch()
+        {
+            for (member in party.members)
+                if (zSortableGroup.members.contains(member))
+                    zSortableGroup.remove(member);
+            
+            gameCAM.follow(null);
+            openSubState(new BattleSubState('RoaringKnight', party, hudCAM, zSortableGroup));
+        }
+
         inBattle = true;
+        if(instant)
+        {
+            startAndSwitch();
+            return;
+        }
+
         tension = new FlxSound().loadEmbedded(Asset.sound('sounds/battle/tensionhorn.wav'), false);
         tension.play();
 
@@ -299,14 +316,7 @@ class RoomState extends FlxState
         }, 1);
 
         // open the battle substate
-        new FlxTimer().start(0.8, _ -> {
-            for (member in party.members)
-                if (zSortableGroup.members.contains(member))
-                    zSortableGroup.remove(member);
-            
-            gameCAM.follow(null);
-            openSubState(new BattleSubState('RoaringKnight', party, hudCAM, zSortableGroup));
-        });
+        new FlxTimer().start(0.8, _ -> startAndSwitch());
     }
 
     function collision() {

@@ -1,0 +1,10 @@
+{
+    "antialiasing": false,
+    "scale": [2, 2],
+    "animations":[
+        {"name": "walk-up", "prefix": "up", "fps": 24, "looped": true},
+		{"name": "walk-left", "prefix": "left", "fps": 24, "looped": true},
+		{"name": "walk-down", "prefix": "down", "fps": 24, "looped": true},
+		{"name": "walk-right", "prefix": "right", "fps": 24, "looped": true}
+    ]
+}
