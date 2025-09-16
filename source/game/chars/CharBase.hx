@@ -39,7 +39,7 @@ class CharBase extends FlxSprite
     {
         var path = 'mods/$modName/Characters/$mainName/$variant/$mainName-$variant';
         final data:CharData = Asset.loadJSON('$path-data');
-        this.frames = Asset.getOutSourcedAtlas(path);
+        this.frames = Asset.getOutSourcedAtlas(path, data.sheetType);
 
         for (i in 0...data.animations.length)
         {
@@ -88,6 +88,7 @@ class CharBase extends FlxSprite
 }
 
 typedef CharData = {
+    var sheetType:backend.Asset.AtlasType;
     var scale:Array<Float>;
     var ?offset:Array<Float>;
     var antialiasing:Bool;

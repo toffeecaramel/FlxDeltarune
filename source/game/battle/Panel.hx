@@ -122,8 +122,11 @@ class Panel extends FlxSpriteContainer
 
         panelFront.color = mainCol;
         add(panelFront);
-    
-        icon.loadGraphic(Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/normal'));
+
+        final graph = Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/icon-sheet');
+        icon.loadGraphic(graph, true, Std.int(graph.width / 3), Std.int(graph.height));
+        icon.animation.add('icon', [0, 1, 2], 0);
+        icon.animation.play('icon');
         add(icon);
 
         label.loadGraphic(Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/displayName'));

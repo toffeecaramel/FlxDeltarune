@@ -9,7 +9,8 @@ class UIBox extends FlxUI9SliceSprite
     public var h:Float = 0;
     public function new(?x:Float = 0, ?y:Float = 0, box:String = 'battle')
     {
-        final frame = new Rectangle(0, 0, 150, 150);
-        super(x, y, Asset.image('ui/boxes/$box'), frame, [5, 5, 145, 145]);
+        final graphic = Asset.image('ui/boxes/$box');
+        final frame = new Rectangle(0, 0, graphic.width, graphic.height);
+        super(x, y, graphic, frame, [5, 5, 145, 145]);
     }
 }

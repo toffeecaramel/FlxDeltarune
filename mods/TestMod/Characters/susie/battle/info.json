@@ -1,0 +1,4 @@
+{
+	"mainColor": [0, 255, 255],
+	"acts": ["fight", "act", "item", "spare", "defend"]
+}

@@ -71,10 +71,8 @@ class BattleSubState extends FlxSubState
             if (member != null) {
                 member.setPosition(member.getScreenPosition().x, member.getScreenPosition().y);
                 member.scrollFactor.set();
-                member.variant = 'battle';
                 battleGroup.add(member);
-            } else
-                Logger.warn('Null party member at index $memberID');
+            } else Logger.warn('Null party member at index $memberID');
         }
 
         addUI();
@@ -168,6 +166,7 @@ class BattleSubState extends FlxSubState
                     continue;
                 }
                 FlxTween.tween(char, {x: p.x, y: p.y}, 0.24);
+                char.variant = 'battle';
             }
         }
     }

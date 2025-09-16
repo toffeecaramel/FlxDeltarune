@@ -1,0 +1,457 @@
+{ "frames": {
+   "Susie Battle 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 1.aseprite": {
+    "frame": { "x": 134, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 2.aseprite": {
+    "frame": { "x": 268, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 3.aseprite": {
+    "frame": { "x": 402, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 4.aseprite": {
+    "frame": { "x": 536, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 5.aseprite": {
+    "frame": { "x": 670, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 6.aseprite": {
+    "frame": { "x": 804, "y": 0, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 7.aseprite": {
+    "frame": { "x": 0, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 8.aseprite": {
+    "frame": { "x": 134, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 9.aseprite": {
+    "frame": { "x": 268, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 10.aseprite": {
+    "frame": { "x": 402, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 11.aseprite": {
+    "frame": { "x": 536, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 12.aseprite": {
+    "frame": { "x": 670, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 13.aseprite": {
+    "frame": { "x": 804, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 14.aseprite": {
+    "frame": { "x": 0, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 15.aseprite": {
+    "frame": { "x": 0, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 16.aseprite": {
+    "frame": { "x": 268, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 17.aseprite": {
+    "frame": { "x": 134, "y": 88, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 18.aseprite": {
+    "frame": { "x": 134, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 19.aseprite": {
+    "frame": { "x": 268, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 20.aseprite": {
+    "frame": { "x": 402, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 21.aseprite": {
+    "frame": { "x": 536, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 22.aseprite": {
+    "frame": { "x": 670, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 23.aseprite": {
+    "frame": { "x": 804, "y": 176, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 24.aseprite": {
+    "frame": { "x": 0, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 25.aseprite": {
+    "frame": { "x": 134, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 26.aseprite": {
+    "frame": { "x": 268, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 27.aseprite": {
+    "frame": { "x": 402, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 28.aseprite": {
+    "frame": { "x": 536, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 29.aseprite": {
+    "frame": { "x": 670, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 30.aseprite": {
+    "frame": { "x": 804, "y": 264, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 31.aseprite": {
+    "frame": { "x": 0, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 32.aseprite": {
+    "frame": { "x": 134, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 33.aseprite": {
+    "frame": { "x": 134, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 34.aseprite": {
+    "frame": { "x": 268, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 35.aseprite": {
+    "frame": { "x": 402, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 36.aseprite": {
+    "frame": { "x": 536, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 37.aseprite": {
+    "frame": { "x": 536, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 38.aseprite": {
+    "frame": { "x": 670, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 39.aseprite": {
+    "frame": { "x": 804, "y": 352, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 40.aseprite": {
+    "frame": { "x": 0, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 41.aseprite": {
+    "frame": { "x": 134, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 42.aseprite": {
+    "frame": { "x": 134, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 43.aseprite": {
+    "frame": { "x": 268, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 44.aseprite": {
+    "frame": { "x": 402, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 45.aseprite": {
+    "frame": { "x": 536, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 46.aseprite": {
+    "frame": { "x": 670, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 47.aseprite": {
+    "frame": { "x": 804, "y": 440, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 48.aseprite": {
+    "frame": { "x": 0, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 49.aseprite": {
+    "frame": { "x": 134, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 50.aseprite": {
+    "frame": { "x": 268, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 51.aseprite": {
+    "frame": { "x": 402, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 52.aseprite": {
+    "frame": { "x": 536, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   },
+   "Susie Battle 53.aseprite": {
+    "frame": { "x": 670, "y": 528, "w": 134, "h": 88 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 134, "h": 88 },
+    "sourceSize": { "w": 134, "h": 88 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-dev",
+  "image": "susie-battle.png",
+  "format": "RGBA8888",
+  "size": { "w": 938, "h": 616 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 0, "to": 3, "direction": "forward", "color": "#000000ff" },
+   { "name": "attack", "from": 4, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "act", "from": 8, "to": 17, "direction": "forward", "color": "#000000ff" },
+   { "name": "rude-pre", "from": 18, "to": 21, "direction": "forward", "color": "#000000ff" },
+   { "name": "rude-buster", "from": 22, "to": 42, "direction": "forward", "color": "#000000ff" },
+   { "name": "spin", "from": 43, "to": 48, "direction": "forward", "color": "#000000ff" },
+   { "name": "kill", "from": 49, "to": 53, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

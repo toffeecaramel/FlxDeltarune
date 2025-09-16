@@ -73,21 +73,28 @@ class Asset
     }
 
     /**
-     * Load a Sparrow atlas (JSON + PNG) from `assets/images/<key>.png` & `.xml`.
+     * Loads a animated atlas. (FROM THE ASSETS FOLDER!)
+     * @param key The path to said atlas.
+     * @param type The atlas type. Check `AtlasType` for available types.
      */
-    static function getAtlas(key:String):FlxAtlasFrames
-        return getOutSourcedAtlas('assets/images/$key');
+    static function getAtlas(key:String, type:AtlasType = ANIMATE_ATLAS):FlxAtlasFrames
+        return getOutSourcedAtlas('assets/images/$key', type);
 
     /**
-     * Load a Sparrow atlas (JSON + PNG) from `any/path/here.png` & `.xml`.
+     * Loads a animated atlas.
+     * @param key The path to said atlas.
+     * @param type The atlas type. Check `AtlasType` for available types.
      */
-    static function getOutSourcedAtlas(key:String):FlxAtlasFrames
+    static function getOutSourcedAtlas(key:String, type:AtlasType = ANIMATE_ATLAS):FlxAtlasFrames
     {
         final png = outSourcedImage(key, false);
-        final xmlPath = '$key.xml';
-        if (png == null || !exists(xmlPath, TEXT)) return null;
-        final xml = getText('$key.xml'); // no longer adds images/
-        return FlxAtlasFrames.fromSparrow(png, xml);
+        final atlasFile = '$key.${type}';
+        if (png == null || !exists(atlasFile, TEXT)) return null;
+        final atlas = getText(atlasFile);
+        return switch(type){
+            case ANIMATE_ATLAS: FlxAtlasFrames.fromSparrow(png, atlas);
+            case ASEPRITE_ATLAS: FlxAtlasFrames.fromAseprite(png, atlas);
+        }
     }
 
     /**
@@ -216,4 +223,9 @@ class Asset
         soundCache.clear();
         System.gc();
     }
+}
+
+enum abstract AtlasType(String) {
+    var ANIMATE_ATLAS = 'xml';
+    var ASEPRITE_ATLAS = 'json';
 }
