@@ -17,6 +17,8 @@ class Main extends Sprite
 		haxe.ui.focus.FocusManager.instance.autoFocus = false;
 
         // TODO: make this work with the new mods system
+        // actually I'll scrap this.
+        // I'll do some preloader for mods
 		/*
 		
 		for (mus in preloadMusList){
