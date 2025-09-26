@@ -69,6 +69,7 @@ class TilemapEditor extends FlxState
     var promptLabel:FlxText;
     var selectedFrames:Array<Int> = [];
 
+    var star:FlxSprite;
     public function new(atlasName:String = 'testTilemap', folder:String = 'Tilemaps')
     {
         super();
@@ -130,6 +131,16 @@ class TilemapEditor extends FlxState
         animListText.scrollFactor.set(0, 0);
         animListText.camera = uiCamera;
         add(animListText);
+
+        star = new FlxSprite().loadGraphic(Asset.image('ui/save'), true, 20, 19);
+        star.camera = uiCamera;
+        star.animation.add('loop', [0,1,2,3,4,5], 5, true);
+        star.animation.play('loop');
+        star.scale.set(3, 3);
+        star.updateHitbox();
+        add(star);
+       	star.setPosition(FlxG.width - star.width, FlxG.height - star.height);
+       	star.alpha = 0.0001;
 
         updateOverlay();
         updateAnimList();
@@ -296,12 +307,12 @@ class TilemapEditor extends FlxState
         {
             if (FlxG.keys.justPressed.Q)
             {
-                gridSize = Math.max(1, gridSize / 2);
+                gridSize = Math.max(1, (!FlxG.keys.pressed.SHIFT) ? gridSize / 2 : gridSize - 1);
                 updateOverlay();
             }
             if (FlxG.keys.justPressed.E)
             {
-                gridSize *= 2;
+                (!FlxG.keys.pressed.SHIFT) ? gridSize *= 2 : gridSize += 1;
                 updateOverlay();
             }
 
@@ -442,6 +453,7 @@ class TilemapEditor extends FlxState
                 updateOverlay();
                 updateAnimList();
 
+                FlxG.sound.play(Asset.sound('sounds/battle/damage.wav'));
                 showTempText(frame.pos.x, frame.pos.y, "Deleted!", FlxColor.RED);
                 hitTile = true;
                 break;
@@ -514,12 +526,16 @@ class TilemapEditor extends FlxState
             }
 
             if (overlaps)
+            {
                 showTempText(finalRect.x, finalRect.y, "Space occupied!", FlxColor.RED);
+                FlxG.sound.play(Asset.sound('sounds/battle/hurt.wav'));
+            }
             else
                 promptName(finalRect);
         }
     }
 
+    var check:Bool = false;
     function updateHoverInfo():Void
     {
         hoverText.visible = false;
@@ -528,7 +544,9 @@ class TilemapEditor extends FlxState
             var r = new FlxRect(frame.pos.x, frame.pos.y, frame.size.x, frame.size.y);
             if (r.containsPoint(FlxG.mouse.getWorldPosition()))
             {
-                hoverText.text = frame.name + "\nPos: " + Std.int(frame.pos.x) + ", " + Std.int(frame.pos.y) + "\nSize: " + Std.int(frame.size.x) + ", " + Std.int(frame.size.y);
+            	final oldTxt = frame.name + "\nPos: " + Std.int(frame.pos.x) + ", " + Std.int(frame.pos.y) + "\nSize: " + Std.int(frame.size.x) + ", " + Std.int(frame.size.y);
+            	if(hoverText.text != oldTxt) FlxG.sound.play(Asset.sound('sounds/player/menumove.wav'));
+                hoverText.text = oldTxt;
                 hoverText.setPosition(0, FlxG.height - hoverText.height);
                 hoverText.visible = true;
                 break;
@@ -645,7 +663,6 @@ class TilemapEditor extends FlxState
         previewSprite.animation.addByNames(anim.name, anim.frames, anim.fps, anim.loop);
         previewSprite.animation.play(anim.name);
 
-        // Position bottom right with padding
         previewSprite.setPosition(FlxG.width - maxWidth - 10, FlxG.height - maxHeight - 10);
     }
 
@@ -685,10 +702,11 @@ class TilemapEditor extends FlxState
 
     function promptName(rect:FlxRect):Void
     {
-        createPromptLabel("Enter frame name:");
+        createPromptLabel("Enter tile name:");
         var input = createInputText("");
         input.callback = function(text:String, action:String):Void
         {
+        	FlxG.sound.play(Asset.sound('sounds/battle/graze.wav'));
             if (action == 'enter')
             {
                 var trimmed = text.trim();
@@ -709,6 +727,7 @@ class TilemapEditor extends FlxState
         var input = createInputText("");
         input.callback = function(text:String, action:String):Void
         {
+        	FlxG.sound.play(Asset.sound('sounds/battle/graze.wav'));
             if (action == 'enter')
             {
                 var trimmed = text.trim();
@@ -730,6 +749,7 @@ class TilemapEditor extends FlxState
         var input = createInputText("10");
         input.callback = function(text:String, action:String):Void
         {
+        	FlxG.sound.play(Asset.sound('sounds/battle/graze.wav'));
             if (action == 'enter')
             {
                 var fps = 10;
@@ -818,6 +838,7 @@ class TilemapEditor extends FlxState
         FlxTween.tween(tempText, {alpha: 0}, 1.5, {onComplete: function(_) { remove(tempText, true); tempText.destroy(); }});
     }
 
+    var ok:FlxTween;
     function saveJSON():Void
     {
         var data:Dynamic = {frames: []};
@@ -845,11 +866,19 @@ class TilemapEditor extends FlxState
         Logger.info('Saved tilemap JSON to $jsonPath');
         #end
 
-        var saveText = new FlxText(FlxG.width / 2 - 100, FlxG.height / 2 - 50, 200, "Saved!", 16);
+        // had a better idea
+        /*var saveText = new FlxText(FlxG.width / 2 - 100, FlxG.height / 2 - 50, 200, "Saved!", 16);
         saveText.scrollFactor.set(0, 0);
         saveText.camera = uiCamera;
         saveText.color = FlxColor.LIME;
         add(saveText);
-        FlxTween.tween(saveText, {alpha: 0}, 2, {onComplete: function(_) { remove(saveText, true); saveText.destroy(); }});
+        FlxTween.tween(saveText, {alpha: 0}, 2, {onComplete: function(_) { remove(saveText, true); saveText.destroy(); }});*/
+
+        FlxG.sound.play(Asset.sound('sounds/player/save.wav'));
+        if(ok != null && ok.active)
+        	ok.cancel();
+
+        star.alpha = 1;
+        ok = FlxTween.tween(star, {alpha: 0}, 2, {startDelay: 0.5});
     }
 }
