@@ -201,6 +201,26 @@ class Asset
     inline static function getLibraryPathForce(file:String, library:String)
         return '$library/$file';
 
+    /**
+     * Reads all files in a directory.
+     * @param dir Directory path.
+     * @return Array of file names inside.
+     */
+    static function readDirectory(dir:String):Array<String>
+    {
+        #if sys
+        if (!exists(dir)) {
+            Logger.error('Directory not found: $dir');
+            return [];
+        }
+        return FileSystem.readDirectory(dir);
+        #else
+        Logger.warn('readDirectory is not available on this target');
+        return [];
+        #end
+    }
+
+
     static inline function spaceToDash(string:String):String
         return string.replace(" ", "-");
 

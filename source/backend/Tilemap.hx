@@ -51,9 +51,7 @@ class Tilemap
     public static function addAtlas(atlasName:String, folder:String):Void
     {
         if (atlasFrameMap.exists(atlasName))
-        {
             Logger.warn('Atlas "$atlasName" already exists. Overriding previous data.');
-        }
 
         final modFolder = 'mods/${currentMod.info.modName}/$folder';
         final imgPath = '$modFolder/$atlasName.png';

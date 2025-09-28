@@ -19,8 +19,8 @@ class Debugger extends FlxState
                 new backend.game.Ally(0, 0, 'kris/normal', currentMod.info.modName, true),
                 new backend.game.Ally(0, 0, 'ralsei/normal', currentMod.info.modName, true)
             ], 0);
-            //FlxG.switchState(new frontend.mods.RoomState('skyworld/room1', party));
-            FlxG.switchState(() -> new game.editors.TilemapEditor());
+            FlxG.switchState(new frontend.mods.RoomState('skyworld/room1', party));
+            //FlxG.switchState(() -> new game.editors.RoomEditor());
         });
     }
 }

@@ -34,8 +34,8 @@ class Main extends Sprite
 		console.visible = false;
 		Logger.init(console);
 		
-		//addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
-		addChild(new FlxGame(0, 0, Debugger));
+		addChild(new FlxGame(0, 0, frontend.mods.ModSelectState));
+		//addChild(new FlxGame(0, 0, Debugger));
 		addChild(console);
 		
         FlxG.autoPause = false;

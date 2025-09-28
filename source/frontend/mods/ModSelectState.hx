@@ -1,14 +1,14 @@
 package frontend.mods;
 
 import backend.game.Ally;
-import backend.game.Party;
-import rulescript.RuleScript;
 import backend.game.DeltaTypedText;
-import flixel.util.FlxTimer;
+import backend.game.Party;
 import backend.mods.Mod;
 import flixel.math.FlxMath;
-import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
+import rulescript.RuleScript;
 
 class ModSelectState extends FlxState {
 	public var modList = Mod.modList;
@@ -115,7 +115,9 @@ class ModSelectState extends FlxState {
             partyMembers.push(new Ally(0, 0, '${chosenMod.info.startingParty[char]}/normal', chosenMod.info.modName, true));
         }
         party = new Party(partyMembers, leaderIdx);
-        FlxG.switchState(()->new RoomState(chosenMod.info.startingRoom, party));
+        //FlxG.switchState(()->new RoomState(chosenMod.info.startingRoom, party));
+		currentMod.setGlobal('curParty', party);
+        FlxG.switchState(() -> new PreloaderState());
 	}
 
 	override public function update(elapsed:Float):Void {

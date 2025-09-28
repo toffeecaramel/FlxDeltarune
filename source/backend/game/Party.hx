@@ -34,4 +34,7 @@ class Party {
         leaderIndex = members.indexOf(ally);
         return ally;
     }
+
+    public function toString():String
+        return 'Party members: $members, Leader: $leader (ID: $leaderIndex)';
 }

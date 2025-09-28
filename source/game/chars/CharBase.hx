@@ -85,6 +85,9 @@ class CharBase extends FlxSprite
 
         return this.charPath;
     }
+
+    override public function toString():String
+        return '$mainName-$variant';
 }
 
 typedef CharData = {

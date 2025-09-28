@@ -14,9 +14,7 @@ class RoomEditor extends flixel.FlxState
     override public function create():Void
     {
         super.create();
-        FlxG.resizeWindow(1280, 720);
-        FlxG.stage.width = FlxG.stage.application.window.width;
-        FlxG.stage.height = FlxG.stage.application.window.height;
+        //DeltaUtils.changeResolution(1280, 720);
 
         gameCAM = FlxG.camera;
         FlxG.cameras.add(hudCAM, false);

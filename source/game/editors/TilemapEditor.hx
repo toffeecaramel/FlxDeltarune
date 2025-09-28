@@ -268,7 +268,6 @@ class TilemapEditor extends FlxState
 
         if (animationMode && FlxG.keys.justPressed.ENTER && selectedFrames.length > 0)
             promptAnimName();
-
         
         if (animationMode && FlxG.keys.justPressed.DELETE && previewAnimIndex >= 0)
         {
@@ -357,13 +356,10 @@ class TilemapEditor extends FlxState
 
     function handleMouseInteractions():Void
     {
-        var mouseWorld = FlxG.mouse.getWorldPosition();
+        final mouseWorld = FlxG.mouse.getWorldPosition();
 
-        // Zoom with mouse wheel
         if (FlxG.mouse.wheel != 0)
             zoomAtMouse((FlxG.mouse.wheel > 0) ? 1.1 : (1 / 1.1));
-
-        // Right mouse: delete or cancel or pan
         if (FlxG.mouse.justPressedRight)
         {
             var hitTile = deleteHoveredFrame(mouseWorld);
@@ -695,8 +691,7 @@ class TilemapEditor extends FlxState
         previewSprite.frames = atlasFrames;
         previewSprite.animation.addByNames("preview", tempNames, 10, true);  // Default 10 FPS, loop true
         previewSprite.animation.play("preview");
-
-        // Position bottom right with padding
+        
         previewSprite.setPosition(FlxG.width - maxWidth - 10, FlxG.height - maxHeight - 10);
     }
 
