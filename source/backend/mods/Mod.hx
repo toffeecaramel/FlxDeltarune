@@ -57,7 +57,7 @@ class Mod {
     /**
      * The currently loaded mod.
      */
-    public static var currentMod:Mod = null;
+    public static var curMod:Mod = null;
     /**
      * A list of all mods in the mods folder.
      */
@@ -82,10 +82,16 @@ class Mod {
      * The info about this mod.
      */
     public var info:ModInfo;
+
     /**
      * The global variables that are being used by this mod.
      */
     public var globals:Map<String, Dynamic> = new Map();
+
+    /**
+     * The script pack being used on this mod.
+     */
+    public var scripts:ScriptPack = new ScriptPack('ModScripts');
     
     /**
      * Creates a new mod instance.

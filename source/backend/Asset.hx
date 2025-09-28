@@ -143,7 +143,7 @@ class Asset
      * @return String
      */
     static function room(key:String):String
-        return 'mods/${currentMod.info.modName}/Worlds/$key';
+        return 'mods/${curMod.info.modName}/Worlds/$key';
 
     /**
      * Check if file exists on sys or asset bundle.

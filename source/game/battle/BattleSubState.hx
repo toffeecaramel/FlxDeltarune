@@ -55,7 +55,16 @@ class BattleSubState extends FlxSubState
         battleSystem = new BattleSystem(party);
         add(battleSystem);
 
-        bScript = Asset.script('mods/${currentMod.info.modName}/Encounters/$encounter', currentMod.info.bytecodeInterp);
+        bScript = Asset.script('mods/${curMod.info.modName}/Encounters/$encounter', curMod.info.bytecodeInterp);
+        //TODO: set scripts to the global scripts owo
+        curMod.scripts.add(bScript);
+        var testEvent = new TestEvent();
+        curMod.scripts.event('testEvent', testEvent);
+
+        // poor little guy...
+        testEvent.coolVal = (!testEvent.cancelled) ? 'I have no idea what Im doing...' : 'You cancelled me? :(';
+        trace(testEvent);
+
         setScriptVar(bScript, 'battle', this);
         
         bg = new Background();

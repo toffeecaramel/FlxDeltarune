@@ -24,6 +24,11 @@ function setup()
     battle.bg.toAlpha = 0;
 }
 
+function testEvent(event)
+{
+    event.cancel();
+}
+
 function postCreate()
 {
     battle.preStart();

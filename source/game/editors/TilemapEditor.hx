@@ -1,16 +1,16 @@
 package game.editors;
 
-import flixel.FlxG;
 import flixel.FlxCamera;
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.ui.FlxInputText;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.graphics.frames.FlxAtlasFrames;
 import haxe.Json;
 import openfl.display.Shape;
 #if sys
@@ -75,7 +75,7 @@ class TilemapEditor extends FlxState
         super();
         this.atlasName = atlasName;
         this.folder = folder;
-        modFolder = 'mods/${currentMod.info.modName}/$folder';
+        modFolder = 'mods/${curMod.info.modName}/$folder';
         imgPath = '$modFolder/$atlasName.png';
         jsonPath = '$modFolder/$atlasName.json';
     }

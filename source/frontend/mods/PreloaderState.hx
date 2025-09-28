@@ -13,15 +13,15 @@ class PreloaderState extends FlxState
     override public function create()
     {
         super.create();
-        //Logger.info(Asset.readDirectory('mods/${currentMod.info.modName}/Tilemaps'));
-        final info = currentMod.info.modName;
+        //Logger.info(Asset.readDirectory('mods/${curMod.info.modName}/Tilemaps'));
+        final info = curMod.info.modName;
 
         //TODO: Finish the preloader;
         for (tile in Asset.readDirectory(Asset.getPath('mods/$info/Tilemaps', null)))
             if(tile.endsWith('.json'))
                 Tilemap.addAtlas(tile.split('.')[0], 'Tilemaps');
 
-        FlxG.switchState(()->new RoomState(currentMod.info.startingRoom, currentMod.getGlobal('curParty')));
-        Logger.debug(currentMod.getGlobal('curParty'));
+        FlxG.switchState(()->new RoomState(curMod.info.startingRoom, curMod.getGlobal('curParty')));
+        Logger.debug(curMod.getGlobal('curParty'));
     }
 }

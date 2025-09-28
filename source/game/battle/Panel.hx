@@ -70,7 +70,7 @@ class Panel extends FlxSpriteContainer
      */
     public final onAction = new FlxTypedSignal<(action:String)->Void>();
 
-    final curMod = currentMod.info.modName;
+    final cMod = curMod.info.modName;
 
     /**
      * Creates a panel and updates the data.
@@ -83,7 +83,7 @@ class Panel extends FlxSpriteContainer
         super(x, y);
         this.character = character;
 
-        data = Asset.loadJSON('mods/$curMod/Characters/$character/battle/info');
+        data = Asset.loadJSON('mods/$cMod/Characters/$character/battle/info');
         mainCol = FlxColor.fromRGB(data.mainColor[0], data.mainColor[1], data.mainColor[2]);
         add(panelBack);
         for(i in 0...8)
@@ -123,13 +123,13 @@ class Panel extends FlxSpriteContainer
         panelFront.color = mainCol;
         add(panelFront);
 
-        final graph = Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/icon-sheet');
+        final graph = Asset.outSourcedImage('mods/$cMod/Characters/$character/icons/icon-sheet');
         icon.loadGraphic(graph, true, Std.int(graph.width / 3), Std.int(graph.height));
         icon.animation.add('icon', [0, 1, 2], 0);
         icon.animation.play('icon');
         add(icon);
 
-        label.loadGraphic(Asset.outSourcedImage('mods/$curMod/Characters/$character/icons/displayName'));
+        label.loadGraphic(Asset.outSourcedImage('mods/$cMod/Characters/$character/icons/displayName'));
         add(label);
         
         changeSelection();

@@ -95,7 +95,7 @@ class ModSelectState extends FlxState {
 
 	function modSelected() {
 		Logger.info('Mod chosen: ' + mods[selected].info.modName);
-        currentMod = mods[selected];
+        curMod = mods[selected];
         for (modID in 0...mods.length)
         {
             var mod = mods[modID];
@@ -116,7 +116,7 @@ class ModSelectState extends FlxState {
         }
         party = new Party(partyMembers, leaderIdx);
         //FlxG.switchState(()->new RoomState(chosenMod.info.startingRoom, party));
-		currentMod.setGlobal('curParty', party);
+		curMod.setGlobal('curParty', party);
         FlxG.switchState(() -> new PreloaderState());
 	}
 
