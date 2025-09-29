@@ -29,13 +29,7 @@ FlxDeltarune is a small project that reimagines Deltarune's systems inside HaxeF
 
 ### Progress
 
-<svg xmlns="http://www.w3.org/2000/svg" width="420" height="28" viewBox="0 0 420 28">
-  <rect rx="6" x="0" y="0" width="420" height="28" fill="#0b0b0b" stroke="#ffffff" stroke-width="2"/>
-  <!-- inner bar uses percentage width -->
-  <rect rx="4" x="4" y="4" width="15%" height="20" fill="#ff3b3b"/>
-  <!-- percent text -->
-  <text x="410" y="19" font-size="12" font-family="sans-serif" text-anchor="end" fill="#fff">15%</text>
-</svg>
+![Progress](https://img.shields.io/badge/Progress-15%25-red)
 
 #### Engine / Tools
 - [x] Tilemap editor
