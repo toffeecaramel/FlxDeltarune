@@ -34,7 +34,7 @@ final class EventManager {
     }
 
     public static function init() {
-        FlxG.signals.preStateCreate.add(onStateSwitch);  // Adapt to Deltarune's state/room switch if needed
+        FlxG.signals.preStateCreate.add(onStateSwitch);  //TODO: Adapt to Deltarune's state/room switch if needed
     }
 
     private static inline function onStateSwitch(newState:FlxState)
