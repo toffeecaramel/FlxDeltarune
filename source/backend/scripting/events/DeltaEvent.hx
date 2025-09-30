@@ -4,7 +4,7 @@
 
 package backend.scripting.events;
 
-import flixel.util.FlxDestroyUtil.IFlxDestroyable; // Assuming FlxDestroyUtil is available; omit if not needed
+import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 
 @:allow(backend.scripting.ScriptPack)
 @:noCustomClass
