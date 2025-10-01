@@ -39,6 +39,22 @@ code,pre{font-family: "Courier New", Courier, monospace}
   position:sticky; top:0; align-self:start; height:100vh; overflow:auto;
   padding:18px 16px; border-right:2px solid var(--border); background:linear-gradient(180deg,var(--bg),#030303);
 }
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-left: 2px solid var(--border);
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 1px solid var(--fg);
+  image-rendering: pixelated;
+}
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg);
+}
 .brand{display:flex; align-items:center; gap:12px; margin-bottom:16px}
 .logo{
   width:40px; height:40px; border:2px solid var(--fg); display:grid; place-items:center;

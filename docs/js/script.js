@@ -57,6 +57,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // If logo image is missing, collapse the image to keep layout tidy
   const logoImg = document.getElementById('logoImg');
   logoImg.addEventListener('error', ()=>{ logoImg.style.display = 'none'; });
+
+  // Syntax highlighting
+  hljs.highlightAll();
 });
 
 function slugify(text){
