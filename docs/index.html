@@ -1,3 +1,59 @@
+<!--
+  self notes because I'm dumb and I forget these hehe
+  BASIC TEXT:
+  - <h1>Main Title</h1> (biggest)
+  - <h2>Subheading</h2>
+  - <h3>Smaller Sub</h3>
+  - <p>Paragraph text. * Use * for italics, **bold** if needed (or <em>, <strong>).</p>
+  - <ul><li>Bullet list</li></ul>
+  - <ol><li>Numbered list</li></ol>
+
+  CODE BLOCKS:
+  - <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code>your code here</code></pre>
+    (Supports hljs for syntax: haxe, bash, text, etc. Copy button auto-added via JS)
+
+  WARNING/INFO BOXES:
+  - <div class="warning"><p>* <strong>WARNING</strong>: Your text here.</p></div>
+  - <div class="info"><p>* <strong>INFO</strong>: Helpful tip.</p></div>
+  - <div class="callout"><p>General highlight box.</p></div>
+
+  CARDS:
+  - <div class="grid cols-2"> or cols-3 for 3 cols
+    <div class="card">
+      <h3>Card Title</h3>
+      <p>Content inside.</p>
+    </div>
+  </div>
+
+  COLLAPSIBLES:
+  - <details open>
+    <summary>Your summary title</summary>
+    <p>Hidden content.</p>
+    <pre>...</pre>
+  </details>
+
+  DIVIDERS:
+  - <div class="divider"></div>
+
+  IMAGES:
+  - <img src="path/to/image.png" alt="Description" />
+  - For centered/full: wrap in <div style="text-align:center;"><img ... /></div>
+
+  VIDEOS:
+  - <video controls width="640" height="480"><source src="path/to/video.mp4" type="video/mp4"></video>
+  - Or embed: <iframe src="https://example.com/embed" width="560" height="315"></iframe>
+
+  TOC:
+  - Add <div class="toc"></div> anywhere; JS builds from h2/h3 in section.
+
+  TIPS:
+  - Use <code class="inline">inline code</code> for commands.
+  - <kbd>Keyboard keys</kbd> for hotkeys.
+  - Nest elements freely (e.g., code in cards, lists in warnings).
+  - For mobile, grids auto-stack.
+  - Slugs for routes: lowercase, hyphens, e.g., "making-a-room".
+  ================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,20 +81,28 @@
       <div class="search">
         <input id="search" type="search" placeholder="Search docs ( / )" aria-label="Search" />
         <div class="k">/</div>
+        <div id="search-results" class="search-results" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg); border: 2px solid var(--border); border-top: none; max-height: 300px; overflow-y: auto; z-index: 10;"></div>
       </div>
 
       <nav id="nav">
-        <div class="group">Getting started</div>
+        <div class="group">Welcome</div>
         <div class="section">
           <a href="#home" data-link><span class="dot"></span> Home</a>
-          <a href="#quickstart" data-link><span class="dot"></span> Quickstart</a>
-          <a href="#tutorials" data-link><span class="dot"></span> Tutorials</a>
+          <a href="#getting-started" data-link><span class="dot"></span> Getting Started</a>
+          <a href="#cheat-sheet" data-link><span class="dot"></span> Cheat Sheet</a>
         </div>
-        <div class="group">Reference</div>
+        <div class="group">Main</div>
         <div class="section">
-          <a href="#api" data-link><span class="dot"></span> Scripting API</a>
-          <a href="#assets" data-link><span class="dot"></span> Assets</a>
-          <a href="#modding" data-link><span class="dot"></span> Modding</a>
+          <a href="#making-a-tilemap" data-link><span class="dot"></span> Making a Tilemap</a>
+          <a href="#making-a-room" data-link><span class="dot"></span> Making a Room</a>
+          <a href="#making-a-cutscene" data-link><span class="dot"></span> Making a Cutscene</a>
+          <a href="#making-an-encounter" data-link><span class="dot"></span> Making an Encounter</a>
+          <a href="#effects-and-transitions" data-link><span class="dot"></span> Effects and Transitions</a>
+        </div>
+        <div class="group">Scripting</div>
+        <div class="section">
+          <a href="#help" data-link><span class="dot"></span> Help</a>
+          <a href="#api" data-link><span class="dot"></span> API</a>
         </div>
         <div class="group">Project</div>
         <div class="section">
@@ -63,7 +127,7 @@
         <span class="badge" id="routeBadge">home</span>
       </header>
 
-      <!-- index / hero -->
+      <!-- home -->
       <section class="active" data-route="home">
         <div class="callout">
           <h1>* Welcome to the <span style="color:var(--accent)">FlxDeltarune</span> wiki!</h1>
@@ -97,159 +161,82 @@
 
         <h2>Quick links</h2>
         <ul>
-          <li><a href="#quickstart">Quickstart</a> — build, run, and your first room.</li>
-          <li><a href="#tutorials">Tutorials</a> — step‑by‑step guides with small chunks.</li>
-          <li><a href="#api">Scripting API</a> — core classes & helpers.</li>
+          <li><a href="#getting-started">Getting Started</a> — build, run, and your first room.</li>
+          <li><a href="#making-a-room">Making a Room</a> — step‑by‑step guides with small chunks.</li>
+          <li><a href="#api">API</a> — core classes & helpers.</li>
         </ul>
 
         <div class="divider"></div>
-        <!--
-        WARNING AND INFO BOXES SO I CAN USE LATER
-        <h2>Info and Warning Boxes</h2>
-
-        <div class="info">
-          <p>* This is an informational box. Use it to highlight helpful tips or additional context.</p>
-        </div>
-
-        <div class="warning">
-          <p>* This is a warning box. Use it to alert users to potential issues or important cautions.</p>
-        </div>
-        -->
       </section>
 
-      <!-- quickstart -->
-      <section data-route="quickstart">
-        <h1>Quickstart</h1>
-        <p>Everything below is placeholder</p>
-        <div class="toc"></div>
-        <ol>
-          <li>Install <code class="inline">haxe</code>, <code class="inline">haxelib</code>, and <code class="inline">openfl</code>.</li>
-          <li>Clone the repo and run:</li>
-        </ol>
-        <pre data-lang="bash"><button class="copy" title="Copy">Copy</button><code class="language-bash">haxelib install flixel
-lime test windows</code></pre>
-
-        <h2>Your first room</h2>
-        <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code class="language-haxe">class Room extends FlxState {
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-  override public function create(){
-    super.create();
-    add(new FlxText(0,0,0, "> You feel a sense of nostalgia."));
-  }
-}</code></pre>
-
-        <h2>Folder layout</h2>
-        <pre data-lang="text"><button class="copy" title="Copy">Copy</button><code class="language-text">assets/
-  images/
-  sounds/
-  data/
-src/
-  engine/
-  game/
-</code></pre>
+      <!-- getting-started -->
+      <section data-route="getting-started">
+        <h1>Getting Started</h1>
+        <p>TODO</p>
       </section>
 
-      <!-- tutorials -->
-      <section data-route="tutorials">
-        <h1>Tutorials</h1>
-        <p>These are just tests btw so yeah</p>
-        <div class="toc"></div>
-        <details open>
-          <summary>01 · Movement & Collision</summary>
-          <p>Set up a player, walls, and a basic map loader.</p>
-          <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code class="language-haxe">// Player.hx (skeleton)
-class Player extends FlxSprite {
-  public function new(x:Float,y:Float){
-    super(x,y);
-    makeGraphic(10,10,0xFFFFFFFF);
-  }
-  override public function update(elapsed:Float){
-    velocity.set(0,0);
-    if(FlxG.keys.pressed.LEFT)  velocity.x = -60;
-    if(FlxG.keys.pressed.RIGHT) velocity.x =  60;
-    if(FlxG.keys.pressed.UP)    velocity.y = -60;
-    if(FlxG.keys.pressed.DOWN)  velocity.y =  60;
-    super.update(elapsed);
-  }
-}</code></pre>
-        </details>
-
-        <details>
-          <summary>02 · Dialogue & Typewriter</summary>
-          <p>typewriter with skip and auto‑advance.</p>
-          <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code class="language-haxe">class Typewriter {
-  public static function write(t:FlxText, s:String, cps=30){
-    var i=0; FlxTimer.start(1/cps, function(timer){
-      t.text += s.charAt(i++);
-      if(i>=s.length) timer.cancel();
-    }, 0);
-  }
-}</code></pre>
-        </details>
-
-        <details>
-          <summary>03 · Battle Box & SOUL</summary>
-          <p>Grid arena, heart movement, bullet patterns.</p>
-          <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code class="language-haxe">// Heart movement in a box (pseudo)
-if(FlxG.keys.pressed.A) heart.x -= speed;
-// awa</code></pre>
-        </details>
+      <!-- cheat-sheet -->
+      <section data-route="cheat-sheet">
+        <h1>Cheat Sheet</h1>
+        <p>TODO</p>
       </section>
 
-      <!-- API -->
+      <!-- making-a-tilemap -->
+      <section data-route="making-a-tilemap">
+        <h1>Making a Tilemap</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- making-a-room -->
+      <section data-route="making-a-room">
+        <h1>Making a Room</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- making-a-cutscene -->
+      <section data-route="making-a-cutscene">
+        <h1>Making a Cutscene</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- making-an-encounter -->
+      <section data-route="making-an-encounter">
+        <h1>Making an Encounter</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- effects-and-transitions -->
+      <section data-route="effects-and-transitions">
+        <h1>Effects and Transitions</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- help -->
+      <section data-route="help">
+        <h1>Help</h1>
+        <p>TODO</p>
+      </section>
+
+      <!-- api -->
       <section data-route="api">
-        <h1>Scripting API</h1>
+        <h1>API</h1>
         <p>Reference for core classes, helpers, and scripting hooks.</p>
         <div class="toc"></div>
         <h2>TODO</h2>
       </section>
 
-      <!-- assets/paths -->
-      <section data-route="assets">
-        <h1>Assets</h1>
-        <p>How the engine resolves images, sounds, text, and mod files.</p>
-      </section>
-
-      <!-- modding -->
-      <section data-route="modding">
-        <h1>Modding</h1>
-        <p>Lightweight mod format with override layers.</p>
-        <ol>
-          <li>Create a folder under <code class="inline">mods/YourMod</code></li>
-          <li>Mirror any path from <code class="inline">assets/</code> to override.</li>
-        </ol>
-      </section>
-
       <!-- changelog -->
       <section data-route="changelog">
         <h1>Changelog</h1>
-        <ul>
-          <li><strong>0.0.0</strong> · Working on it!</li>
-        </ul>
+        <div id="changelog-content">
+          <p>Loading changelog...</p>
+        </div>
       </section>
 
       <!-- faq -->
       <section data-route="faq">
-        <h1>FAQ TODO!</h1>
+        <h1>FAQ</h1>
+        <p>TODO</p>
       </section>
 
       <footer>
@@ -261,5 +248,7 @@ if(FlxG.keys.pressed.A) heart.x -= speed;
   <script src="js/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/languages/haxe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>

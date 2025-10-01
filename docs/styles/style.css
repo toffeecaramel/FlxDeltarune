@@ -7,12 +7,12 @@
 }
 
 :root{
-  --bg:#000;          /* abyss */
-  --fg:#fff;          /* text */
-  --dim:#cfcfcf;      /* secondary text */
-  --accent:#ff3344;   /* SOUL red */
-  --info:#4a90e2;     /* info blue */
-  --accent-2:#ffffff; /* icy cyan */
+  --bg:#000;
+  --fg:#fff;
+  --dim:#cfcfcf;
+  --accent:#ff3344;
+  --info:#4a90e2;
+  --accent-2:#ffffff;
   --border:#fff;
   --link:#ff2525;
   --muted:#777;
@@ -32,6 +32,19 @@ body{
 a{color:var(--link); text-decoration:none}
 a:hover{text-decoration:underline}
 code,pre{font-family: "Courier New", Courier, monospace}
+
+/* Images and Videos */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  border: 2px solid var(--border);
+}
+video {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--border);
+}
 
 /* Layout */
 .app{display:grid; grid-template-columns: 280px 1fr; min-height:100%}
@@ -61,7 +74,7 @@ code,pre{font-family: "Courier New", Courier, monospace}
   box-shadow: var(--shadow); background:var(--card-bg); overflow:hidden;
 }
 /* small image inside logo */
-.logo img{display:block; width:28px; height:28px; object-fit:contain; image-rendering:pixelated}
+.logo img{display:block; width:32px; height:32px; object-fit:contain; image-rendering:pixelated}
 .title{font-size:20px; font-weight:700; letter-spacing:1px}
 .subtitle{font-size:12px; color:var(--dim); margin-top:-6px}
 
@@ -69,8 +82,25 @@ code,pre{font-family: "Courier New", Courier, monospace}
 .search input{
   width:100%; padding:10px 36px 10px 10px; background:var(--card-bg); color:var(--fg);
   border:2px solid var(--border); outline:none;
+  font-family: inherit; /* Match body font */
+  font-size: inherit;
+  letter-spacing: inherit;
 }
 .search .k{position:absolute; right:8px; top:7px; font-size:11px; padding:2px 6px; border:1px solid var(--border); color:var(--dim)}
+
+.search-results {
+  padding: 8px;
+}
+.search-results a {
+  display: block;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  color: var(--fg);
+}
+.search-results a:hover {
+  border-color: var(--accent);
+  background: #0a0a0a;
+}
 
 nav .section{margin:8px 0}
 nav .group{font-size:11px; text-transform:uppercase; color:var(--dim); letter-spacing:1px; margin:14px 0 8px}

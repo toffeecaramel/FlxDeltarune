@@ -4,6 +4,59 @@ const $$ = (q,root=document) => Array.from(root.querySelectorAll(q));
 
 const routes = new Set($$('section[data-route]')).add($('section[data-route="home"]'));
 
+// Search enhancement with Fuse.js
+let fuse;
+
+function buildSearchIndex() {
+  const docs = [];
+  $$('section[data-route]').forEach(section => {
+    const route = section.getAttribute('data-route');
+    const sectionTitle = $(`nav a[href="#${route}"]`)?.textContent.trim() || route;
+    Array.from(section.querySelectorAll('h1, h2, h3, p')).forEach(el => {
+      docs.push({
+        title: el.textContent.trim(),
+        content: el.textContent.trim(),
+        route: route,
+        id: el.id || '',
+        section: sectionTitle
+      });
+    });
+  });
+  fuse = new Fuse(docs, {
+    keys: ['title', 'content'],
+    threshold: 0.3,
+    includeScore: true
+  });
+}
+
+function showSearchResults(query) {
+  const resultsDiv = $('#search-results');
+  if (!query || query.length < 2) {
+    resultsDiv.style.display = 'none';
+    return;
+  }
+  const results = fuse.search(query).slice(0, 5);
+  resultsDiv.innerHTML = results.map(r => {
+    const item = r.item;
+    const displayTitle = item.title.length > 50 ? item.title.substring(0, 50) + '...' : item.title;
+    return `<a href="#${item.route}${item.id ? '#' + item.id : ''}">${item.section}: ${displayTitle}</a>`;
+  }).join('') || '<div style="padding:8px;color:var(--dim);">No results found.</div>';
+  resultsDiv.style.display = results.length ? 'block' : 'none';
+}
+
+// Changelog fetch
+async function loadChangelog() {
+  const contentDiv = $('#changelog-content');
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/toffeecaramel/FlxDeltarune/main/docs/CHANGELOG.md');
+    if (!response.ok) throw new Error('File not found');
+    const markdown = await response.text();
+    contentDiv.innerHTML = marked.parse(markdown);
+  } catch (e) {
+    contentDiv.innerHTML = '<ul><li><strong>0.0.0</strong> · Working on it! (File not added yet)</li></ul>';
+  }
+}
+
 function setActive(route){
   // sections
   $$('section[data-route]').forEach(s=>s.classList.remove('active'));
@@ -19,6 +72,11 @@ function setActive(route){
   window.scrollTo({top:0,behavior:'instant'});
   // update TOC for the section
   buildTOC(sec);
+
+  // Load changelog if active
+  if (route === 'changelog') {
+    loadChangelog();
+  }
 }
 
 function onHash(){ setActive(location.hash.replace('#','') || 'home'); }
@@ -32,13 +90,21 @@ window.addEventListener('DOMContentLoaded', () => {
       e.preventDefault(); $('#search').focus();
     }
   });
-  // nav filter by search
-  $('#search').addEventListener('input', (e)=>{
+  // nav filter by search (legacy, now enhanced)
+  const searchInput = $('#search');
+  searchInput.addEventListener('input', (e)=>{
     const q = e.target.value.toLowerCase();
+    // Hide nav filter for full search
     $$('nav a[data-link]').forEach(a=>{
-      const show = a.textContent.toLowerCase().includes(q);
-      a.style.display = show ? '' : 'none';
+      a.style.display = '';
     });
+    showSearchResults(q);
+  });
+  // Click outside to hide results
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search')) {
+      $('#search-results').style.display = 'none';
+    }
   });
   // copy buttons
   $$('pre .copy').forEach(btn=>{
@@ -53,10 +119,11 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   // initial TOC
   document.querySelectorAll('section[data-route]').forEach(s => buildTOC(s));
+  // Build search index
+  buildSearchIndex();
 
   // If logo image is missing, collapse the image to keep layout tidy
-  const logoImg = document.getElementById('logoImg');
-  logoImg.addEventListener('error', ()=>{ logoImg.style.display = 'none'; });
+  // Removed since no img
 
   // Syntax highlighting
   hljs.highlightAll();
