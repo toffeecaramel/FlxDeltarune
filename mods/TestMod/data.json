@@ -1,5 +1,11 @@
 {
     "modName": "TestMod",
+    "chapterSelect": {
+        "chapterTitle": "Debuggin' Funsies",
+        "chapterNum": "T",
+        "onSelectSFX": "snd_cardrive.wav",
+        "iconName": "tIcon"
+    },
     "authors": [
         "ZSolarDev",
 		"Toffee"

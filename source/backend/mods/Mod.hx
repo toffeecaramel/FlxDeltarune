@@ -9,6 +9,11 @@ import sys.io.File;
  */
 typedef ModInfo = {
     /**
+     * The mod's info regarding the chapter select screen. 
+     */
+    var chapterSelect:{chapterTitle:String, chapterNum:String, onSelectSFX:String, iconName:String};
+
+    /**
      * The name of the mod.
      */
     var modName:String;

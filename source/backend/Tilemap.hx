@@ -54,6 +54,7 @@ class Tilemap
             Logger.warn('Atlas "$atlasName" already exists. Overriding previous data.');
 
         final modFolder = 'mods/${curMod.info.modName}/$folder';
+        final modFolder = 'mods/${curMod.info.modName}/$folder';
         final imgPath = '$modFolder/$atlasName.png';
         final imgKey = '$modFolder/$atlasName';
         final jsonPath = '$modFolder/$atlasName.json';
@@ -79,8 +80,7 @@ class Tilemap
         var frames:FlxAtlasFrames = new FlxAtlasFrames(graphic);
         try
         {
-            final jsonContent = Asset.getText(jsonPath);
-            final parsedData = Json.parse(jsonContent);
+            final parsedData = Asset.loadJSON(jsonPath);
             
             // Validate frames array existence and type
             if (!Reflect.hasField(parsedData, 'frames') || !Std.isOfType(parsedData.frames, Array))
