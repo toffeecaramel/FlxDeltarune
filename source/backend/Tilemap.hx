@@ -54,6 +54,7 @@ class Tilemap
             Logger.warn('Atlas "$atlasName" already exists. Overriding previous data.');
 
         final modFolder = 'mods/${curMod.info.modName}/$folder';
+        final modFolder = 'mods/${curMod.info.modName}/$folder';
         final imgPath = '$modFolder/$atlasName.png';
         final imgKey = '$modFolder/$atlasName';
         final jsonPath = '$modFolder/$atlasName.json';
