@@ -15,7 +15,7 @@ class ScriptUtils
      */
     public static function callScriptMethod(script:RuleScript, methodName:String, warnOnFail:Bool = false):Dynamic{
         var method = getScriptVar(script, methodName, warnOnFail);
-        if (method != null) return method();
+        if (script.variables.exists(methodName)) return method();
         if (warnOnFail) Logger.error('Could not call method: $methodName');
         return null;
     }

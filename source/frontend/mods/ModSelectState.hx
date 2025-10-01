@@ -10,6 +10,8 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import rulescript.RuleScript;
 
+// went unused! sorry zsolar... 
+// it was pretty cool tho, you did very good <3
 class ModSelectState extends FlxState {
 	public var modList = Mod.modList;
 	public var mods(get, null):Array<Mod> = [];
