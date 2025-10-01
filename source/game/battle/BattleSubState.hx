@@ -14,6 +14,7 @@ import game.battle.*;
 import game.chars.*;
 import hscript.Expr.ModuleDecl;
 import hscript.Printer;
+import backend.effects.DeltaTrail;
 import rulescript.*;
 import rulescript.parsers.*;
 
@@ -41,7 +42,9 @@ class BattleSubState extends FlxSubState
     public var encounter:String;
     public var charPositions:Map<CharBase, FlxPoint> = []; 
     public var positions:Map<BattlePosition, FlxPoint> = [];
+    public var trails:Map<String, DeltaTrail> = [];
 
+    public var behindChars:FlxTypedGroup<FlxSprite>;
     public var battleGroup:FlxTypedGroup<CharBase>;
     public var oldGroup:FlxTypedGroup<FlxObject>;
 
@@ -71,6 +74,9 @@ class BattleSubState extends FlxSubState
         add(bg);
         bg.toAlpha = 1;
 
+        behindChars = new FlxTypedGroup<FlxSprite>();
+        add(behindChars);
+
         battleGroup = new FlxTypedGroup<CharBase>();
         add(battleGroup);
 
@@ -80,6 +86,12 @@ class BattleSubState extends FlxSubState
             if (member != null) {
                 member.setPosition(member.getScreenPosition().x, member.getScreenPosition().y);
                 member.scrollFactor.set();
+
+                var charTrail = new DeltaTrail(member, null, 12, 2, 0.7, 0.1);
+                charTrail.paused = true;
+                behindChars.add(charTrail);
+                trails.set(cast(member, CharBase).mainName, charTrail);
+
                 battleGroup.add(member);
             } else Logger.warn('Null party member at index $memberID');
         }
@@ -174,7 +186,8 @@ class BattleSubState extends FlxSubState
                     Logger.warn('No position found for char ${char.mainName}, skipping...');
                     continue;
                 }
-                FlxTween.tween(char, {x: p.x, y: p.y}, 0.24);
+                trails.get(char.mainName).paused = false;
+                FlxTween.tween(char, {x: p.x, y: p.y}, 0.28, {onComplete: _-> trails.get(char.mainName).paused = true});
                 char.variant = 'battle';
             }
         }
@@ -185,7 +198,9 @@ class BattleSubState extends FlxSubState
         FlxG.sound.playMusic(Asset.sound('music/$battleTheme'));
         FlxTween.tween(box, {y: FlxG.height - box.height}, 0.6, {ease: FlxEase.expoOut});
         for(p in battleSystem.party.members)
+        {
             p.animation.play('idle-loop', true);
+        }
     }
 
     override public function update(delta:Float)
