@@ -74,7 +74,7 @@ video {
   box-shadow: var(--shadow); background:var(--card-bg); overflow:hidden;
 }
 /* small image inside logo */
-.logo img{display:block; width:32px; height:32px; object-fit:contain; image-rendering:pixelated}
+.logo img{display:block; width:32px; height:32px; border:none; object-fit:contain; image-rendering:pixelated}
 .title{font-size:20px; font-weight:700; letter-spacing:1px}
 .subtitle{font-size:12px; color:var(--dim); margin-top:-6px}
 
@@ -117,7 +117,7 @@ nav a .dot{display:inline-block; width:6px; height:6px; background:var(--accent-
 
 .callout{border:2px solid var(--fg); padding:16px; background:var(--card-bg); box-shadow: var(--shadow)}
 .info{border:2px solid var(--info); padding:16px; background:#0a0a1a; box-shadow: var(--shadow)}
-.warning{border:2px solid var(--accent); padding:16px; background:var(--card-bg); box-shadow: var(--shadow)}
+.warning{border:4px solid var(--accent); padding:16px; background:var(--card-bg);}
 .grid{display:grid; gap:14px}
 .grid.cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
 .grid.cols-3{grid-template-columns: repeat(3, minmax(0,1fr))}
