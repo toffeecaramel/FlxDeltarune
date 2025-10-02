@@ -104,7 +104,7 @@ class ChapterSelect extends FlxState
         play = createDeltaText("Play", LEFT, 0, 0, tSize, letterSpace);
         play.visible = false;
 
-        confirmOrNot = createDeltaText("Or Not", LEFT, 0, 0, tSize, letterSpace);
+        confirmOrNot = createDeltaText("Do Not", LEFT, 0, 0, tSize, letterSpace);
         confirmOrNot.visible = false;
 
         bottomBox = new FlxSprite(0, FlxG.height - 64);
