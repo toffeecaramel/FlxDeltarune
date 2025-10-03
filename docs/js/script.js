@@ -135,14 +135,14 @@ function slugify(text){
     .replace(/^-+|-+$/g,'');
 }
 
-function buildTOC(section){
-  if(!section) return;
+function buildTOC(section) {
+  if (!section) return;
   const toc = section.querySelector('.toc');
-  if(!toc) return;  // Only build if placeholder exists
+  if (!toc) return;  // Only build if placeholder exists
 
-  // find headings inside this section
-  const headings = Array.from(section.querySelectorAll('h2, h3'));
-  if(headings.length === 0){
+  // Updated to include h1, h2, h3
+  const headings = Array.from(section.querySelectorAll('h1, h2, h3'));
+  if (headings.length === 0) {
     toc.style.display = 'none';
     toc.innerHTML = '';
     return;
@@ -153,12 +153,12 @@ function buildTOC(section){
 
   const list = document.createElement('div');
 
-  headings.forEach(h=>{
-    // ensure unique id
+  headings.forEach(h => {
+    // Ensure unique id
     let base = h.id ? h.id : slugify(h.textContent || 'heading');
     let uid = base;
     let idx = 1;
-    while(document.getElementById(uid)){
+    while (document.getElementById(uid)) {
       uid = base + '-' + (idx++);
     }
     h.id = uid;
@@ -166,9 +166,9 @@ function buildTOC(section){
     const a = document.createElement('a');
     a.textContent = '* ' + h.textContent;
     a.href = '#' + h.id;
-    a.addEventListener('click', e=>{
+    a.addEventListener('click', e => {
       e.preventDefault();
-      // update URL without triggering a full navigation
+      // Update URL without triggering a full navigation
       history.replaceState(null, '', '#' + h.id);
       document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     });

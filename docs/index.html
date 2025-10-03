@@ -156,6 +156,7 @@
       <!-- getting-started -->
       <section data-route="getting-started">
         <h1>Downloading the framework</h1>
+        
         <p>As you (maybe) probably know, the framework has TWO builds that can be downloaded.</p>
         <p>The first one is the PLAYER build, which is the build players will use to play mods.</p>
         <p>The second one is the DEV build, which is the one you're looking for, made for developing mods.</p>
@@ -178,8 +179,32 @@
 
       <!-- cheat-sheet -->
       <section data-route="cheat-sheet">
-        <h1>Cheat Sheet</h1>
-        <p>TODO</p>
+        <div class="toc"></div>
+        <h1>Scripting cheats</h1>
+        <details open>
+          <summary>Importing everything on the engine</summary>
+          <p>Below is a piece you can paste on the beginning of a script to import all of the engine's classes.</p>
+          <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code>import backend.effects.*;
+import backend.game.*;
+import backend.game.interfaces.*;
+import backend.scripting.events.*;
+import backend.utils.*;
+import backend.*;
+import frontend.mods.*;
+import game.battle.*;
+import game.chars.*;
+import game.editors.*;
+import game.ui.*;
+</code></pre>
+        </details>
+
+        <details open>
+          <summary>Battle script template</summary>
+          <p>A battle script template.</p>
+          <pre data-lang="haxe"><button class="copy" title="Copy">Copy</button><code>//nothing yet :|</code></pre>
+        </details>
+
+        <h1>Other cheats</h1>
       </section>
 
       <!-- making-a-tilemap -->
