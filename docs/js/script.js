@@ -1,4 +1,3 @@
-// ===== Tiny Router & Enhancements =====
 const $ = (q,root=document) => root.querySelector(q);
 const $$ = (q,root=document) => Array.from(root.querySelectorAll(q));
 
@@ -48,7 +47,7 @@ function showSearchResults(query) {
 async function loadChangelog() {
   const contentDiv = $('#changelog-content');
   try {
-    const response = await fetch('https://raw.githubusercontent.com/toffeecaramel/FlxDeltarune/main/docs/CHANGELOG.md');
+    const response = await fetch('https://raw.githubusercontent.com/toffeecaramel/FlxDeltarune/main/CHANGELOG.md');
     if (!response.ok) throw new Error('File not found');
     const markdown = await response.text();
     contentDiv.innerHTML = marked.parse(markdown);
